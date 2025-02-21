@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
-import { questions } from "./questions.tsx";
+import { useRouter } from "next/router";
+import { questions } from "./questions";
 import Head from "next/head";
 import Link from "next/link";
 import "../../styles/index.css";
@@ -10,14 +10,24 @@ import "../../styles/quizmaster.css";
 const GameMenu: React.FC = () => {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answerStatus, setAnswerStatus] = useState('');
+  const [answerStatus, setAnswerStatus] = useState("");
   const [isRoundOver, setIsRoundOver] = useState(false);
   const [isAnswerDisabled, setIsAnswerDisabled] = useState(false);
   const [players, setPlayers] = useState<string[]>([]);
   const [showMagicEffect, setShowMagicEffect] = useState(false);
   const [scores, setScores] = useState<Record<string, number>>({});
-  const [showScores, setShowScores] = useState(false);
+  const [showScores, setShowScores] = useState(false); // Controls when to display the scoreboard
+  const [isSessionEnded, setIsSessionEnded] = useState(false); // For session end
   const router = useRouter();
+
+  const resetScores = () => {
+    const initialScores: Record<string, number> = {};
+    players.forEach((player: string) => {
+      initialScores[player] = 0;
+    });
+    setScores(initialScores);
+  };
+  
 
   useEffect(() => {
     if (router.query.players) {
@@ -36,19 +46,19 @@ const GameMenu: React.FC = () => {
     setIsAnswerDisabled(true);
     const correct = questions[currentQuestionIndex].correctAnswer;
     const isCorrect = answer === correct;
-    setAnswerStatus(isCorrect ? 'Correct!' : 'Wrong!');
+    setAnswerStatus(isCorrect ? "Correct!" : "Wrong!");
     setShowMagicEffect(true);
 
     // Update scores
     if (isCorrect) {
-      setScores(prevScores => ({
+      setScores((prevScores) => ({
         ...prevScores,
-        [players[currentPlayerIndex]]: prevScores[players[currentPlayerIndex]] + 1
+        [players[currentPlayerIndex]]: prevScores[players[currentPlayerIndex]] + 1,
       }));
     }
 
     setTimeout(() => {
-      setAnswerStatus('');
+      setAnswerStatus("");
       setIsAnswerDisabled(false);
       setShowMagicEffect(false);
       if (currentQuestionIndex < questions.length - 1) {
@@ -56,7 +66,6 @@ const GameMenu: React.FC = () => {
         setCurrentPlayerIndex((currentPlayerIndex + 1) % players.length);
       } else {
         setIsRoundOver(true);
-        setShowScores(true);
       }
     }, 2000);
   };
@@ -65,10 +74,19 @@ const GameMenu: React.FC = () => {
     setCurrentQuestionIndex(0);
     setCurrentPlayerIndex(0);
     setIsRoundOver(false);
-    setShowScores(false);
-    setAnswerStatus('');
+    setAnswerStatus("");
     setIsAnswerDisabled(false);
     setShowMagicEffect(false);
+    setIsSessionEnded(false); // Reset session ended state when starting a new round
+    
+    // Reset de scores naar 0 voor elke speler
+    resetScores();
+  };
+
+  const endSession = () => {
+    setIsSessionEnded(true);
+    setIsRoundOver(true); // Ensure the round is over when session is ended
+    setShowScores(true); // Show scores when session ends
   };
 
   // Sort players by score for the leaderboard
@@ -95,12 +113,11 @@ const GameMenu: React.FC = () => {
       </Head>
 
       <div>
-      <header className="headerqz">
-        <div className="quiz-master-title-container">
-          <h3 className="quiz-master-title">Quiz Master</h3>
-        </div>
-      </header>
-
+        <header className="headerqz">
+          <div className="quiz-master-title-container">
+            <h3 className="quiz-master-title">Quiz Master</h3>
+          </div>
+        </header>
 
         <div className="quiz-container">
           {!isRoundOver ? (
@@ -122,45 +139,88 @@ const GameMenu: React.FC = () => {
                 </div>
               </div>
               {answerStatus && (
-                <div className={`answer-status ${answerStatus === 'Correct!' ? 'correct' : 'wrong'}`}>
+                <div className={`answer-status ${answerStatus === "Correct!" ? "correct" : "wrong"}`}>
                   {answerStatus}
                 </div>
               )}
               {showMagicEffect && (
-                <div className={`magic-effect ${answerStatus === 'Correct!' ? 'correct' : 'wrong'}`} />
+                <div className={`magic-effect ${answerStatus === "Correct!" ? "correct" : "wrong"}`} />
               )}
-            </>
-          ) : (
-            <>
-              <div className="game-over">
-              </div>
+
+
               {showScores && (
                 <div className="scoreboard">
-                  <h3 className="scoreboard-title">Magical Scoreboard</h3>
+                  <h3 className="scoreboard-title">Scoreboard</h3>
                   {sortedPlayers.map((player, index) => (
-                    <div 
-                      key={player} 
+                    <div
+                      key={player}
                       className={`player-score ${
-                        index === 0 ? 'first-place' : 
-                        index === 1 ? 'second-place' : 
-                        index === 2 ? 'third-place' : ''
+                        index === 0
+                          ? "first-place"
+                          : index === 1
+                          ? "second-place"
+                          : index === 2
+                          ? "third-place"
+                          : ""
                       }`}
                     >
                       <span className="player-name">
-                        {index === 0 && '🏆 '}
-                        {index === 1 && '🥈 '}
-                        {index === 2 && '🥉 '}
+                        {index === 0 && "🏆 "}
+                        {index === 1 && "🥈 "}
+                        {index === 2 && "🥉 "}
                         {player}
                       </span>
                       <span className="player-points">{scores[player]} points</span>
                     </div>
                   ))}
-                  <button className="new-round-button" onClick={startNewRound}>
-                    Start New Round ✨
-                  </button>
+                  <div>
+                    <button className="end-session-button" onClick={endSession}>
+                      End Session
+                    </button>
+                  </div>
                 </div>
               )}
-            
+            </>
+          ) : (
+            <>
+              <div className="game-over"></div>
+              {showScores && (
+                <div className="scoreboard">
+                  <h3 className="scoreboard-title">Scoreboard</h3>
+                  {sortedPlayers.map((player, index) => (
+                    <div
+                      key={player}
+                      className={`player-score ${
+                        index === 0
+                          ? "first-place"
+                          : index === 1
+                          ? "second-place"
+                          : index === 2
+                          ? "third-place"
+                          : ""
+                      }`}
+                    >
+                      <span className="player-name">
+                        {index === 0 && "🏆 "}
+                        {index === 1 && "🥈 "}
+                        {index === 2 && "🥉 "}
+                        {player}
+                      </span>
+                      <span className="player-points">{scores[player]} points</span>
+                    </div>
+                  ))}
+                  <div className="scoreboard-buttons">
+                    <button className="continue-playing-button" onClick={startNewRound}>
+                      New Game
+                    </button>
+                  </div>
+                  <div>
+                    <button className="end-session-button" onClick={() => router.push("quiz-master")}>
+                      End Session
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
