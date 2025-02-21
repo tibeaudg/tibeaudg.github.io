@@ -142,14 +142,7 @@ const GameMenu: React.FC = () => {
             <div className="game-over"></div>
           )}
 
-          {/* Always visible End Session button */}
-          {!isSessionEnded && (
-            <div className="scoreboard-buttons">
-              <button className="end-session-button" onClick={endSession}>
-                End Session
-              </button>
-            </div>
-          )}
+
 
           {/* Scoreboard always visible below questions */}
           <div className="scoreboard">
@@ -177,19 +170,37 @@ const GameMenu: React.FC = () => {
             ))}
           </div>
 
-          {/* Show New Game and Go to Quiz Master button after the session ends */}
-          {isSessionEnded && (
+
+                    {/* Always visible End Session button */}
+          {!isSessionEnded && (
             <div className="scoreboard-buttons">
-              <button className="continue-playing-button" onClick={startNewRound}>
-                New Game
+              <button className="end-session-button" onClick={endSession}>
+                End Session
               </button>
+            </div>
+          )}
+
+
+
+        {/* Show New Game and Go to Quiz Master button after the session ends */}
+        {isSessionEnded && (
+          <div className="scoreboard-buttons">
+            <button className="continue-playing-button" onClick={startNewRound}>
+              New Game
+            </button>
+
+            <div className="go-to-quizmaster-container">
               <button
-                className="redirect-button"
+                className="end-session-button"
                 onClick={() => router.push("/quiz-master")}
               >
                 Go to Quiz Master
               </button>
             </div>
+          </div>
+
+
+
           )}
         </div>
       </div>
