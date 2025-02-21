@@ -15,8 +15,7 @@ const GameMenu: React.FC = () => {
   const [players, setPlayers] = useState<string[]>([]);
   const [showMagicEffect, setShowMagicEffect] = useState(false);
   const [scores, setScores] = useState<Record<string, number>>({});
-  const [showScores, setShowScores] = useState(false); // Controls when to display the scoreboard
-  const [isSessionEnded, setIsSessionEnded] = useState(false); // For session end
+  const [isSessionEnded, setIsSessionEnded] = useState(false);
   const router = useRouter();
 
   const resetScores = () => {
@@ -31,7 +30,6 @@ const GameMenu: React.FC = () => {
     if (router.query.players) {
       const playerList = JSON.parse(router.query.players as string);
       setPlayers(playerList);
-      // Initialize scores
       const initialScores: Record<string, number> = {};
       playerList.forEach((player: string) => {
         initialScores[player] = 0;
@@ -47,7 +45,6 @@ const GameMenu: React.FC = () => {
     setAnswerStatus(isCorrect ? "Correct!" : "Wrong!");
     setShowMagicEffect(true);
 
-    // Update scores
     if (isCorrect) {
       setScores((prevScores) => ({
         ...prevScores,
@@ -75,19 +72,15 @@ const GameMenu: React.FC = () => {
     setAnswerStatus("");
     setIsAnswerDisabled(false);
     setShowMagicEffect(false);
-    setIsSessionEnded(false); // Reset session ended state when starting a new round
-    
-    // Reset the scores to 0 for each player
+    setIsSessionEnded(false);
     resetScores();
   };
 
   const endSession = () => {
     setIsSessionEnded(true);
-    setIsRoundOver(true); // Ensure the round is over when session is ended
-    setShowScores(true); // Show scores when session ends
+    setIsRoundOver(true);
   };
 
-  // Sort players by score for the leaderboard
   const sortedPlayers = [...players].sort((a, b) => scores[b] - scores[a]);
 
   return (
@@ -149,9 +142,17 @@ const GameMenu: React.FC = () => {
             <div className="game-over"></div>
           )}
 
+          {/* Always visible End Session button */}
+          {!isSessionEnded && (
+            <div className="scoreboard-buttons">
+              <button className="end-session-button" onClick={endSession}>
+                End Session
+              </button>
+            </div>
+          )}
+
           {/* Scoreboard always visible below questions */}
           <div className="scoreboard">
-            <h3 className="scoreboard-title">Scoreboard</h3>
             {sortedPlayers.map((player, index) => (
               <div
                 key={player}
@@ -176,26 +177,15 @@ const GameMenu: React.FC = () => {
             ))}
           </div>
 
-          {/* Always visible End Session button */}
-          <div className="scoreboard-buttons">
-            <button
-              className="end-session-button"
-              onClick={endSession}
-            >
-              End Session
-            </button>
-          </div>
-
-          {/* Show New Game button after the round ends */}
+          {/* Show New Game and Go to Quiz Master button after the session ends */}
           {isSessionEnded && (
             <div className="scoreboard-buttons">
               <button className="continue-playing-button" onClick={startNewRound}>
                 New Game
               </button>
-              {/* New button to redirect to quiz-master */}
               <button
                 className="redirect-button"
-                onClick={() => router.push("quiz-master")}
+                onClick={() => router.push("/quiz-master")}
               >
                 Go to Quiz Master
               </button>

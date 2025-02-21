@@ -246,7 +246,7 @@ a {
           }
 
           .scoreboard-button {
-            width: 100%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
+            width: 80%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
             padding: 1rem 2rem;
             font-size: 1.2rem;
             background: #BD353B;
@@ -504,16 +504,13 @@ a {
 
           }
           .end-session-button {
-            width: 100%; /* Zorg dat de knoppen dezelfde breedte hebben */
-            max-width: 300px; /* Stel een maximale breedte in als je wilt dat de knoppen niet te breed worden */
-            padding: 1rem 2rem;
+            padding: 1rem;
+            width: 100%;
             font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
             background: #BD353B;
             color: white;
-            border: none;
-            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
-            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
