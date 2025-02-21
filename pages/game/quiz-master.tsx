@@ -43,16 +43,16 @@ const GameMenu: React.FC = () => {
         {/* Header */}
         <header className="header">
           {/* Go Back Button */}
-          <Link href="/" passHref>
+          <Link href="/play" passHref>
             <div className="logout">
               <i className="bi bi-arrow-left-circle-fill"></i>
             </div>
           </Link>
+          <h3 className="quiz-master-title" >Quiz Master</h3>
+
           <div
             dir="auto"
-            className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j"
-          >
-            Quiz Master
+            className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j">
           </div>
         </header>
 
@@ -100,6 +100,15 @@ const GameMenu: React.FC = () => {
               </Link>
             )}
           </div>
+        </div>
+        <div className="how-to-play-container">
+        <div className="how-to-play-card">
+            <div className="how-to-play-title">How to Play:</div>
+            <div className="how-to-play-step">• All players get the same questions</div>
+            <div className="how-to-play-step">• Answer as quickly as possible</div>
+            <div className="how-to-play-step">• Faster correct answers = More points</div>
+            <div className="how-to-play-step">• First to reach 1000 points wins!</div>
+        </div>
         </div>
       </div>
     </>

@@ -31,6 +31,7 @@ const HomePage: React.FC = () => {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </Head>
+      
 
       <div>
         {/* Header */}
@@ -41,8 +42,9 @@ const HomePage: React.FC = () => {
               <i className="bi bi-arrow-left-circle-fill"></i>
             </div>
           </Link>
+          <h3 className="quiz-master-title" >Choose Gamemode</h3>
+
           <div dir="auto" className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j">
-                Choose Game Mode
                 </div>
         </header>
 

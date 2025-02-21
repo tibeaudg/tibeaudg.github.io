@@ -61,3 +61,12 @@
   text-align: center;
   opacity: 0.8;
 }
+
+
+.title {
+  font-size: 1.5rem; /* Grotere tekstgrootte voor een opvallende titel */
+  font-weight: bold; /* Maak de tekst vetgedrukt */
+  color: white; /* Donkere kleur voor tekst */
+  padding-top: 10px;
+  text-align: center; /* Centrer de titel horizontaal */
+}

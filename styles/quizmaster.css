@@ -36,11 +36,11 @@
 
   .game-menu-card .user-item {
     padding: 10px;
-    background-color: #f5f5f5; /* Lichtgrijze achtergrond voor de cel */
+    background-color: #dcdcdcc0; /* Lichtgrijze achtergrond voor de cel */
     border-radius: 5px; /* Optioneel: afgeronde hoeken voor een celvorm */
     margin-bottom: 10px; /* Ruimte tussen de cellen */
     font-size: 16px;
-    color: #333;
+    color: #000000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +49,46 @@
   .game-menu-card .user-item:last-child {
     margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
   }
-  
+
+  /* Container voor het "How to Play"-gedeelte */
+  .how-to-play-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  /* Card voor de "How to Play" sectie */
+  .how-to-play-card {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Titel van de "How to Play" sectie */
+  .how-to-play-title {
+    font-size: 1.25rem; /* Grotere tekst voor de titel */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  /* Elke stap onder de titel */
+  .how-to-play-step {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  /* Zorg ervoor dat de laatste stap geen marge onderaan heeft */
+  .how-to-play-step:last-child {
+    margin-bottom: 0;
+  }
+
+    
   
   
   .game-menu-card button {
@@ -65,3 +104,13 @@
     margin-top: 50px;
   }
   
+
+
+  /* Stijl voor de titel "Quiz Master" */
+.quiz-master-title {
+  font-size: 1.5rem; /* Grotere tekstgrootte voor een opvallende titel */
+  font-weight: bold; /* Maak de tekst vetgedrukt */
+  color: white; /* Donkere kleur voor tekst */
+  padding-top: 10px;
+  text-align: center; /* Centrer de titel horizontaal */
+}
