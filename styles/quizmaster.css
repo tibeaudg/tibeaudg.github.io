@@ -1,0 +1,67 @@
+.game-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .game-menu-card {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .game-menu-card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+  }
+  
+
+  .game-menu-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto; /* Scroll als de lijst te groot is */
+
+  }
+
+  .game-menu-card .user-item {
+    padding: 10px;
+    background-color: #f5f5f5; /* Lichtgrijze achtergrond voor de cel */
+    border-radius: 5px; /* Optioneel: afgeronde hoeken voor een celvorm */
+    margin-bottom: 10px; /* Ruimte tussen de cellen */
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .game-menu-card .user-item:last-child {
+    margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
+  }
+  
+  
+  
+  .game-menu-card button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .game-start-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  

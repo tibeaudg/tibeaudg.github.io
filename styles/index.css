@@ -37,10 +37,8 @@ body {
 
 .logout {
     color: white;
-    padding: 10px;
     align-items: center;
-    font-weight: bolder;
-    text-decoration: none; /* Verwijdert de onderlijning */
+    font-size: 20px;
 }
 
 .profile-section {

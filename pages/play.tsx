@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import "../styles/index.css"; // Eigen styles importeren
@@ -39,7 +38,7 @@ const HomePage: React.FC = () => {
           {/* Go Back Button */}
           <Link href="/" passHref>
             <div className="logout">
-              <i className="bi bi-arrow-left-circle-fill"></i> Go Back
+              <i className="bi bi-arrow-left-circle-fill"></i>
             </div>
           </Link>
           <div dir="auto" className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j">
