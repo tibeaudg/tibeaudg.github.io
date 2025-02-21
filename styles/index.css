@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: InspireTWDC, Helvetica, Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #eef2ff, #f5f3ff);
+}
+
+.header {
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.button {
+    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+    color: white;
+    padding: 20px;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    align-items: center;
+    border-radius: 5%;
+    font-style: normal;
+    font-weight: bolder;
+    text-decoration: none; /* Verwijdert de onderlijning */
+
+}
+
+.logout {
+    background: white;
+    color: blue;
+    padding: 10px;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    align-items: center;
+    border-radius: 5%;
+    font-style: normal;
+    font-weight: bolder;
+    text-decoration: none; /* Verwijdert de onderlijning */
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.profile-image {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.profile-info h2 {
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.profile-info p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.stats-inline {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  color: rgb(0, 51, 204);
+  margin-bottom: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  font-weight: bolder;
+
+
+}
+
+.stats-inline div {
+  text-align: center;
+}
+
+.stats-inline h4 {
+  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
+}
+
+.stats-inline p {
+  font-size: 1rem;
+}
+
+.navbar {
+    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 9999;
+    font-weight: bolder;
+  }
+  
+  .navbar .nav-link {
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px; /* Maak de grootte van de onderdelen consistent */
+    height: 50px; /* Zorgt ervoor dat elk onderdeel dezelfde hoogte heeft als de navbar */
+}
+  
+  .navbar .nav-link i {
+    font-size: 1.5rem;
+    color: white; /* Iconen standaard wit */
+    
+  }
+  
+  .navbar .nav-link span {
+    display: block;
+    font-size: 1rem;
+    color: white; /* Tekst standaard wit */
+    
+  }
+  
+  .navbar .nav-link.active {
+    color: rgb(255, 255, 255); /* Kleur van icoon en tekst voor het actieve tabblad */
+    
+  }
+  
+  .navbar .nav-link.active i,
+  .navbar .nav-link.active span {
+    color: yellow; /* Zorgt ervoor dat icoon en tekst geel zijn in actief tabblad */
+    
+  }
+  
