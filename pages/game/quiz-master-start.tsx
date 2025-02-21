@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { questions } from "./questions";
 import Head from "next/head";
-import Link from "next/link";
 import "../../styles/index.css";
 import "../../styles/play.css";
 import "../../styles/quizmaster.css";
@@ -27,7 +26,6 @@ const GameMenu: React.FC = () => {
     });
     setScores(initialScores);
   };
-  
 
   useEffect(() => {
     if (router.query.players) {
@@ -79,7 +77,7 @@ const GameMenu: React.FC = () => {
     setShowMagicEffect(false);
     setIsSessionEnded(false); // Reset session ended state when starting a new round
     
-    // Reset de scores naar 0 voor elke speler
+    // Reset the scores to 0 for each player
     resetScores();
   };
 
@@ -146,82 +144,62 @@ const GameMenu: React.FC = () => {
               {showMagicEffect && (
                 <div className={`magic-effect ${answerStatus === "Correct!" ? "correct" : "wrong"}`} />
               )}
-
-
-              {showScores && (
-                <div className="scoreboard">
-                  <h3 className="scoreboard-title">Scoreboard</h3>
-                  {sortedPlayers.map((player, index) => (
-                    <div
-                      key={player}
-                      className={`player-score ${
-                        index === 0
-                          ? "first-place"
-                          : index === 1
-                          ? "second-place"
-                          : index === 2
-                          ? "third-place"
-                          : ""
-                      }`}
-                    >
-                      <span className="player-name">
-                        {index === 0 && "🏆 "}
-                        {index === 1 && "🥈 "}
-                        {index === 2 && "🥉 "}
-                        {player}
-                      </span>
-                      <span className="player-points">{scores[player]} points</span>
-                    </div>
-                  ))}
-                  <div>
-                    <button className="end-session-button" onClick={endSession}>
-                      End Session
-                    </button>
-                  </div>
-                </div>
-              )}
             </>
           ) : (
-            <>
-              <div className="game-over"></div>
-              {showScores && (
-                <div className="scoreboard">
-                  <h3 className="scoreboard-title">Scoreboard</h3>
-                  {sortedPlayers.map((player, index) => (
-                    <div
-                      key={player}
-                      className={`player-score ${
-                        index === 0
-                          ? "first-place"
-                          : index === 1
-                          ? "second-place"
-                          : index === 2
-                          ? "third-place"
-                          : ""
-                      }`}
-                    >
-                      <span className="player-name">
-                        {index === 0 && "🏆 "}
-                        {index === 1 && "🥈 "}
-                        {index === 2 && "🥉 "}
-                        {player}
-                      </span>
-                      <span className="player-points">{scores[player]} points</span>
-                    </div>
-                  ))}
-                  <div className="scoreboard-buttons">
-                    <button className="continue-playing-button" onClick={startNewRound}>
-                      New Game
-                    </button>
-                  </div>
-                  <div>
-                    <button className="end-session-button" onClick={() => router.push("quiz-master")}>
-                      End Session
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+            <div className="game-over"></div>
+          )}
+
+          {/* Scoreboard always visible below questions */}
+          <div className="scoreboard">
+            <h3 className="scoreboard-title">Scoreboard</h3>
+            {sortedPlayers.map((player, index) => (
+              <div
+                key={player}
+                className={`player-score ${
+                  index === 0
+                    ? "first-place"
+                    : index === 1
+                    ? "second-place"
+                    : index === 2
+                    ? "third-place"
+                    : ""
+                }`}
+              >
+                <span className="player-name">
+                  {index === 0 && "🏆 "}
+                  {index === 1 && "🥈 "}
+                  {index === 2 && "🥉 "}
+                  {player}
+                </span>
+                <span className="player-points">{scores[player]} points</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Always visible End Session button */}
+          <div className="scoreboard-buttons">
+            <button
+              className="end-session-button"
+              onClick={endSession}
+            >
+              End Session
+            </button>
+          </div>
+
+          {/* Show New Game button after the round ends */}
+          {isSessionEnded && (
+            <div className="scoreboard-buttons">
+              <button className="continue-playing-button" onClick={startNewRound}>
+                New Game
+              </button>
+              {/* New button to redirect to quiz-master */}
+              <button
+                className="redirect-button"
+                onClick={() => router.push("quiz-master")}
+              >
+                Go to Quiz Master
+              </button>
+            </div>
           )}
         </div>
       </div>
