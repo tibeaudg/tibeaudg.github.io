@@ -77,120 +77,35 @@ const GameMenu: React.FC = () => {
   return (
     <>
       <Head>
-        {/* Previous head content remains the same */}
-        <style>{`
-          /* Previous styles remain the same */
-
-          .scoreboard {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            margin: 2rem auto;
-            box-shadow: 0 0 30px rgba(111, 53, 165, 0.3);
-            animation: scoreboardAppear 0.8s ease-out;
-          }
-
-          .scoreboard-title {
-            color: var(--disney-purple);
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
-          }
-
-          .player-score {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: linear-gradient(to right, rgba(111, 53, 165, 0.1), transparent);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-          }
-
-          .player-score:hover {
-            transform: translateX(10px);
-          }
-
-          .player-name {
-            font-size: 1.3rem;
-            color: var(--disney-purple);
-            font-weight: bold;
-          }
-
-          .player-points {
-            font-size: 1.5rem;
-            color: var(--disney-gold);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-          }
-
-          .new-round-button {
-            display: block;
-            margin: 2rem auto;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
-          }
-
-          .new-round-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(111, 53, 165, 0.4);
-          }
-
-          @keyframes scoreboardAppear {
-            from {
-              opacity: 0;
-              transform: translateY(30px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .trophy {
-            font-size: 2rem;
-            margin-right: 1rem;
-          }
-
-          .first-place {
-            background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
-          }
-
-          .second-place {
-            background: linear-gradient(to right, rgba(192, 192, 192, 0.2), transparent);
-          }
-
-          .third-place {
-            background: linear-gradient(to right, rgba(205, 127, 50, 0.2), transparent);
-          }
-        `}</style>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Disney Magic Quest</title>
+        <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+        />
       </Head>
 
       <div>
-        <header className="headerqz">
-          <Link href="quiz-master" passHref>
-            <div className="logout">
-              <i className="bi bi-arrow-left-circle-fill"></i>
-            </div>
-          </Link>
-          <div className="quiz-master-title-container">
-            <h3 className="quiz-master-title">Disney Magic Quest</h3>
-          </div>
-        </header>
+      <header className="headerqz">
+        <div className="quiz-master-title-container">
+          <h3 className="quiz-master-title">Quiz Master</h3>
+        </div>
+      </header>
+
 
         <div className="quiz-container">
           {!isRoundOver ? (
             <>
-              <h2 className="player-turn">{players[currentPlayerIndex]}&apos;s Turn</h2>
+              <h2 className="player-turn">{players[currentPlayerIndex]}</h2>
               <div className="question-container">
                 <h3 className="question">{questions[currentQuestionIndex].question}</h3>
                 <div className="options-container">
@@ -218,7 +133,6 @@ const GameMenu: React.FC = () => {
           ) : (
             <>
               <div className="game-over">
-                <h2>✨ Magic Complete! ✨</h2>
               </div>
               {showScores && (
                 <div className="scoreboard">
@@ -246,6 +160,7 @@ const GameMenu: React.FC = () => {
                   </button>
                 </div>
               )}
+            
             </>
           )}
         </div>
