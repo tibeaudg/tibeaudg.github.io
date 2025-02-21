@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import "../../styles/index.css"; // Eigen styles importeren
-import "../../styles/play.css"; // Eigen styles importeren
-import "../../styles/quizmaster.css"; // Eigen styles importeren
+import { useRouter } from 'next/router'; // Gebruik van useRouter
+import "../../styles/index.css";
+import "../../styles/play.css";
+import "../../styles/quizmaster.css";
 
 const GameMenu: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [usernameList, setUsernameList] = useState<string[]>([]); // Lijst om de gebruikersnamen op te slaan
+  const router = useRouter(); // Hook om de router te gebruiken
 
   const handleJoinQueue = () => {
     if (username) {
@@ -16,15 +18,20 @@ const GameMenu: React.FC = () => {
     }
   };
 
+  const handleStartGame = () => {
+    // Zet de lijst met gebruikersnamen in de query string
+    router.push({
+      pathname: "/game/quiz-master-start", 
+      query: { players: JSON.stringify(usernameList) }
+    });
+  };
+
   return (
     <>
       <Head>
-        {/* Meta en titel */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
-
-        {/* External CSS bestanden */}
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -40,9 +47,7 @@ const GameMenu: React.FC = () => {
       </Head>
 
       <div>
-        {/* Header */}
         <header className="headerqz">
-          {/* Go Back Button */}
           <Link href="/play" passHref>
             <div className="logout">
               <i className="bi bi-arrow-left-circle-fill"></i>
@@ -50,15 +55,9 @@ const GameMenu: React.FC = () => {
           </Link>
           <div className="quiz-master-title-container">
             <h3 className="quiz-master-title">Quiz Master</h3>
-            </div>
-
-          <div
-            dir="auto"
-            className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j">
           </div>
         </header>
 
-        {/* Game Menu Content */}
         <div className="game-menu-container">
           <div className="game-menu-card">
             <input
@@ -73,14 +72,11 @@ const GameMenu: React.FC = () => {
             <button
               className="btn btn-primary"
               onClick={handleJoinQueue}
-              disabled={!username} // Zorg ervoor dat de knop uitgeschakeld is als er geen naam is
+              disabled={!username} 
             >
               Add Player
             </button>
 
-
-
-            {/* Lijst van gebruikersnamen */}
             <div className="mt-3">
               <ul>
                 {usernameList.map((user, index) => (
@@ -88,33 +84,14 @@ const GameMenu: React.FC = () => {
                 ))}
               </ul>
             </div>
-
-
-
-
-
-
           </div>
         </div>
 
-            {/* Start Game Button */}
-            {usernameList.length > 0 && (
-              <Link href="/game/start" passHref>
-                <button className="btn btn-success mt-3">Start Game</button>
-              </Link>
-            )}
-
-
-        
-        <div className="how-to-play-container">
-        <div className="how-to-play-card">
-            <div className="how-to-play-title">How to Play:</div>
-            <div className="how-to-play-step">• All players get the same questions</div>
-            <div className="how-to-play-step">• Answer as quickly as possible</div>
-            <div className="how-to-play-step">• Faster correct answers = More points</div>
-            <div className="how-to-play-step">• First to reach 1000 points wins!</div>
-        </div>
-        </div>
+        {usernameList.length > 0 && (
+          <button className="btn btn-success mt-3" onClick={handleStartGame}>
+            Start Game
+          </button>
+        )}
       </div>
     </>
   );
