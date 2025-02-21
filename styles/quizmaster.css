@@ -478,8 +478,8 @@ a {
 
           .scoreboard-buttons {
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
           }
           
           .button-container {
@@ -490,17 +490,16 @@ a {
           }
           
           .continue-playing-button {
-            width: 100%; /* Zorg dat de knoppen dezelfde breedte hebben */
-            max-width: 300px; /* Stel een maximale breedte in als je wilt dat de knoppen niet te breed worden */
-            padding: 1rem 2rem;
+            padding: 1rem;
+            width: 100%;
             font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
-            color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 10px;
+            color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+
 
           }
           .end-session-button {
