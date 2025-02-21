@@ -4,6 +4,16 @@
     align-items: center;
     margin-top: 50px;
   }
+
+  .headerqz {
+    background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
   
   .game-menu-card {
     padding: 20px;
@@ -13,6 +23,9 @@
     width: 100%;
     max-width: 400px;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   
   .game-menu-card input {
@@ -107,10 +120,75 @@
 
 
   /* Stijl voor de titel "Quiz Master" */
+.quiz-master-title-container {
+  display: flex; /* Maak de container een flexbox */
+  justify-content: center; /* Horizontaal centreren van de inhoud */
+  align-items: center; /* Verticaal centreren van de inhoud */
+  height: 100%; /* Zorg ervoor dat de container de volledige hoogte van de parent beslaat */
+}
+
 .quiz-master-title {
-  font-size: 1.5rem; /* Grotere tekstgrootte voor een opvallende titel */
+  font-size: 1rem; /* Grotere tekstgrootte voor een opvallende titel */
   font-weight: bold; /* Maak de tekst vetgedrukt */
   color: white; /* Donkere kleur voor tekst */
-  padding-top: 10px;
   text-align: center; /* Centrer de titel horizontaal */
+}
+
+
+
+/* Correcte achtergrondkleur met lineaire gradient */
+.btn {
+  background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+  border: none;
+  width: 80%;
+  text-align: center;
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+
+}
+
+/* De .btn-success knop is nu een speciale variant */
+/* Specifieke styling voor de .btn-success knop */
+.btn-success {
+  background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
+  width: 67%; /* Stel de breedte in op 67% */
+  padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
+  border-radius: 8px; /* Voeg afgeronde hoeken toe */
+  color: white; /* Zorg dat de tekstkleur wit is */
+  font-weight: bold; /* Maak de tekst vetgedrukt */
+  cursor: pointer; /* Maak de cursor een pointer bij hover */
+  display: flex;
+  justify-content: center; /* Horizontaal centreren van de inhoud */
+  align-items: center; /* Verticaal centreren van de inhoud */
+  border: none; /* Verwijder standaard knopranden */
+  margin-left: auto; /* Gebruik auto voor de linker marge */
+  margin-right: auto; /* Centrer de knop horizontaal */
+  margin-top: 1rem; /* Voeg bovenmarge toe als nodig */
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+
+}
+
+.btn:hover {
+  text-decoration: none; /* Verwijder onderlijning bij hover */
+}
+
+a {
+  text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
+}
+
+
+.mt-3 {
+  margin-top: 1rem;
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+}
+
+.mt-3 a {
+  text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
 }

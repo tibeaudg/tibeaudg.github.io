@@ -41,14 +41,16 @@ const GameMenu: React.FC = () => {
 
       <div>
         {/* Header */}
-        <header className="header">
+        <header className="headerqz">
           {/* Go Back Button */}
           <Link href="/play" passHref>
             <div className="logout">
               <i className="bi bi-arrow-left-circle-fill"></i>
             </div>
           </Link>
-          <h3 className="quiz-master-title" >Quiz Master</h3>
+          <div className="quiz-master-title-container">
+            <h3 className="quiz-master-title">Quiz Master</h3>
+            </div>
 
           <div
             dir="auto"
@@ -69,7 +71,7 @@ const GameMenu: React.FC = () => {
             />
 
             <button
-              className="btn btn-primary mt-3"
+              className="btn btn-primary"
               onClick={handleJoinQueue}
               disabled={!username} // Zorg ervoor dat de knop uitgeschakeld is als er geen naam is
             >
@@ -91,16 +93,19 @@ const GameMenu: React.FC = () => {
 
 
 
+
+          </div>
+        </div>
+
             {/* Start Game Button */}
             {usernameList.length > 0 && (
               <Link href="/game/start" passHref>
-                <button className="btn btn-success mt-3">
-                  Start Game
-                </button>
+                <button className="btn btn-success mt-3">Start Game</button>
               </Link>
             )}
-          </div>
-        </div>
+
+
+        
         <div className="how-to-play-container">
         <div className="how-to-play-card">
             <div className="how-to-play-title">How to Play:</div>
