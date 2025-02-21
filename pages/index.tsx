@@ -87,8 +87,8 @@ const HomePage: React.FC = () => {
             </Link>
             <Link legacyBehavior href="/play">
               <a className="nav-link text-center text-dark">
-                <i className="bi bi-controller fs-4"></i>
-                <span className="d-block small">Play</span>
+              <i className="bi bi-dpad"></i>                
+              <span className="d-block small">Play</span>
               </a>
             </Link>
             <Link legacyBehavior href="/friends">

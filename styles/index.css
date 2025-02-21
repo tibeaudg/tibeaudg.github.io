@@ -36,13 +36,9 @@ body {
 }
 
 .logout {
-    background: white;
-    color: blue;
+    color: white;
     padding: 10px;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     align-items: center;
-    border-radius: 5%;
-    font-style: normal;
     font-weight: bolder;
     text-decoration: none; /* Verwijdert de onderlijning */
 }
