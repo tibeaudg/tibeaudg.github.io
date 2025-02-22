@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
           </Link>
 
           <Link href="/play" className="nav-link active">
-            <i className="bi bi-stars"></i>
+            <i className="bi bi-rocket-fill"></i>
             <span className="d-block small">Play</span>
           </Link>
 
@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
 
           <Link href="/inbox" className="nav-link">
             <i className="bi bi-envelope-paper"></i>
-            <span className="d-block small">Messages</span>
+            <span className="d-block small">Inbox</span>
           </Link>
         </nav>
 
