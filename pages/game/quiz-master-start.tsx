@@ -191,7 +191,7 @@ const GameMenu: React.FC = () => {
                 className="end-session-button"
                 onClick={() => router.push("quiz-master")}
               >
-                Go to Quiz Master
+                Quit
               </button>
             </div>
           </div>

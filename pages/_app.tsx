@@ -1,5 +1,4 @@
 import '../styles/index.css';
-import "../styles/play.css"; 
 import "../styles/quizmaster.css";
 
 

@@ -1,12 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
-
-
-
 const HomePage: React.FC = () => {
-
-
   return (
     <>
       <Head>
@@ -29,87 +24,76 @@ const HomePage: React.FC = () => {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </Head>
-      
-
       <div>
+
+
+
+
         {/* Header */}
         <header className="header">
-          {/* Go Back Button */}
-          <Link href="/" passHref>
-            <div className="logout">
-              <i className="bi bi-arrow-left-circle-fill"></i>
-            </div>
+        <h1 className="text-xl font-bold">Choose Gamemode</h1>
+      </header>
+
+
+
+
+        {/* Game Modes */}
+        <div className="game-mode-container">
+          <div className="game-mode-card">
+            <a href="/game/quiz-master" className="game-mode-link">
+              <div className="game-mode-card-content quiz-master">
+                <div className="icon">
+                  <i className="bi bi-people-fill"></i>
+                </div>
+                <div className="mode-title">Quiz Master Mode</div>
+                <div className="mode-description">
+                  One player reads questions while others answer
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div className="game-mode-card coming-soon">
+            <a href="/game/live" className="game-mode-link">
+              <div className="game-mode-card-content live-mode">
+                <div className="icon">
+                  <i className="bi bi-lightning-charge-fill"></i>
+                </div>
+                <div className="mode-title">Live Mode</div>
+                <div className="mode-description">
+                  Compete in real-time with other players
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <nav className="navbar">
+          <Link href="/" className="nav-link">
+            <i className="bi bi-house-door"></i>
+            <span className="d-block small">Home</span>
           </Link>
 
-          <div dir="auto" className="css-text-146c3p1 r-color-kkedbh r-fontSize-1x35g6 r-fontWeight-vw2c0b r-marginBottom-1yflyrw r-textAlign-q4m81j">
-                </div>
-        </header>
+          <Link href="/play" className="nav-link active">
+            <i className="bi bi-stars"></i>
+            <span className="d-block small">Play</span>
+          </Link>
 
-        <div className="game-mode-container">
-            <div className="game-mode-card">
-                <a href="/game/quiz-master" className="game-mode-link">
-                <div className="game-mode-card-content quiz-master">
-                    <div className="icon">
-                        <i className="bi bi-people-fill"></i>                    
-                    </div>
+          <Link href="/friends" className="nav-link">
+            <i className="bi bi-people"></i>
+            <span className="d-block small">Friends</span>
+          </Link>
 
-                    <div className="mode-title">Quiz Master Mode</div>
-                    <div className="mode-description">
-                    One player reads questions while others answer
-                    </div>
-                </div>
-                </a>
-            </div>
-
-            <div className="game-mode-card">
-                <a href="/game/live" className="game-mode-link">
-                <div className="game-mode-card-content live-mode">
-                    <div className="icon">
-                        <i className="bi bi-lightning-charge-fill"></i>                    
-                    </div>
-                    <div className="mode-title">Live Mode</div>
-                    <div className="mode-description">
-                    Compete in real-time with other players
-                    </div>
-                </div>
-                </a>
-            </div>
-            </div>
-
-
-
-
-
-        {/* Bottom Navigation Bar */}
-        <nav className="navbar fixed-bottom bg-body-tertiary border-top">
-          <div className="container-fluid d-flex justify-content-around align-items-center py-2">
-            <Link legacyBehavior href="/">
-              <a className="nav-link text-center text-dark">
-                <i className="bi bi-house-door fs-4"></i>
-                <span className="d-block small">Home</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/play">
-              <a className="nav-link active text-center text-dark">
-              <i className="bi bi-dpad-fill"></i>
-                <span className="d-block small">Play</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/friends">
-              <a className="nav-link text-center text-dark">
-                <i className="bi bi-people fs-4"></i>
-                <span className="d-block small">Friends</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/inbox">
-              <a className="nav-link text-center text-dark">
-                <i className="bi bi-chat fs-4"></i>
-                <span className="d-block small">Inbox</span>
-              </a>
-            </Link>
-          </div>
+          <Link href="/inbox" className="nav-link">
+            <i className="bi bi-envelope-paper"></i>
+            <span className="d-block small">Messages</span>
+          </Link>
         </nav>
-      </div>
+
     </>
   );
 };

@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+interface UserStats {
+  gamesPlayed: number;
+  correctAnswers: number;
+  level: number;
+  username: string;
+}
 
 const HomePage: React.FC = () => {
-  // Simuleer het ophalen van sessiegegevens voor de gebruiker
-  const [username, setUsername] = useState<string>("Loading...");
-  const [level, setLevel] = useState<number>(0);
+  const [userStats, setUserStats] = useState<UserStats>({
+    gamesPlayed: 0,
+    correctAnswers: 0,
+    level: 0,
+    username: "Loading..."
+  });
 
   useEffect(() => {
-    // Deze code simuleert het ophalen van gebruikersinformatie (gebruik een echte API als nodig)
-    setUsername("John Doe"); // Dit zou uit je backend moeten komen
-    setLevel(5); // Dit zou ook dynamisch moeten zijn
+    // Simulate API call to fetch user stats
+    const fetchUserStats = async () => {
+      // Replace with actual API call
+      const mockData: UserStats = {
+        gamesPlayed: 120,
+        correctAnswers: 95,
+        level: 5,
+        username: "John Doe"
+      };
+      setUserStats(mockData);
+    };
+
+    fetchUserStats();
   }, []);
+
+  const calculateAccuracy = (): string => {
+    const accuracy = (userStats.correctAnswers / userStats.gamesPlayed) * 100;
+    return accuracy.toFixed(1);
+  };
 
   return (
     <>
@@ -36,75 +62,81 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
-      <div>
-        {/* Header */}
-        <header className="header">
-          <div
-            className="logout"
-            onClick={() => (window.location.href = "/logout")}
+      <header className="header">
+        <h1 className="text-xl font-bold">Magic Quest</h1>
+
+      </header>
+
+      <main className="container mx-auto px-4 pb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="profile-section"
+        >
+          <div className="profile-image">
+            <span role="img" aria-label="crown">👑</span>
+          </div>
+          
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold mb-2">{userStats.username}</h2>
+            <p className="text-gray-600">
+              Level {userStats.level} Adventurer
+            </p>
+          </div>
+
+          <div className="stats-grid">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="stat-card"
+            >
+              <h4>Quests Completed</h4>
+              <p>{userStats.gamesPlayed}</p>
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="stat-card"
+            >
+              <h4>Magic Accuracy</h4>
+              <p>{calculateAccuracy()}%</p>
+            </motion.div>
+          </div>
+
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-8"
           >
-            Logout
-          </div>
-        </header>
+          </motion.div>
+        </motion.div>
+      </main>
 
-        {/* Profile Section */}
-        <div className="profile-section text-center">
-          <div className="profile-image">👑</div>
-          <div className="profile-info">
-            <h2 className="username">{username}</h2>
-            <p className="text-muted">Level: {level}</p>
-          </div>
-        </div>
 
-        {/* Stats */}
-        <div className="stats-inline">
-          <div>
-            <h4>Games Played</h4>
-            <p>120</p>
-          </div>
-          <div>
-            <h4>Correct Answers</h4>
-            <p>95</p>
-          </div>
-        </div>
 
-        {/* Button to start playing */}
-        <div className="text-center mt-4">
-          <Link legacyBehavior href="/play">
-            <a className="button">Start Playing</a>
+        <nav className="navbar">
+          <Link href="/" className="nav-link active">
+            <i className="bi bi-house-door-fill"></i>
+            <span className="d-block small">Home</span>
           </Link>
-        </div>
 
-        {/* Bottom Navigation Bar */}
-        <nav className="navbar fixed-bottom bg-body-tertiary border-top">
-          <div className="container-fluid d-flex justify-content-around align-items-center py-2">
-            <Link legacyBehavior href="/">
-              <a className="nav-link active text-center text-dark">
-                <i className="bi bi-house-door-fill fs-4"></i>
-                <span className="d-block small">Home</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/play">
-              <a className="nav-link text-center text-dark">
-              <i className="bi bi-dpad"></i>                
-              <span className="d-block small">Play</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/friends">
-              <a className="nav-link text-center text-dark">
-                <i className="bi bi-people fs-4"></i>
-                <span className="d-block small">Friends</span>
-              </a>
-            </Link>
-            <Link legacyBehavior href="/inbox">
-              <a className="nav-link text-center text-dark">
-                <i className="bi bi-chat fs-4"></i>
-                <span className="d-block small">Inbox</span>
-              </a>
-            </Link>
-          </div>
+          <Link href="/play" className="nav-link">
+            <i className="bi bi-stars"></i>
+            <span className="d-block small">Play</span>
+          </Link>
+
+          <Link href="/friends" className="nav-link">
+            <i className="bi bi-people"></i>
+            <span className="d-block small">Friends</span>
+          </Link>
+
+          <Link href="/inbox" className="nav-link">
+            <i className="bi bi-envelope-paper"></i>
+            <span className="d-block small">Messages</span>
+          </Link>
         </nav>
-      </div>
+
+
     </>
   );
 };

@@ -8,15 +8,7 @@
   margin-right: 10px;
 
 }
-  .headerqz {
-    background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
-    color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-  }
+
   
   .game-menu-card {
     padding: 20px;
@@ -202,30 +194,52 @@ background-attachment: fixed; /* Zorg ervoor dat de afbeelding niet verschuift b
 }
 
 .headerqz {
-background: linear-gradient(73deg, var(--disney-purple), var(--disney-blue));
-padding: 1rem;
-color: white;
-box-shadow: 0 2px 10px rgba(111, 53, 165, 0.3);
-border-bottom: 2px solid var(--disney-gold);
-position: relative;
-overflow: hidden;
+  background: linear-gradient(73deg, var(--disney-purple), var(--disney-blue));
+  color: white;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--magical-shadow);
+  position: relative;
+  z-index: 100;
 }
 
 .headerqz::after {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background: linear-gradient(
-to right,
-transparent 0%,
-rgba(255, 255, 255, 0.1) 50%,
-transparent 100%
-);
-animation: sparkleHeader 3s infinite linear;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  pointer-events: none;
+  animation: sparkle 3s infinite linear;
 }
+
+
+.headerqz .logout {
+  display: inline-block;
+  background-color: transparent; /* Achtergrondkleur wit of transparant */
+  color: white; /* Witte tekstkleur */
+  border-radius: 25px; /* Ronding van de hoeken voor een 'button'-effect */
+  text-decoration: none; /* Zorg ervoor dat de tekst geen onderstreping heeft */
+  font-size: 6px; /* Grotere tekst voor leesbaarheid */
+  transition: all 0.3s ease; /* Zorg voor een vloeiende overgang bij hover */
+}
+
+.headerqz .logout:hover {
+  background-color: white; /* Achtergrondkleur wit bij hover */
+  color: #000; /* Zwarte kleur voor de tekst bij hover */
+  cursor: pointer; /* Handcursor voor een klikbare knop */
+}
+
+.headerqz .logout i {
+  font-size: 20px; /* Vergroot het icoon voor beter zicht */
+}
+
 
 .quiz-container {
 max-width: auto;
