@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import "../styles/index.css"; // Eigen styles importeren
 
 const HomePage: React.FC = () => {
   // Simuleer het ophalen van sessiegegevens voor de gebruiker

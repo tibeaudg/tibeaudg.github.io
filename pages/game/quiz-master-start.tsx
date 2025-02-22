@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { questions } from "./questions";
 import Head from "next/head";
-import "../../styles/index.css";
-import "../../styles/play.css";
-import "../../styles/quizmaster.css";
 
 const GameMenu: React.FC = () => {
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -192,7 +189,7 @@ const GameMenu: React.FC = () => {
             <div className="go-to-quizmaster-container">
               <button
                 className="end-session-button"
-                onClick={() => router.push("/quiz-master")}
+                onClick={() => router.push("quiz-master")}
               >
                 Go to Quiz Master
               </button>

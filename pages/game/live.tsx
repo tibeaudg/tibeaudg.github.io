@@ -1,7 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import "../../styles/index.css"; // Eigen styles importeren
-import "../../styles/play.css"; // Eigen styles importeren
 
 
 

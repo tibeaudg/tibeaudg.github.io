@@ -2,7 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px; /* Controleer of er geen conflict is met andere marges */
+  margin-top: 20px; /* Controleer of er geen conflict is met andere marges */
+  opacity: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+
 }
   .headerqz {
     background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
@@ -62,43 +66,30 @@
     margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
   }
 
-  /* Container voor het "How to Play"-gedeelte */
-  .how-to-play-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  }
 
-  /* Card voor de "How to Play" sectie */
-  .how-to-play-card {
+
+  .how-to-play{
     padding: 20px;
     border-radius: 10px;
     background-color: #f8f9fa;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    text-align: left;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
   }
 
-  /* Titel van de "How to Play" sectie */
-  .how-to-play-title {
-    font-size: 1.25rem; /* Grotere tekst voor de titel */
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+  
+  .how-to-play h4{
+    text-align: center;
+    font-weight: bolder;
   }
 
-  /* Elke stap onder de titel */
-  .how-to-play-step {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 8px;
-  }
 
-  /* Zorg ervoor dat de laatste stap geen marge onderaan heeft */
-  .how-to-play-step:last-child {
-    margin-bottom: 0;
-  }
+
+
 
     
   
@@ -193,323 +184,327 @@ a {
 }
 
 
-          :root {
-            --disney-purple: #6F35A5;
-            --disney-gold: #FFD700;
-            --disney-blue: #4B0082;
-          }
+:root {
+--disney-purple: #6F35A5;
+--disney-gold: #FFD700;
+--disney-blue: #4B0082;
+}
 
 
 
-          body {
-            min-height: 100vh;
-            background-image: url('../assets/background.jpg');
-            background-size: cover; /* Zorg ervoor dat de afbeelding het hele scherm bedekt */
-            background-position: center; /* Centraal plaatsen van de afbeelding */
-            background-repeat: no-repeat; /* Voorkom herhaling van de afbeelding */
-            background-attachment: fixed; /* Zorg ervoor dat de afbeelding niet verschuift bij scrollen */
-          }
+body {
+min-height: 100vh;
+background-image: url('../assets/background.jpg');
+background-size: cover; /* Zorg ervoor dat de afbeelding het hele scherm bedekt */
+background-position: center; /* Centraal plaatsen van de afbeelding */
+background-repeat: no-repeat; /* Voorkom herhaling van de afbeelding */
+background-attachment: fixed; /* Zorg ervoor dat de afbeelding niet verschuift bij scrollen */
+}
 
-          .headerqz {
-            background: linear-gradient(73deg, var(--disney-purple), var(--disney-blue));
-            padding: 1rem;
-            color: white;
-            box-shadow: 0 2px 10px rgba(111, 53, 165, 0.3);
-            border-bottom: 2px solid var(--disney-gold);
-            position: relative;
-            overflow: hidden;
-          }
+.headerqz {
+background: linear-gradient(73deg, var(--disney-purple), var(--disney-blue));
+padding: 1rem;
+color: white;
+box-shadow: 0 2px 10px rgba(111, 53, 165, 0.3);
+border-bottom: 2px solid var(--disney-gold);
+position: relative;
+overflow: hidden;
+}
 
-          .headerqz::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-              to right,
-              transparent 0%,
-              rgba(255, 255, 255, 0.1) 50%,
-              transparent 100%
-            );
-            animation: sparkleHeader 3s infinite linear;
-          }
+.headerqz::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: linear-gradient(
+to right,
+transparent 0%,
+rgba(255, 255, 255, 0.1) 50%,
+transparent 100%
+);
+animation: sparkleHeader 3s infinite linear;
+}
 
-          .quiz-container {
-            max-width: auto;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
-          }
+.quiz-container {
+max-width: auto;
+margin: 2rem auto;
+padding: 1rem;
+background: rgba(255, 255, 255, 0.9);
+border-radius: 20px;
+box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
+}
 
-          .scoreboard-button {
-            width: 80%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: #BD353B;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
-            margin-top: 20px; /* Voeg een marge toe om de knop wat afstand te geven */
-            display: block; /* Zorg ervoor dat de knop een block-element is */
-            visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
-
-          
-          }
-
-          .player-turn {
-            font-size: 3rem;
-            color: var(--disney-purple);
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: magicAppear 0.5s ease-out;
-            font-weight: bolder;
-          }
-
-          .question {
-            font-size: 1.5rem;
-            color: #333;
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border: 2px solid var(--disney-purple);
-            border-radius: 15px;
-            background: white;
-          }
-
-          .options-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-          }
-
-          .option-button {
-            padding: 1rem;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-
-          .option-button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(111, 53, 165, 0.3);
-          }
-
-          .option-button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-          }
-
-          .answer-status {
-            font-size: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-            font-weight: bold;
-          }
-
-          .answer-status.correct {
-            color: #00C851;
-            animation: correctAnswer 0.5s ease-out;
-          }
-
-          .answer-status.wrong {
-            color: #BD353B;
-            animation: wrongAnswer 0.5s ease-out;
-          }
-
-          .magic-effect {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 1000;
-          }
-
-          .magic-effect.correct {
-            background: radial-gradient(circle at center, rgba(0, 200, 81, 0.2) 0%, transparent 70%);
-            animation: magicExpand 1s ease-out;
-          }
-
-          .magic-effect.wrong {
-            background: radial-gradient(circle at center, rgba(255, 68, 68, 0.2) 0%, transparent 70%);
-            animation: magicExpand 1s ease-out;
-          }
-
-          .game-over {
-            
-            text-align: center;
-            font-size: 3rem;
-            color: var(--disney-purple);
-            animation: gameOverMagic 1s ease-out;
-          }
-
-          @keyframes sparkleHeader {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100%); }
-          }
-
-          @keyframes magicAppear {
-            from {
-              opacity: 0;
-              transform: translateY(-20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          @keyframes correctAnswer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-          }
-
-          @keyframes wrongAnswer {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
-          }
-
-          @keyframes magicExpand {
-            from {
-              opacity: 0;
-              transform: scale(0);
-            }
-            50% {
-              opacity: 1;
-            }
-            to {
-              opacity: 0;
-              transform: scale(2);
-            }
-          }
-
-          @keyframes gameOverMagic {
-            0% {
-              opacity: 0;
-              transform: scale(0.5) rotate(-10deg);
-            }
-            100% {
-              opacity: 1;
-              transform: scale(1) rotate(0deg);
-            }
-          }
+.scoreboard-button {
+width: 80%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
+padding: 1rem 2rem;
+font-size: 1.2rem;
+background: #BD353B;
+color: white;
+border: none;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
+margin-top: 20px; /* Voeg een marge toe om de knop wat afstand te geven */
+display: block; /* Zorg ervoor dat de knop een block-element is */
+visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
 
 
+}
+
+.player-turn {
+font-size: 3rem;
+color: var(--disney-purple);
+text-align: center;
+margin-bottom: 2rem;
+animation: magicAppear 0.5s ease-out;
+font-weight: bolder;
+}
+
+.question {
+font-size: 1.5rem;
+color: #333;
+text-align: center;
+margin-bottom: 2rem;
+padding: 1rem;
+border: 2px solid var(--disney-purple);
+border-radius: 15px;
+background: white;
+}
+
+.options-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 2rem 0;
+}
+
+.option-button {
+padding: 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-button:hover:not(:disabled) {
+transform: translateY(-3px);
+box-shadow: 0 5px 15px rgba(111, 53, 165, 0.3);
+}
+
+.option-button:disabled {
+opacity: 0.7;
+cursor: not-allowed;
+}
+
+.answer-status {
+font-size: 2rem;
+text-align: center;
+margin-top: 2rem;
+font-weight: bold;
+}
+
+.answer-status.correct {
+color: #00C851;
+animation: correctAnswer 0.5s ease-out;
+}
+
+.answer-status.wrong {
+color: #BD353B;
+animation: wrongAnswer 0.5s ease-out;
+}
+
+.magic-effect {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+pointer-events: none;
+z-index: 1000;
+}
+
+.magic-effect.correct {
+background: radial-gradient(circle at center, rgba(0, 200, 81, 0.2) 0%, transparent 70%);
+animation: magicExpand 1s ease-out;
+}
+
+.magic-effect.wrong {
+background: radial-gradient(circle at center, rgba(255, 68, 68, 0.2) 0%, transparent 70%);
+animation: magicExpand 1s ease-out;
+}
+
+.game-over {
+
+text-align: center;
+font-size: 3rem;
+color: var(--disney-purple);
+animation: gameOverMagic 1s ease-out;
+}
+
+@keyframes sparkleHeader {
+from { transform: translateX(-100%); }
+to { transform: translateX(100%); }
+}
+
+@keyframes magicAppear {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes correctAnswer {
+0% { transform: scale(1); }
+50% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+@keyframes wrongAnswer {
+0% { transform: translateX(0); }
+25% { transform: translateX(-10px); }
+75% { transform: translateX(10px); }
+100% { transform: translateX(0); }
+}
+
+@keyframes magicExpand {
+from {
+opacity: 0;
+transform: scale(0);
+}
+50% {
+opacity: 1;
+}
+to {
+opacity: 0;
+transform: scale(2);
+}
+}
+
+@keyframes gameOverMagic {
+0% {
+opacity: 0;
+transform: scale(0.5) rotate(-10deg);
+}
+100% {
+opacity: 1;
+transform: scale(1) rotate(0deg);
+}
+}
+
+.title {
+color:white;
+margin-top: 20px;
+font-size:3.5rem;
+}
 
 
-          .scoreboard {
-            padding: 2rem;
-            max-width: 600px;
-            margin-top: 30px; /* Dit voegt wat ruimte boven de knop toe */
-            animation: scoreboardAppear 0.8s ease-out;
-          }
+.scoreboard {
+padding: 2rem;
+max-width: 600px;
+margin-top: 30px; /* Dit voegt wat ruimte boven de knop toe */
+animation: scoreboardAppear 0.8s ease-out;
+}
 
 
-          .scoreboard-title {
-            color: var(--disney-purple);
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
-          }
+.scoreboard-title {
+color: var(--disney-purple);
+text-align: center;
+font-size: 2.5rem;
+margin-bottom: 2rem;
+text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
+}
 
-          .player-score {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            background: linear-gradient(to right, rgba(111, 53, 165, 0.1), transparent);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-          }
+.player-score {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+margin: 0.5rem 0;
+background: linear-gradient(to right, rgba(111, 53, 165, 0.1), transparent);
+border-radius: 10px;
+transition: transform 0.3s ease;
+}
 
-          .player-score:hover {
-            transform: translateX(10px);
-          }
+.player-score:hover {
+transform: translateX(10px);
+}
 
-          .player-name {
-            font-size: 1.3rem;
-            color: var(--disney-purple);
-            font-weight: bold;
-          }
+.player-name {
+font-size: 1.3rem;
+color: var(--disney-purple);
+font-weight: bold;
+}
 
-          .player-points {
-            font-size: 1.5rem;
-            color: var(--disney-gold);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-          }
-
-
-          .trophy {
-            font-size: 2rem;
-            margin-right: 1rem;
-          }
-
-          .first-place {
-            background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
-          }
-
-          .second-place {
-            background: linear-gradient(to right, rgba(192, 192, 192, 0.2), transparent);
-          }
-
-          .third-place {
-            background: linear-gradient(to right, rgba(205, 127, 50, 0.2), transparent);
-          }
+.player-points {
+font-size: 1.5rem;
+color: var(--disney-gold);
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
 
 
+.trophy {
+font-size: 2rem;
+margin-right: 1rem;
+}
 
-          .scoreboard-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
-          }
-          
-          .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
-            gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
-          }
-          
-          .continue-playing-button {
-            padding: 1rem;
-            width: 100%;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+.first-place {
+background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
+}
+
+.second-place {
+background: linear-gradient(to right, rgba(192, 192, 192, 0.2), transparent);
+}
+
+.third-place {
+background: linear-gradient(to right, rgba(205, 127, 50, 0.2), transparent);
+}
 
 
-          }
-          .end-session-button {
-            padding: 1rem;
-            width: 100%;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            background: #BD353B;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
+
+.scoreboard-buttons {
+display: flex;
+flex-direction: column;
+gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
+}
+
+.button-container {
+display: flex;
+flex-direction: column;
+align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
+gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
+}
+
+.continue-playing-button {
+padding: 1rem;
+width: 100%;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+
+
+}
+.end-session-button {
+padding: 1rem;
+width: 100%;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: #BD353B;
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}

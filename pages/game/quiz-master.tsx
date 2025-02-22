@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from 'next/router'; // Gebruik van useRouter
-import "../../styles/index.css";
-import "../../styles/play.css";
-import "../../styles/quizmaster.css";
 
 const GameMenu: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -46,6 +43,8 @@ const GameMenu: React.FC = () => {
         />
       </Head>
 
+
+
       <div>
         <header className="headerqz">
           <Link href="/play" passHref>
@@ -53,10 +52,9 @@ const GameMenu: React.FC = () => {
               <i className="bi bi-arrow-left-circle-fill"></i>
             </div>
           </Link>
-          <div className="quiz-master-title-container">
-            <h3 className="quiz-master-title">Quiz Master</h3>
-          </div>
         </header>
+
+        <h3 className="title">Quiz Master</h3>
 
         <div className="game-menu-container">
           <div className="game-menu-card">
@@ -87,12 +85,32 @@ const GameMenu: React.FC = () => {
           </div>
         </div>
 
+
+
+
+
         {usernameList.length > 0 && (
           <button className="btn btn-success mt-3" onClick={handleStartGame}>
             Start Game
           </button>
         )}
+
+
+<div className="game-menu-container">
+          <div className="how-to-play">
+          <h4>How to Play</h4>
+            <p>
+              1. Eén speler leest de vragen voor<br />
+              2. Iedere speler antwoord om de beurt<br />
+              3. De voorlezer beantwoord de vragen in naam van de spelers<br />
+            </p>
+
+
+
+          </div>
+        </div>
       </div>
+
     </>
   );
 };
