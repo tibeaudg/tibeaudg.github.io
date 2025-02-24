@@ -555,13 +555,15 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submit-answer-button {
-  padding: 0.8rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
   background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
   color: white;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .submit-answer-button:disabled {
@@ -606,4 +608,41 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 .points .value {
   font-weight: 600;
   color: #ffffff;
+}
+
+
+.pass-button-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.pass-button {
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: #b4bd00;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pass-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+}
+
+.pass-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;  /* Dit voorkomt dat de knop klikbaar blijft */
+  }
+
+
+.pass-button:disabled {
+  background-color: #ccc;
+  border-color: #eee;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
