@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { questions } from "./questions";
+import { questions } from "./questions.json";
 import Head from "next/head";
 
 const GameMenu: React.FC = () => {
