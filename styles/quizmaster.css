@@ -618,6 +618,10 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
+
+
+
+
 .pass-button-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -630,7 +634,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-size: 1.2rem;
   border: none;
   border-radius: 10px;
-  background: #b4bd00;
+  background: var(--disney-gold);
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -640,23 +644,18 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 .pass-button:hover:not(:disabled) {
   background-color: #e0e0e0;
   border-color: #ccc;
+  cursor: none;
+
+
 }
 
-/* Verberg de knop wanneer deze is uitgeschakeld */
-.pass-button.hidden {
-  display: none;  /* Dit maakt de knop volledig onzichtbaar */
-}
 
-.pass-button.disabled {
-  background-color: #ccc;
+
+.pass-button:disabled, .pass-button[disabled], .pass-button.disabled {
+  background-color: #e0e0e0;
   cursor: not-allowed;
   pointer-events: none;
+  opacity: 0.5;
+  border-color: #ccc;
 }
 
-.pass-button:disabled {
-  background-color: #ccc;
-  border-color: #ffffff;
-  color: #ffffff;
-  cursor: not-allowed;
-  opacity: 0.7;
-}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { questions } from "./questions.json";
 import Head from "next/head";
+import Swal from "sweetalert2";
 
 interface GameState {
   currentPlayerIndex: number;
@@ -60,14 +61,49 @@ const GameMenu: React.FC = () => {
     }
   }, [router.query.players]);
 
+  const showAnswerPopup = (status: string, correctAnswer: string) => {
+    // Determine the icon and color based on status
+    const icon = status === "Correct!" ? "success" : "error";
+    const title = status === "Correct!" ? status : "Wrong!";
+    
+    Swal.fire({
+      icon: icon as any,
+      title: title,
+      html: status === "Correct!" 
+        ? `<p>You got it right! 🎉</p>` 
+        : `<p>The correct answer is:</p><p class="font-weight-bold text-success">${correctAnswer}</p>`,
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false
+    });
+  };
+
   const handlePass = () => {
+    const currentQuestion = questions[gameState.currentQuestionIndex];
+    
     setGameState(prev => ({
       ...prev,
       isAnswerDisabled: true,
       usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: true }
     }));
 
-    setTimeout(() => moveToNextQuestion(true), 1000);
+    // Show the answer in a popup
+    Swal.fire({
+      icon: 'info',
+      title: 'Question Passed',
+      html: `<p>The correct answer is:</p><p class="font-weight-bold text-success">${currentQuestion.correctAnswer || ""}</p>`,
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false
+    });
+
+    setTimeout(() => moveToNextQuestion(true), 3000);
   };
 
   const moveToNextQuestion = (isPass: boolean = false) => {
@@ -78,15 +114,11 @@ const GameMenu: React.FC = () => {
         return { ...prev, isRoundOver: true };
       }
 
-
-
-
       return {
         ...prev,
         currentQuestionIndex: nextQuestionIndex,
         currentPlayerIndex: isPass ? prev.currentPlayerIndex : (prev.currentPlayerIndex + 1) % prev.players.length,
         usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: false },
-
         answerStatus: "",
         isAnswerDisabled: false,
         showMagicEffect: false
@@ -94,13 +126,14 @@ const GameMenu: React.FC = () => {
     });
   };
 
-
-
   const handleAnswer = (isCorrect: boolean) => {
+    const currentQuestion = questions[gameState.currentQuestionIndex];
+    const status = isCorrect ? "Correct!" : "Wrong!";
+    
     setGameState(prev => {
       const newState = {
         ...prev,
-        answerStatus: isCorrect ? "Correct!" : "Wrong!",
+        answerStatus: status,
         showMagicEffect: true,
         isAnswerDisabled: true
       };
@@ -116,7 +149,11 @@ const GameMenu: React.FC = () => {
       return newState;
     });
 
-    setTimeout(() => moveToNextQuestion(), 2000);
+    // Show the SweetAlert popup
+    showAnswerPopup(status, currentQuestion.correctAnswer || "");
+
+    // Wait for the alert to close before moving to next question
+    setTimeout(() => moveToNextQuestion(), 3000);
   };
 
   const handleMultipleChoiceAnswer = (answer: string) => {
@@ -153,7 +190,6 @@ const GameMenu: React.FC = () => {
     const currentQuestion = questions[gameState.currentQuestionIndex];
     return (
       <div className="question-container">
-
         <div className="question-info">
           <div className="category">
             <span className="label">Category:</span>
@@ -166,9 +202,6 @@ const GameMenu: React.FC = () => {
             </span>
           </div>
         </div>
-
-
-
 
         <h3 className="question">{currentQuestion.question}</h3>
         {currentQuestion.type === "multiple-choice" ? (
@@ -209,7 +242,6 @@ const GameMenu: React.FC = () => {
         )}
 
         <div className="pass-button-container">
-
           <button
             className={`pass-button ${gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]] ? 'disabled' : ''}`}
             onClick={handlePass}
@@ -217,8 +249,6 @@ const GameMenu: React.FC = () => {
           >
             Pass Question
           </button>
-
-
         </div>
       </div>
     );
@@ -257,6 +287,8 @@ const GameMenu: React.FC = () => {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+        {/* Add SweetAlert2 CDN */}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       </Head>
 
       <div>
@@ -271,11 +303,6 @@ const GameMenu: React.FC = () => {
             <>
               <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
               {renderQuestion()}
-              {gameState.answerStatus && (
-                <div className={`answer-status ${gameState.answerStatus === "Correct!" ? "correct" : "wrong"}`}>
-                  {gameState.answerStatus}
-                </div>
-              )}
               {gameState.showMagicEffect && (
                 <div className={`magic-effect ${gameState.answerStatus === "Correct!" ? "correct" : "wrong"}`} />
               )}
