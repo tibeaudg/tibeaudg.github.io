@@ -13,7 +13,22 @@ const GameMenu: React.FC = () => {
   const [showMagicEffect, setShowMagicEffect] = useState(false);
   const [scores, setScores] = useState<Record<string, number>>({});
   const [isSessionEnded, setIsSessionEnded] = useState(false);
+  const [openAnswer, setOpenAnswer] = useState("");
   const router = useRouter();
+
+  const getDifficultyPoints = (difficulty: string): number => {
+    switch (difficulty.toLowerCase()) {
+      case "easy":
+        return 1;
+      case "medium":
+        return 2;
+      case "difficult":
+      case "hard":
+        return 3;
+      default:
+        return 1;
+    }
+  };
 
   const resetScores = () => {
     const initialScores: Record<string, number> = {};
@@ -35,17 +50,31 @@ const GameMenu: React.FC = () => {
     }
   }, [router.query.players]);
 
-  const handleAnswer = (answer: string) => {
+  const handleMultipleChoiceAnswer = (answer: string) => {
     setIsAnswerDisabled(true);
     const correct = questions[currentQuestionIndex].correctAnswer;
-    const isCorrect = answer === correct;
+    const isCorrect = answer.toLowerCase() === correct.toLowerCase();
+    handleAnswerResult(isCorrect);
+  };
+
+  const handleOpenAnswer = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsAnswerDisabled(true);
+    const correct = questions[currentQuestionIndex].correctAnswer;
+    const isCorrect = openAnswer.toLowerCase() === correct.toLowerCase();
+    handleAnswerResult(isCorrect);
+    setOpenAnswer("");
+  };
+
+  const handleAnswerResult = (isCorrect: boolean) => {
     setAnswerStatus(isCorrect ? "Correct!" : "Wrong!");
     setShowMagicEffect(true);
 
     if (isCorrect) {
+      const points = getDifficultyPoints(questions[currentQuestionIndex].difficulty);
       setScores((prevScores) => ({
         ...prevScores,
-        [players[currentPlayerIndex]]: prevScores[players[currentPlayerIndex]] + 1,
+        [players[currentPlayerIndex]]: prevScores[players[currentPlayerIndex]] + points,
       }));
     }
 
@@ -70,6 +99,7 @@ const GameMenu: React.FC = () => {
     setIsAnswerDisabled(false);
     setShowMagicEffect(false);
     setIsSessionEnded(false);
+    setOpenAnswer("");
     resetScores();
   };
 
@@ -112,19 +142,57 @@ const GameMenu: React.FC = () => {
             <>
               <h2 className="player-turn">{players[currentPlayerIndex]}</h2>
               <div className="question-container">
-                <h3 className="question">{questions[currentQuestionIndex].question}</h3>
-                <div className="options-container">
-                  {questions[currentQuestionIndex]?.options?.map((option, index) => (
-                    <button
-                      key={index}
-                      className="option-button"
-                      onClick={() => handleAnswer(option)}
-                      disabled={isAnswerDisabled}
-                    >
-                      {option}
-                    </button>
-                  ))}
+
+
+
+                <div className="question-info">
+                    <div className="category">
+                      <span className="label">Category:</span>
+                      <span className="value">{questions[currentQuestionIndex].category}</span>
+                    </div>
+                    <div className="category">
+                    <span className="label">Difficulty:</span>
+                    <span className="value">{questions[currentQuestionIndex].difficulty} 
+                      ({getDifficultyPoints(questions[currentQuestionIndex].difficulty)} points)
+                    </span>
+                  </div>
                 </div>
+
+
+                <h3 className="question">{questions[currentQuestionIndex].question}</h3>
+                
+                {questions[currentQuestionIndex].type === "multiple-choice" ? (
+                  <div className="options-container">
+                    {questions[currentQuestionIndex].options?.map((option, index) => (
+                      <button
+                        key={index}
+                        className="option-button"
+                        onClick={() => handleMultipleChoiceAnswer(option)}
+                        disabled={isAnswerDisabled}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <form onSubmit={handleOpenAnswer} className="open-answer-form">
+                    <input
+                      type="text"
+                      value={openAnswer}
+                      onChange={(e) => setOpenAnswer(e.target.value)}
+                      placeholder="Type your answer..."
+                      disabled={isAnswerDisabled}
+                      className="open-answer-input"
+                    />
+                    <button 
+                      type="submit" 
+                      disabled={isAnswerDisabled || !openAnswer.trim()}
+                      className="submit-answer-button"
+                    >
+                      Submit Answer
+                    </button>
+                  </form>
+                )}
               </div>
               {answerStatus && (
                 <div className={`answer-status ${answerStatus === "Correct!" ? "correct" : "wrong"}`}>
@@ -139,9 +207,6 @@ const GameMenu: React.FC = () => {
             <div className="game-over"></div>
           )}
 
-
-
-          {/* Scoreboard always visible below questions */}
           <div className="scoreboard">
             {sortedPlayers.map((player, index) => (
               <div
@@ -167,8 +232,6 @@ const GameMenu: React.FC = () => {
             ))}
           </div>
 
-
-                    {/* Always visible End Session button */}
           {!isSessionEnded && (
             <div className="scoreboard-buttons">
               <button className="end-session-button" onClick={endSession}>
@@ -177,27 +240,20 @@ const GameMenu: React.FC = () => {
             </div>
           )}
 
-
-
-        {/* Show New Game and Go to Quiz Master button after the session ends */}
-        {isSessionEnded && (
-          <div className="scoreboard-buttons">
-            <button className="continue-playing-button" onClick={startNewRound}>
-              New Game
-            </button>
-
-            <div className="go-to-quizmaster-container">
-              <button
-                className="end-session-button"
-                onClick={() => router.push("quiz-master")}
-              >
-                Quit
+          {isSessionEnded && (
+            <div className="scoreboard-buttons">
+              <button className="continue-playing-button" onClick={startNewRound}>
+                New Game
               </button>
+              <div className="go-to-quizmaster-container">
+                <button
+                  className="end-session-button"
+                  onClick={() => router.push("quiz-master")}
+                >
+                  Quit
+                </button>
+              </div>
             </div>
-          </div>
-
-
-
           )}
         </div>
       </div>
