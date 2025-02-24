@@ -33,14 +33,14 @@ const GameMenu: React.FC = () => {
     usedPasses: {}
   });
 
-  const getDifficultyPoints = (difficulty: string): number => {
+  const getDifficultyPoints = (difficulty: 'easy' | 'medium' | 'difficult' | 'hard'): number => {
     const difficultyMap = {
       easy: 1,
       medium: 2,
       difficult: 3,
       hard: 3
     };
-    return difficultyMap[difficulty.toLowerCase()] || 1;
+    return difficultyMap[difficulty] || 1;
   };
 
   const initializeGameState = (playerList: string[]) => {
@@ -106,7 +106,7 @@ const GameMenu: React.FC = () => {
       };
 
       if (isCorrect) {
-        const points = getDifficultyPoints(questions[prev.currentQuestionIndex].difficulty);
+        const points = getDifficultyPoints(questions[prev.currentQuestionIndex].difficulty as 'easy' | 'medium' | 'difficult' | 'hard');
         newState.scores = {
           ...prev.scores,
           [prev.players[prev.currentPlayerIndex]]: prev.scores[prev.players[prev.currentPlayerIndex]] + points
@@ -120,13 +120,15 @@ const GameMenu: React.FC = () => {
   };
 
   const handleMultipleChoiceAnswer = (answer: string) => {
-    const isCorrect = answer.toLowerCase() === questions[gameState.currentQuestionIndex].correctAnswer.toLowerCase();
+    const currentQuestion = questions[gameState.currentQuestionIndex];
+    const isCorrect = currentQuestion && currentQuestion.correctAnswer && answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase() ? true : false || false;
     handleAnswer(isCorrect);
   };
 
   const handleOpenAnswer = (e: React.FormEvent) => {
     e.preventDefault();
-    const isCorrect = gameState.openAnswer.toLowerCase() === questions[gameState.currentQuestionIndex].correctAnswer.toLowerCase();
+    const currentQuestion = questions[gameState.currentQuestionIndex];
+    const isCorrect = currentQuestion && currentQuestion.correctAnswer && gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase() || false;
     handleAnswer(isCorrect);
     setGameState(prev => ({ ...prev, openAnswer: "" }));
   };
@@ -151,6 +153,7 @@ const GameMenu: React.FC = () => {
     const currentQuestion = questions[gameState.currentQuestionIndex];
     return (
       <div className="question-container">
+
         <div className="question-info">
           <div className="category">
             <span className="label">Category:</span>
@@ -159,13 +162,15 @@ const GameMenu: React.FC = () => {
           <div className="category">
             <span className="label">Difficulty:</span>
             <span className="value">
-              {currentQuestion.difficulty} ({getDifficultyPoints(currentQuestion.difficulty)} points)
+              {currentQuestion.difficulty} ({getDifficultyPoints(currentQuestion.difficulty as 'easy' | 'medium' | 'difficult' | 'hard')} points)
             </span>
           </div>
         </div>
 
-        <h3 className="question">{currentQuestion.question}</h3>
 
+
+
+        <h3 className="question">{currentQuestion.question}</h3>
         {currentQuestion.type === "multiple-choice" ? (
           <div className="answer-section">
             <div className="options-container">
@@ -204,6 +209,7 @@ const GameMenu: React.FC = () => {
         )}
 
         <div className="pass-button-container">
+
           <button
             className={`pass-button ${gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]] ? 'disabled' : ''}`}
             onClick={handlePass}
@@ -211,6 +217,8 @@ const GameMenu: React.FC = () => {
           >
             Pass Question
           </button>
+
+
         </div>
       </div>
     );

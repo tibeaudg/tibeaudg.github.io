@@ -524,19 +524,43 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
+
+
+
+
+
+
 .question-info {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: #666;
+  flex-direction: column;  /* Zet de categorieën onder elkaar */
+  gap: 10px;  /* Zorg voor wat ruimte tussen de categorieën */
+  margin-bottom: 20px;
+
 }
 
-.category, .difficulty {
-  background: #f5f5f5;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+.category {
+  display: block;  /* Zet de categorie-items onder elkaar */
+  background-color: #33333333;  /* Transparante achtergrondkleur */
+  margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
+  padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
+  text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
+  border-radius: 10px;
+
 }
+
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin-left: 5px;  /* Voeg een beetje ruimte toe tussen de label en de waarde */
+}
+
+
+
+
+
 
 .open-answer-form {
   display: flex;
@@ -572,23 +596,6 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
-.category {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
-}
-
-.category .label {
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.category .value {
-  font-weight: 600;
-  color: #ffffff;
-}
-
 
 
 
@@ -614,6 +621,8 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 .pass-button-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  opacity: 90%;
+
 }
 
 .pass-button {
@@ -627,22 +636,27 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover effect wanneer de knop niet is uitgeschakeld */
 .pass-button:hover:not(:disabled) {
   background-color: #e0e0e0;
   border-color: #ccc;
 }
 
+/* Verberg de knop wanneer deze is uitgeschakeld */
+.pass-button.hidden {
+  display: none;  /* Dit maakt de knop volledig onzichtbaar */
+}
+
 .pass-button.disabled {
   background-color: #ccc;
   cursor: not-allowed;
-  pointer-events: none;  /* Dit voorkomt dat de knop klikbaar blijft */
-  }
-
+  pointer-events: none;
+}
 
 .pass-button:disabled {
   background-color: #ccc;
-  border-color: #eee;
-  color: #999;
+  border-color: #ffffff;
+  color: #ffffff;
   cursor: not-allowed;
   opacity: 0.7;
 }
