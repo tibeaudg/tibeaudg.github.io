@@ -114,7 +114,7 @@ const GameMenu: React.FC = () => {
               <div className="question-container">
                 <h3 className="question">{questions[currentQuestionIndex].question}</h3>
                 <div className="options-container">
-                  {questions[currentQuestionIndex].options.map((option, index) => (
+                  {questions[currentQuestionIndex]?.options?.map((option, index) => (
                     <button
                       key={index}
                       className="option-button"
