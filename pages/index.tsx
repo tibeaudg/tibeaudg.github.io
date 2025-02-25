@@ -124,6 +124,15 @@ const HomePage: React.FC = () => {
 
 
 
+        <div className="game-menu-container">
+          <div className="how-to-play">
+            <h4>Belangrijk!</h4>
+            <p>
+              Deze data wordt opgeslagen in de "Local Storage" van de browser<br />
+              - Gelieve browsergegevens NIET te wissen<br />
+            </p>
+          </div>
+        </div>
 
 
 
