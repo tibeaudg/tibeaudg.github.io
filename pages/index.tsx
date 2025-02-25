@@ -3,51 +3,86 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-interface UserStats {
-  gamesPlayed: number;
-  correctAnswers: number;
-  level: number;
+
+
+interface PlayerRanking {
   username: string;
+  totalPoints: number;
+  sessionsPlayed: number;
+  lastPlayed: string;
 }
 
 const HomePage: React.FC = () => {
-  const [userStats, setUserStats] = useState<UserStats>({
-    gamesPlayed: 0,
-    correctAnswers: 0,
-    level: 0,
-    username: "Loading..."
-  });
+
+
+  const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);
 
   useEffect(() => {
-    // Simulate API call to fetch user stats
-    const fetchUserStats = async () => {
-      // Replace with actual API call
-      const mockData: UserStats = {
-        gamesPlayed: 120,
-        correctAnswers: 95,
-        level: 5,
-        username: "John Doe"
-      };
-      setUserStats(mockData);
+    // Fetch accumulated player rankings from all sessions
+    const fetchPlayerRankings = async () => {
+      // This would be replaced with an actual API call to your backend
+      // Mock data for demonstration
+      const mockRankings: PlayerRanking[] = [
+        { username: "Mickey", totalPoints: 325},
+        { username: "Donald", totalPoints: 280},
+        { username: "Goofy", totalPoints: 210},
+        { username: "Minnie", totalPoints: 190},
+        { username: "Daisy", totalPoints: 175},
+      ];
+      
+      // Sort by total points in descending order
+      mockRankings.sort((a, b) => b.totalPoints - a.totalPoints);
+      setPlayerRankings(mockRankings);
     };
 
-    fetchUserStats();
+    fetchPlayerRankings();
   }, []);
 
-  const calculateAccuracy = (): string => {
-    const accuracy = (userStats.correctAnswers / userStats.gamesPlayed) * 100;
-    return accuracy.toFixed(1);
+
+  const renderRankingBoard = () => {
+    return (
+    <div className="card">
+      <div className="scoreboard">
+        <h2 className="scoreboard-title">Leaderboard</h2>
+        
+        <div className="rankings-container">
+          {playerRankings.map((player, index) => (
+            <motion.div
+              key={player.username}
+              className={`player-score ${
+                index === 0 ? "first-place" : index === 1 ? "second-place" : index === 2 ? "third-place" : ""
+              }`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <div className="rank-position">
+                {index === 0 && "🏆"}
+                {index === 1 && "🥈"}
+                {index === 2 && "🥉"}
+                {index > 2 && `#${index + 1}`}
+              </div>
+              <div className="player-info">
+                <span className="player-name">{player.username}</span>
+              </div>
+              <div className="total-points">{player.totalPoints} points</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+    );
   };
 
   return (
     <>
       <Head>
-        {/* Meta en titel */}
+        {/* Meta and title */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
 
-        {/* External CSS bestanden */}
+        {/* External CSS files */}
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -62,55 +97,14 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
-      <header className="header">
-        <h1 className="text-xl font-bold">Magic Quest</h1>
+        <main className="main-content">
+          {renderRankingBoard()}
+    
+        </main>
 
-      </header>
 
-      <main className="container mx-auto px-4 pb-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="profile-section"
-        >
-          <div className="profile-image">
-            <span role="img" aria-label="crown">👑</span>
-          </div>
-          
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold mb-2">{userStats.username}</h2>
-            <p className="text-gray-600">
-              Level {userStats.level} Adventurer
-            </p>
-          </div>
 
-          <div className="stats-grid">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="stat-card"
-            >
-              <h4>Quests Completed</h4>
-              <p>{userStats.gamesPlayed}</p>
-            </motion.div>
 
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              className="stat-card"
-            >
-              <h4>Magic Accuracy</h4>
-              <p>{calculateAccuracy()}%</p>
-            </motion.div>
-          </div>
-
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-8"
-          >
-          </motion.div>
-        </motion.div>
-      </main>
 
 
 
@@ -135,8 +129,6 @@ const HomePage: React.FC = () => {
             <span className="d-block small">Inbox</span>
           </Link>
         </nav>
-
-
     </>
   );
 };

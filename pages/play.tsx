@@ -29,11 +29,6 @@ const HomePage: React.FC = () => {
 
 
 
-        {/* Header */}
-        <header className="header">
-        <h1 className="text-xl font-bold">Choose Gamemode</h1>
-      </header>
-
 
 
 

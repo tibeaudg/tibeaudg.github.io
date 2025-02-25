@@ -91,9 +91,7 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
-      <header className="header">
-        <h1 className="text-xl font-bold">Inbox</h1>
-      </header>
+
 
       <main className="container">
         <motion.ul

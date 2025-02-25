@@ -16,17 +16,7 @@
   font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-              url('../assets/background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: var(--disney-dark);
-  align-items: center;
-}
+
 
 body h2 {
     background-position: center;
@@ -42,94 +32,12 @@ body h2 {
   }
   
 
-.header {
-  background: var(--disney-gradient);
-  color: white;
-  padding: 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: var(--magical-shadow);
-  position: relative;
-  z-index: 100;
-}
 
-.header::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  pointer-events: none;
-  animation: sparkle 3s infinite linear;
-}
-
-
-
-.profile-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  max-width: 600px;
-  border-radius: 1rem;
-  box-shadow: var(--magical-shadow);
-  margin-top: 20px;
-
-
-
-}
-
-.profile-image {
-  width: 140px;
-  height: 140px;
-  background: var(--disney-gradient);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
-  border: 4px solid var(--disney-gold);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-}
-
-
-
-.stat-card {
-  text-align: center;
-  padding: 1.5rem;
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
-  border-radius: 0.75rem;
-  transition: transform 0.3s ease;
-  margin: 10px;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-}
-
-.stat-card h4 {
-  color: var(--disney-blue);
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.stat-card p {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--disney-dark);
-}
 
 /* Navbar stijlen */
 .navbar {
-  background: var(--disney-gradient) !important;
+  background: white;
+  color: #073a8d;
   position: fixed !important;
   bottom: 0 !important;
   width: 100% !important;
@@ -145,10 +53,12 @@ body h2 {
 }
 
 
-
+.header {
+  padding: 2rem;
+}
 
 .nav-link {
-  color: white !important;
+  color: #073a8d !important;
   transition: transform 0.3s ease;
   text-align: center; /* Tekst onder de iconen centreren */
   display: flex; /* Flexbox toegevoegd voor nav-link */
@@ -158,22 +68,15 @@ body h2 {
   font-weight: bold;
 }
 
-.nav-link:hover {
-  transform: translateY(-2px);
-}
+
 
 .nav-link i {
-  margin-bottom: 0.5rem; /* Ruimte tussen het icoon en de tekst */
+  font-size: 1.5rem;
 }
 
 .nav-link.active {
   color: var(--disney-gold) !important;
 }
-
-
-
-
-
 
 
 /* Algemene container voor de game-modus */
@@ -214,8 +117,6 @@ body h2 {
 }
 
 
-
-
 /* Link voor navigatie naar game-modes */
 .game-mode-link {
   text-decoration: none;
@@ -238,10 +139,6 @@ body h2 {
 .game-mode-card-content.live-mode {
   background-image: linear-gradient(102.144deg, rgb(255, 65, 108), rgb(255, 75, 43));
 }
-
-
-
-
 
 
 /* Icon stijl */
@@ -277,3 +174,793 @@ body h2 {
   padding-top: 10px;
   text-align: center; /* Centrer de titel horizontaal */
 }
+
+
+
+
+
+
+
+
+.inputbox {
+  position: relative;
+  margin: 30px 0;
+  max-width: 310px;
+  border-bottom: 2px solid white;
+}
+
+.inputbox label {
+  position:absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: 5px;
+}
+
+.inputbox input {
+  width: 100%;
+  height: 60px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0 35px 0 5px;
+  color: white;
+}
+
+.inputbox ion-icon {
+  position: absolute;
+  right: 8px;
+  color: white;
+  font-size: 1.2rem;
+  top:20px;
+}
+
+
+.loginTitle {
+  font-size: 35px;
+  color: #073a8d;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 5px white;
+
+}
+
+
+.glassmorphism {
+  position: relative;
+  padding: 2rem 3rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  max-width: 400px;
+  height: 80%;
+  border-top: 2px solid #FFFFFF75;
+  border-left: 2px solid #FFFFFF75;
+  box-shadow: 5px 5px 12px #00000035;
+  background: #FFFFFF75;
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+
+
+
+.game-menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Controleer of er geen conflict is met andere marges */
+  opacity: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+  
+  .game-menu-card {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .game-menu-card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+
+  }
+  
+
+  .game-menu-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto; /* Scroll als de lijst te groot is */
+
+  }
+
+  .game-menu-card .user-item {
+    padding: 10px;
+    background-color: #dcdcdcc0; /* Lichtgrijze achtergrond voor de cel */
+    border-radius: 5px; /* Optioneel: afgeronde hoeken voor een celvorm */
+    margin-bottom: 10px; /* Ruimte tussen de cellen */
+    font-size: 16px;
+    color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .game-menu-card .user-item:last-child {
+    margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
+  }
+
+
+
+  .how-to-play{
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  
+  .how-to-play h4{
+    text-align: center;
+    font-weight: bolder;
+  }
+
+
+  
+  .game-menu-card button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .game-start-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+
+
+  /* Stijl voor de titel "Quiz Master" */
+.quiz-master-title-container {
+  display: flex; /* Maak de container een flexbox */
+  justify-content: center; /* Horizontaal centreren van de inhoud */
+  align-items: center; /* Verticaal centreren van de inhoud */
+  height: 100%; /* Zorg ervoor dat de container de volledige hoogte van de parent beslaat */
+}
+
+.quiz-master-title {
+  font-size: 1rem; /* Grotere tekstgrootte voor een opvallende titel */
+  font-weight: bold; /* Maak de tekst vetgedrukt */
+  color: white; /* Donkere kleur voor tekst */
+  text-align: center; /* Centrer de titel horizontaal */
+}
+
+
+
+/* Correcte achtergrondkleur met lineaire gradient */
+.btn {
+  background: #073a8d;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+  border: none;
+  width: 80%;
+  text-align: center;
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+
+}
+
+
+.btn-success {
+  background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
+  width: 67%; /* Stel de breedte in op 67% */
+  padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
+  border-radius: 8px; /* Voeg afgeronde hoeken toe */
+  color: white; /* Zorg dat de tekstkleur wit is */
+  font-weight: bold; /* Maak de tekst vetgedrukt */
+  display: flex;
+  justify-content: center; /* Horizontaal centreren van de inhoud */
+  align-items: center; /* Verticaal centreren van de inhoud */
+  border: none; /* Verwijder standaard knopranden */
+  margin-left: auto; /* Gebruik auto voor de linker marge */
+  margin-right: auto; /* Centrer de knop horizontaal */
+  margin-top: 1rem; /* Voeg bovenmarge toe als nodig */
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+
+}
+
+
+
+a {
+  text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
+}
+
+
+.mt-3 {
+  margin-top: 1rem;
+  text-decoration: none; /* Dit voorkomt de onderlijning */
+}
+
+.mt-3 a {
+  text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
+}
+
+
+
+
+body {
+min-height: 100vh;
+background-color: #e9edf9;
+}
+
+
+
+
+.quiz-container {
+max-width: auto;
+margin: 2rem auto;
+padding: 1rem;
+background: rgba(255, 255, 255, 0.9);
+border-radius: 20px;
+box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
+}
+
+.scoreboard-button {
+width: 80%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
+padding: 1rem 2rem;
+font-size: 1.2rem;
+background: #BD353B;
+color: white;
+border: none;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
+margin-top: 20px; /* Voeg een marge toe om de knop wat afstand te geven */
+display: block; /* Zorg ervoor dat de knop een block-element is */
+visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
+
+
+}
+
+.player-turn {
+font-size: 3rem;
+color: var(--disney-purple);
+text-align: center;
+margin-bottom: 2rem;
+animation: magicAppear 0.5s ease-out;
+font-weight: bolder;
+}
+
+.question {
+font-size: 1.5rem;
+color: #333;
+text-align: center;
+margin-bottom: 2rem;
+padding: 1rem;
+border: 2px solid var(--disney-purple);
+border-radius: 15px;
+background: white;
+}
+
+.options-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 2rem 0;
+}
+
+.option-button {
+padding: 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.option-button:disabled {
+opacity: 0.7;
+cursor: not-allowed;
+}
+
+.answer-status {
+font-size: 2rem;
+text-align: center;
+margin-top: 2rem;
+font-weight: bold;
+}
+
+.answer-status.correct {
+color: #00C851;
+animation: correctAnswer 0.5s ease-out;
+}
+
+.answer-status.wrong {
+color: #BD353B;
+animation: wrongAnswer 0.5s ease-out;
+}
+
+.magic-effect {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+pointer-events: none;
+z-index: 1000;
+}
+
+.magic-effect.correct {
+background: radial-gradient(circle at center, rgba(0, 200, 81, 0.2) 0%, transparent 70%);
+animation: magicExpand 1s ease-out;
+}
+
+.magic-effect.wrong {
+background: radial-gradient(circle at center, rgba(255, 68, 68, 0.2) 0%, transparent 70%);
+animation: magicExpand 1s ease-out;
+}
+
+.game-over {
+
+text-align: center;
+font-size: 3rem;
+color: var(--disney-purple);
+animation: gameOverMagic 1s ease-out;
+}
+
+
+
+@keyframes magicAppear {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes correctAnswer {
+0% { transform: scale(1); }
+50% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+@keyframes wrongAnswer {
+0% { transform: translateX(0); }
+25% { transform: translateX(-10px); }
+75% { transform: translateX(10px); }
+100% { transform: translateX(0); }
+}
+
+@keyframes magicExpand {
+from {
+opacity: 0;
+transform: scale(0);
+}
+50% {
+opacity: 1;
+}
+to {
+opacity: 0;
+transform: scale(2);
+}
+}
+
+@keyframes gameOverMagic {
+0% {
+opacity: 0;
+transform: scale(0.5) rotate(-10deg);
+}
+100% {
+opacity: 1;
+transform: scale(1) rotate(0deg);
+}
+}
+
+.title {
+color:white;
+margin-top: 20px;
+font-size:3.5rem;
+}
+
+
+.scoreboard {
+padding: 2rem;
+max-width: 600px;
+margin-top: 30px; /* Dit voegt wat ruimte boven de knop toe */
+animation: scoreboardAppear 0.8s ease-out;
+}
+
+.card {
+  background-color: white;
+  width: 90%;
+  display: flex;
+  align-content: center;
+  margin: 20px;
+  border-radius: 20%;
+  box-shadow: 0 4px 15px #073a8d78;
+}
+
+
+.scoreboard-title {
+color: var(--disney-purple);
+text-align: center;
+font-size: 2.5rem;
+margin-bottom: 2rem;
+text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
+}
+
+.player-score {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+margin: 0.5rem 0;
+background: linear-gradient(to right, rgba(111, 53, 165, 0.1), transparent);
+border-radius: 10px;
+transition: transform 0.3s ease;
+}
+
+
+
+.player-name {
+font-size: 1.3rem;
+color: var(--disney-purple);
+font-weight: bold;
+}
+
+.player-points {
+font-size: 1.5rem;
+color: var(--disney-gold);
+text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.trophy {
+font-size: 2rem;
+margin-right: 1rem;
+}
+
+.first-place {
+background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
+}
+
+.second-place {
+background: linear-gradient(to right, rgba(192, 192, 192, 0.2), transparent);
+}
+
+.third-place {
+background: linear-gradient(to right, rgba(205, 127, 50, 0.2), transparent);
+}
+
+
+
+.scoreboard-buttons {
+display: flex;
+flex-direction: column;
+gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
+}
+
+.button-container {
+display: flex;
+flex-direction: column;
+align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
+gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
+}
+
+.continue-playing-button {
+padding: 1rem;
+width: 100%;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+
+
+}
+.end-session-button {
+padding: 1rem;
+width: 100%;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: #BD353B;
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+
+
+
+
+
+.question-info {
+  display: flex;
+  flex-direction: column;  /* Zet de categorieën onder elkaar */
+  gap: 10px;  /* Zorg voor wat ruimte tussen de categorieën */
+  margin-bottom: 20px;
+
+}
+
+.category {
+  display: block;  /* Zet de categorie-items onder elkaar */
+  background-color: #33333333;  /* Transparante achtergrondkleur */
+  margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
+  padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
+  text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
+  border-radius: 10px;
+
+}
+
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin-left: 5px;  /* Voeg een beetje ruimte toe tussen de label en de waarde */
+}
+
+
+
+
+
+
+.open-answer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.open-answer-input {
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.submit-answer-button {
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.submit-answer-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+
+}
+
+.points .label {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.points .value {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+
+
+
+
+.pass-button-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  opacity: 90%;
+
+}
+
+.pass-button {
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--disney-gold);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.pass-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+  cursor: none;
+
+
+}
+
+
+
+.pass-button:disabled, .pass-button[disabled], .pass-button.disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  border-color: #ccc;
+}
+
+.message-item {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.message-item.read {
+  background-color: #e0e0e0;
+}
+
+.message-item.unread {
+  background-color: #fff;
+}
+
+.message-actions button {
+  margin-left: 10px;
+}
+
+
+
+
+  /* Container voor de vriendenlijst */
+  .friends-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    border-radius: 1rem;
+    box-shadow: var(--magical-shadow);
+    margin: 20px;
+    
+  }
+  
+  /* Vriendenlijst stijlen */
+  .friends-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .friend-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+  
+  .friend-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .friend-info {
+    flex-grow: 1;
+  }
+  
+  .friend-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .friend-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .friend-actions button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 4px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: background-color 0.3s ease;
+  }
+  
+
+  
+  /* Responsieve stijlen */
+  @media (max-width: 600px) {
+    .friends-list-container {
+      padding: 10px;
+    }
+  
+    .friend-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .friend-actions {
+      margin-top: 10px;
+    }
+  
+    .friend-actions button {
+      width: 100%;
+    }
+  }
+  
+

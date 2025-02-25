@@ -46,9 +46,7 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
-      <header className="header">
-        <h1 className="text-xl font-bold">Friends</h1>
-      </header>
+
 
       <div className="friends-list-container">
         <ul className="friends-list">
