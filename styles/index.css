@@ -91,12 +91,13 @@ body h2 {
 /* Stijl voor game-modus kaarten */
 .game-mode-card {
   position: relative;
-  width: 250px; /* Standaard breedte van de kaart */
-  height: 350px; /* Standaard hoogte van de kaart */
+  width: 300px; /* Standaard breedte van de kaart */
+  height: 300px; /* Standaard hoogte van de kaart */
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  margin: 20px;
 }
 
 .game-mode-card:hover {
@@ -473,8 +474,16 @@ a {
 
 
 body {
-min-height: 100vh;
 background-color: #e9edf9;
+height: 100%;
+}
+
+.home-container  {
+  background-color: #e9edf9;
+}
+
+.main-content  {
+  background-color: #e9edf9;
 }
 
 
@@ -655,14 +664,15 @@ transform: scale(1) rotate(0deg);
 padding: 2rem;
 max-width: 600px;
 animation: scoreboardAppear 0.8s ease-out;
+background-color: #e9edf9;
+border: none;
+
 }
 
 .card {
-  background-color: transparent;
   width: 100%;
   text-align: center;
   justify-content: center;  
-  border-color: transparent;
 
 }
 
@@ -775,12 +785,12 @@ transition: transform 0.3s ease;
 /* Animations for leaderboard ranks */
 @keyframes glowing {
   0% { text-shadow: 0 0 5px #ffdf00, 0 0 10px #ffdf00, 0 0 15px #ffdf00; }
-  50% { text-shadow: 0 0 5px #ff9900, 0 0 10px #ff9900, 0 0 15px #ff9900; }
-  100% { text-shadow: 0 0 5px #ffdf00, 0 0 10px #ffdf00, 0 0 15px #ffdf00; }
+  50% { text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff; }
+  100% { text-shadow: 0 0 5px #ffdd0079, 0 0 10px #ffdd0081, 0 0 15px #ffdd0084; }
 }
 
 .first-place {
-  animation: glowing 1.5s ease-in-out infinite; /* Glow effect for first place */
+  animation: glowing 2.5s ease-in-out infinite; /* Glow effect for first place */
 }
 
 
