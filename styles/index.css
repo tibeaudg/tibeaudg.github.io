@@ -153,7 +153,7 @@ body h2 {
 .mode-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: #073a8d;
   margin-top: 1em;
 }
 
@@ -168,9 +168,9 @@ body h2 {
 
 
 .title {
-  font-size: 1.5rem; /* Grotere tekstgrootte voor een opvallende titel */
+  font-size: 3.5rem; /* Grotere tekstgrootte voor een opvallende titel */
   font-weight: bold; /* Maak de tekst vetgedrukt */
-  color: white; /* Donkere kleur voor tekst */
+  color: #073a8d; /* Donkere kleur voor tekst */
   padding-top: 10px;
   text-align: center; /* Centrer de titel horizontaal */
 }
@@ -383,6 +383,7 @@ input:valid ~ label {
   width: 80%;
   text-align: center;
   text-decoration: none; /* Dit voorkomt de onderlijning */
+  margin: 40px;
 
 }
 
@@ -433,7 +434,7 @@ background-color: #e9edf9;
 
 
 .quiz-container {
-max-width: auto;
+max-width: 80%;
 margin: 2rem auto;
 padding: 1rem;
 background: rgba(255, 255, 255, 0.9);
@@ -474,16 +475,17 @@ color: #333;
 text-align: center;
 margin-bottom: 2rem;
 padding: 1rem;
-border: 2px solid var(--disney-purple);
+border: 2px solid #073a8d;
 border-radius: 15px;
-background: white;
+background: #ebf2fc;
 }
 
 .options-container {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 1rem;
-margin: 2rem 0;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .option-button {
@@ -491,7 +493,7 @@ padding: 1rem;
 font-size: 1.2rem;
 border: none;
 border-radius: 10px;
-background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+background: #073a8d;
 color: white;
 cursor: pointer;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -600,11 +602,6 @@ transform: scale(1) rotate(0deg);
 }
 }
 
-.title {
-color:white;
-margin-top: 20px;
-font-size:3.5rem;
-}
 
 
 .scoreboard {
@@ -620,7 +617,7 @@ animation: scoreboardAppear 0.8s ease-out;
   display: flex;
   align-content: center;
   margin: 20px;
-  border-radius: 20%;
+  border-radius: 10%;
   box-shadow: 0 4px 15px #073a8d78;
 }
 
@@ -691,19 +688,8 @@ align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
 gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
 }
 
-.continue-playing-button {
-padding: 1rem;
-width: 100%;
-font-size: 1.2rem;
-border: none;
-border-radius: 10px;
-color: white;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
 
 
-}
 .end-session-button {
 padding: 1rem;
 width: 100%;
@@ -715,6 +701,19 @@ color: white;
 cursor: pointer;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.btn-newgame {
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: #073a8d;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
 
 
 
@@ -733,11 +732,12 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 .category {
   display: block;  /* Zet de categorie-items onder elkaar */
-  background-color: #33333333;  /* Transparante achtergrondkleur */
+  background-color: #073a8d5e;  /* Transparante achtergrondkleur */
   margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
   padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
   text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
   border-radius: 10px;
+  color: white;
 
 }
 

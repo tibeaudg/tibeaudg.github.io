@@ -4,22 +4,19 @@ import Link from "next/link";
 import { useRouter } from 'next/router'; // Gebruik van useRouter
 
 const GameMenu: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
   const [usernameList, setUsernameList] = useState<string[]>([]); // Lijst om de gebruikersnamen op te slaan
   const router = useRouter(); // Hook om de router te gebruiken
 
-  const handleJoinQueue = () => {
-    if (username) {
-      setUsernameList((prevList) => [...prevList, username]); // Voeg de gebruiker toe aan de lijst
-      setUsername(""); // Leeg het invoerveld na toevoeging
-    }
-  };
+  // Hardcoded lijst van gebruikersnamen
+  const hardcodedUsernames = ["Lotte", "Megan", "Florian", "Tibeau"];
 
+  // Voeg hardcoded gebruikersnamen toe aan de lijst
   const handleStartGame = () => {
-    // Zet de lijst met gebruikersnamen in de query string
+    setUsernameList(hardcodedUsernames); // Voeg de hardcoded gebruikers toe
+    // Zet de lijst met gebruikersnamen in de query string en navigeer naar de game pagina
     router.push({
-      pathname: "/game/quiz-master-start", 
-      query: { players: JSON.stringify(usernameList) }
+      pathname: "/game/quiz-master-start",
+      query: { players: JSON.stringify(hardcodedUsernames) }
     });
   };
 
@@ -43,8 +40,6 @@ const GameMenu: React.FC = () => {
         />
       </Head>
 
-
-
       <div>
         <header className="headerqz">
           <Link href="/play" passHref>
@@ -54,35 +49,13 @@ const GameMenu: React.FC = () => {
           </Link>
         </header>
 
-
-
-
-
-
         <h3 className="title">Quiz Master</h3>
 
         <div className="game-menu-container">
           <div className="game-menu-card">
-            <input
-              type="text"
-              id="username"
-              className="form-control"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-            />
-
-            <button
-              className="btn btn-primary"
-              onClick={handleJoinQueue}
-              disabled={!username} 
-            >
-              Add Player
-            </button>
-
             <div className="mt-3">
               <ul>
-                {usernameList.map((user, index) => (
+                {hardcodedUsernames.map((user, index) => (
                   <li key={index} className="user-item">{user}</li>
                 ))}
               </ul>
@@ -90,32 +63,21 @@ const GameMenu: React.FC = () => {
           </div>
         </div>
 
+        <button className="btn" onClick={handleStartGame}>
+          Start Game
+        </button>
 
-
-
-
-        {usernameList.length > 0 && (
-          <button className="btn btn-success mt-3" onClick={handleStartGame}>
-            Start Game
-          </button>
-        )}
-
-
-<div className="game-menu-container">
+        <div className="game-menu-container">
           <div className="how-to-play">
-          <h4>How to Play</h4>
+            <h4>How to Play</h4>
             <p>
               1. Eén speler leest de vragen voor<br />
               2. Iedere speler antwoord om de beurt<br />
-              3. De voorlezer beantwoord de vragen in naam van de spelers<br />
+              3. De voorlezer beantwoordt de vragen in naam van de spelers<br />
             </p>
-
-
-
           </div>
         </div>
       </div>
-
     </>
   );
 };

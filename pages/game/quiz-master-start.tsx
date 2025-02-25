@@ -18,6 +18,14 @@ interface GameState {
   usedPasses: Record<string, boolean>;
 }
 
+// New interface for persistent player data
+interface PlayerData {
+  username: string;
+  totalPoints: number;
+  sessionsPlayed: number;
+  lastPlayed: string;
+}
+
 const GameMenu: React.FC = () => {
   const router = useRouter();
   const [gameState, setGameState] = useState<GameState>({
@@ -33,6 +41,9 @@ const GameMenu: React.FC = () => {
     scores: {},
     usedPasses: {}
   });
+  
+  // Track if scores have been saved already
+  const [scoresSaved, setScoresSaved] = useState(false);
 
   const getDifficultyPoints = (difficulty: 'easy' | 'medium' | 'difficult' | 'hard'): number => {
     const difficultyMap = {
@@ -43,6 +54,9 @@ const GameMenu: React.FC = () => {
     };
     return difficultyMap[difficulty] || 1;
   };
+
+  const [isScoreboardVisible, setIsScoreboardVisible] = useState(false);
+
 
   const initializeGameState = (playerList: string[]) => {
     const initialState = {
@@ -60,6 +74,65 @@ const GameMenu: React.FC = () => {
       initializeGameState(playerList);
     }
   }, [router.query.players]);
+
+  // Function to save scores to localStorage when session ends
+  const saveScoresToStorage = () => {
+    if (scoresSaved) return; // Prevent duplicate saves
+    
+    try {
+      // Get current date in YYYY-MM-DD format
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Get existing player data from localStorage
+      const existingDataStr = localStorage.getItem('playerRankings');
+      let playerRankings: PlayerData[] = existingDataStr ? JSON.parse(existingDataStr) : [];
+      
+      // Update player data with current session scores
+      gameState.players.forEach(playerName => {
+        const sessionScore = gameState.scores[playerName] || 0;
+        
+        // Find existing player data or create new entry
+        const existingPlayerIndex = playerRankings.findIndex(p => p.username === playerName);
+        
+        if (existingPlayerIndex >= 0) {
+          // Update existing player
+          playerRankings[existingPlayerIndex].totalPoints += sessionScore;
+        } else {
+          // Add new player
+          playerRankings.push({
+            username: playerName,
+            totalPoints: sessionScore,
+            sessionsPlayed: 1,
+            lastPlayed: today
+          });
+        }
+      });
+      
+      // Save updated data back to localStorage
+      localStorage.setItem('playerRankings', JSON.stringify(playerRankings));
+      setScoresSaved(true);
+      
+      // Show notification of successful save
+      Swal.fire({
+        icon: 'success',
+        title: 'Session Scores Saved',
+        text: 'Your scores have been added to the global leaderboard!',
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    } catch (error) {
+      console.error('Error saving scores:', error);
+      
+      // Show error notification
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Saving Scores',
+        text: 'There was a problem saving your scores to the leaderboard.',
+        showConfirmButton: true
+      });
+    }
+  };
 
   const showAnswerPopup = (status: string, correctAnswer: string) => {
     // Determine the icon and color based on status
@@ -171,6 +244,9 @@ const GameMenu: React.FC = () => {
   };
 
   const startNewRound = () => {
+    // Reset scores saved flag when starting a new round
+    setScoresSaved(false);
+    
     setGameState(prev => ({
       ...prev,
       currentPlayerIndex: 0,
@@ -184,6 +260,29 @@ const GameMenu: React.FC = () => {
       scores: Object.fromEntries(prev.players.map(player => [player, 0])),
       usedPasses: Object.fromEntries(prev.players.map(player => [player, false]))
     }));
+  };
+
+  const handleEndSession = () => {
+    setGameState(prev => ({ 
+      ...prev, 
+      isSessionEnded: true, 
+      isRoundOver: true 
+    }));
+
+
+    setIsScoreboardVisible(true);  // Maak het scoreboard zichtbaar
+
+    
+    // Save scores when session ends
+    saveScoresToStorage();
+  };
+
+  const handleQuit = () => {
+    // Make sure scores are saved before quitting
+    if (!scoresSaved) {
+      saveScoresToStorage();
+    }
+    router.push("/");
   };
 
   const renderQuestion = () => {
@@ -256,6 +355,9 @@ const GameMenu: React.FC = () => {
 
   const renderScoreboard = () => {
     const sortedPlayers = [...gameState.players].sort((a, b) => gameState.scores[b] - gameState.scores[a]);
+
+
+    
     return (
       <div className="scoreboard">
         {sortedPlayers.map((player, index) => (
@@ -292,11 +394,7 @@ const GameMenu: React.FC = () => {
       </Head>
 
       <div>
-        <header className="headerqz">
-          <div className="quiz-master-title-container">
-            <h3 className="quiz-master-title">Quiz Master</h3>
-          </div>
-        </header>
+
 
         <div className="quiz-container">
           {!gameState.isRoundOver ? (
@@ -309,23 +407,29 @@ const GameMenu: React.FC = () => {
             </>
           ) : (
             <div className="game-over" />
+            
           )}
 
-          {renderScoreboard()}
+          {isScoreboardVisible && renderScoreboard()}
+
 
           {!gameState.isSessionEnded ? (
             <div className="scoreboard-buttons">
-              <button className="end-session-button" onClick={() => setGameState(prev => ({ ...prev, isSessionEnded: true, isRoundOver: true }))}>
-                End Session
+              <button className="end-session-button" onClick={handleEndSession}>
+                Scoreboard
               </button>
             </div>
+
+
+
           ) : (
+            
             <div className="scoreboard-buttons">
-              <button className="continue-playing-button" onClick={startNewRound}>
+              <button className="btn-newgame" onClick={startNewRound}>
                 New Game
               </button>
               <div className="go-to-quizmaster-container">
-                <button className="end-session-button" onClick={() => router.push("quiz-master")}>
+                <button className="end-session-button" onClick={handleQuit}>
                   Quit
                 </button>
               </div>

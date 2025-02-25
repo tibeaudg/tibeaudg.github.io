@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 
-
 interface PlayerRanking {
   username: string;
   totalPoints: number;
@@ -18,57 +17,78 @@ const HomePage: React.FC = () => {
   const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);
 
   useEffect(() => {
-    // Fetch accumulated player rankings from all sessions
-    const fetchPlayerRankings = async () => {
-      // This would be replaced with an actual API call to your backend
-      // Mock data for demonstration
-      const mockRankings: PlayerRanking[] = [
-        { username: "Mickey", totalPoints: 325},
-        { username: "Donald", totalPoints: 280},
-        { username: "Goofy", totalPoints: 210},
-        { username: "Minnie", totalPoints: 190},
-        { username: "Daisy", totalPoints: 175},
-      ];
-      
-      // Sort by total points in descending order
-      mockRankings.sort((a, b) => b.totalPoints - a.totalPoints);
-      setPlayerRankings(mockRankings);
+
+
+    // Load player rankings from localStorage
+    const loadPlayerRankings = () => {
+      try {
+        const rankingsData = localStorage.getItem('playerRankings');
+        if (rankingsData) {
+          // Parse stored data
+          const rankings: PlayerRanking[] = JSON.parse(rankingsData);
+          
+          // Sort by total points in descending order
+          rankings.sort((a, b) => b.totalPoints - a.totalPoints);
+          
+          setPlayerRankings(rankings);
+        }
+      } catch (error) {
+        console.error('Error loading player rankings:', error);
+        // Set empty array if there's an error
+        setPlayerRankings([]);
+      }
     };
 
-    fetchPlayerRankings();
-  }, []);
+    loadPlayerRankings();
+    
+    // Add event listener to refresh rankings when returning to this page
+    window.addEventListener('focus', loadPlayerRankings);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('focus', loadPlayerRankings);
+    };
+  }, []); 
 
 
   const renderRankingBoard = () => {
     return (
     <div className="card">
       <div className="scoreboard">
-        <h2 className="scoreboard-title">Leaderboard</h2>
-        
-        <div className="rankings-container">
-          {playerRankings.map((player, index) => (
-            <motion.div
-              key={player.username}
-              className={`player-score ${
-                index === 0 ? "first-place" : index === 1 ? "second-place" : index === 2 ? "third-place" : ""
-              }`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <div className="rank-position">
-                {index === 0 && "🏆"}
-                {index === 1 && "🥈"}
-                {index === 2 && "🥉"}
-                {index > 2 && `#${index + 1}`}
-              </div>
-              <div className="player-info">
-                <span className="player-name">{player.username}</span>
-              </div>
-              <div className="total-points">{player.totalPoints} points</div>
-            </motion.div>
-          ))}
-        </div>
+  
+        {playerRankings.length > 0 ? (
+          <div className="rankings-container">
+            {playerRankings.map((player, index) => (
+              <motion.div
+                key={player.username}
+                className={`player-ranking ${
+                  index === 0 ? "first-place" : index === 1 ? "second-place" : index === 2 ? "third-place" : ""
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="rank-position">
+                  {index === 0 && "🏆"}
+                  {index === 1 && "🥈"}
+                  {index === 2 && "🥉"}
+                  {index > 2 && `#${index + 1}`}
+                </div>
+                <div className="player-info">
+                  <span className="player-name">{player.username}</span>
+                </div>
+                <div className="total-points">{player.totalPoints} point(s)</div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-rankings">
+            <p>No quiz sessions completed yet. Play a game to appear on the leaderboard!</p>
+            <Link href="/play" className="start-game-button">
+              <i className="bi bi-controller"></i> Start Playing
+            </Link>
+          </div>
+        )}
       </div>
     </div>
     );
@@ -97,11 +117,10 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
+      <div className="home-container">
         <main className="main-content">
           {renderRankingBoard()}
-    
         </main>
-
 
 
 
@@ -129,6 +148,7 @@ const HomePage: React.FC = () => {
             <span className="d-block small">Inbox</span>
           </Link>
         </nav>
+      </div>
     </>
   );
 };
