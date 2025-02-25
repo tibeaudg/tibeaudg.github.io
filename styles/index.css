@@ -755,7 +755,6 @@ transition: transform 0.3s ease;
 /* Second place - Disney silver gradient */
 .second-place {
   border-radius: 8px;
-  color: black;
   padding: 0.5rem 1rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -816,7 +815,6 @@ transition: transform 0.3s ease;
 .total-points {
   flex: 1;
   text-align: center;
-  color: var(--disney-gold);
 }
 
 .rank-position {
