@@ -77,7 +77,7 @@ const HomePage: React.FC = () => {
                 <div className="player-info">
                   <span className="player-name">{player.username}</span>
                 </div>
-                <div className="total-points">{player.totalPoints} point(s)</div>
+                <div className="total-points">{player.totalPoints}</div>
               </motion.div>
             ))}
           </div>
