@@ -75,7 +75,21 @@ body h2 {
 }
 
 .nav-link.active {
-  color: var(--disney-gold) !important;
+  color: white !important;
+  position: relative; /* Ensure the pseudo-element is positioned relative to the nav-link */
+}
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75px; /* Adjust the size of the circle as needed */
+  height: 75px; /* Adjust the size of the circle as needed */
+  background-color: #073a8d; /* Use the same color as the text */
+  border-radius: 50%; /* Make it a circle */
+  z-index: -1; /* Ensure the circle is behind the text */
 }
 
 
@@ -86,6 +100,8 @@ body h2 {
   gap: 20px; /* Ruimte tussen de kaarten */
   justify-content: center;
   padding: 20px;
+  animation: magicAppear 0.5s ease-out;
+
 }
 
 /* Stijl voor game-modus kaarten */
@@ -702,7 +718,6 @@ transition: transform 0.3s ease;
 /* Player name style */
 .player-name {
   font-size: 1.4rem;
-  color: black;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -766,7 +781,6 @@ transition: transform 0.3s ease;
   background-color: white;
   margin-top: 10px;
   border-radius: 10px;
-  color: #073a8d;
   padding: 0.5rem 1.5rem;
   font-weight: bold;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -775,12 +789,55 @@ transition: transform 0.3s ease;
   align-items: center;
 }
 
+.rankings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-ranking {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rank-position, .player-info {
+  flex: 1;
+  text-align: center;
+}
+
+
+.total-points {
+  flex: 1;
+  text-align: center;
+  color: var(--disney-gold);
+}
+
+.rank-position {
+  font-size: 1.2rem;
+}
+
+.player-info {
+  font-size: 1rem;
+}
+
+.total-points {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
 .total-points {
   align-items: flex-end;
   display: flex;
   font-size: xxx-large;
-  margin-left: 15px;
-  color: var(--disney-gold); /* Change text color to Disney gold */
+  margin-left: 30px;
 }
 
 /* Animations for leaderboard ranks */
@@ -792,6 +849,8 @@ transition: transform 0.3s ease;
 
 .first-place {
   animation: glowing 2.5s ease-in-out infinite; /* Glow effect for first place */
+  background-color: var(--disney-gold);
+  color: white;
 }
 
 
