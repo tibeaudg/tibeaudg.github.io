@@ -687,6 +687,7 @@ text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
 
 .player-score {
 display: flex;
+background-color: white;
 justify-content: space-between;
 align-items: center;
 padding: 1rem;
@@ -802,6 +803,7 @@ transition: transform 0.3s ease;
 display: flex;
 flex-direction: column;
 gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
+margin-top: 20px;
 }
 
 .button-container {

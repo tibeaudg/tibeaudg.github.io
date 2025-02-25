@@ -41,14 +41,6 @@ const GameMenu: React.FC = () => {
       </Head>
 
       <div>
-        <header className="headerqz">
-          <Link href="/play" passHref>
-            <div className="logout">
-              <i className="bi bi-arrow-left-circle-fill"></i>
-            </div>
-          </Link>
-        </header>
-
         <h3 className="title">Quiz Master</h3>
 
         <div className="game-menu-container">

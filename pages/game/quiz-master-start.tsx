@@ -112,15 +112,6 @@ const GameMenu: React.FC = () => {
       localStorage.setItem('playerRankings', JSON.stringify(playerRankings));
       setScoresSaved(true);
       
-      // Show notification of successful save
-      Swal.fire({
-        icon: 'success',
-        title: 'Session Scores Saved',
-        text: 'Your scores have been added to the global leaderboard!',
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false
-      });
     } catch (error) {
       console.error('Error saving scores:', error);
       
@@ -373,7 +364,7 @@ const GameMenu: React.FC = () => {
               {index === 2 && "🥉 "}
               {player}
             </span>
-            <span className="player-points">{gameState.scores[player]} points</span>
+            <span className="player-points">{gameState.scores[player]}</span>
           </div>
         ))}
       </div>
