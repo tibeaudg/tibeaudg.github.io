@@ -1,245 +1,245 @@
 @charset "UTF-8";
 
 :root {
-  --disney-blue: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+--disney-blue: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 
-  --disney-gold: #ffd700;
-  --disney-silver: #e6e6fa;
-  --disney-dark: #1f2937;
-  --disney-gradient: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+--disney-gold: #ffd700;
+--disney-silver: #e6e6fa;
+--disney-dark: #1f2937;
+--disney-gradient: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 
-  --magical-shadow: 0 2px 10px rgba(0, 102, 204, 0.3);
+--magical-shadow: 0 2px 10px rgba(0, 102, 204, 0.3);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 
 
 body h2 {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: var(--disney-dark);
-  
-    /* Flexbox instellingen om de tekst te centreren */
-    display: flex; 
-    justify-content: center; /* Horizontaal centreren */
-    align-items: center; /* Verticaal centreren */
-    text-align: center; /* Zorg ervoor dat de tekst ook horizontaal gecentreerd is */
-  }
-  
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+color: var(--disney-dark);
+
+/* Flexbox instellingen om de tekst te centreren */
+display: flex; 
+justify-content: center; /* Horizontaal centreren */
+align-items: center; /* Verticaal centreren */
+text-align: center; /* Zorg ervoor dat de tekst ook horizontaal gecentreerd is */
+}
+
 
 
 
 /* Navbar stijlen */
 .navbar {
-  background: white;
-  position: fixed !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  padding: 0.75rem 0 !important;
-  border-color: #073a8d39;
-  display: flex !important;
-  justify-content: space-around !important;
-  align-items: center !important;
-  z-index: 1000 !important;
-  left: 0 !important;
+background: white;
+position: fixed !important;
+bottom: 0 !important;
+width: 100% !important;
+padding: 0.75rem 0 !important;
+border-color: #073a8d39;
+display: flex !important;
+justify-content: space-around !important;
+align-items: center !important;
+z-index: 1000 !important;
+left: 0 !important;
 
-  
+
 }
 
 
 .header {
-  padding: 1.5rem;
-  border-bottom: solid 1px;
-  border-color: #073a8d39;
-  background-color: white;
+padding: 1.5rem;
+border-bottom: solid 1px;
+border-color: #073a8d39;
+background-color: white;
 }
 
 .nav-link {
-  color: #073a8d !important;
-  transition: transform 0.3s ease;
-  text-align: center; /* Tekst onder de iconen centreren */
-  display: flex; /* Flexbox toegevoegd voor nav-link */
-  flex-direction: column; /* Zet de icoon boven de tekst */
-  align-items: center; /* Zorg dat de inhoud van de nav-link gecentreerd is */
-  font-size: 1rem;
-  font-weight: bold;
+color: #073a8d !important;
+transition: transform 0.3s ease;
+text-align: center; /* Tekst onder de iconen centreren */
+display: flex; /* Flexbox toegevoegd voor nav-link */
+flex-direction: column; /* Zet de icoon boven de tekst */
+align-items: center; /* Zorg dat de inhoud van de nav-link gecentreerd is */
+font-size: 1rem;
+font-weight: bold;
 }
 
 
 
 .nav-link i {
-  font-size: 1.5rem;
+font-size: 1.5rem;
 }
 
 .nav-link.active {
-  color: white !important;
-  position: relative; /* Ensure the pseudo-element is positioned relative to the nav-link */
+color: white !important;
+position: relative; /* Ensure the pseudo-element is positioned relative to the nav-link */
 }
 
 .nav-link.active::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75px; /* Adjust the size of the circle as needed */
-  height: 75px; /* Adjust the size of the circle as needed */
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  border-radius: 50%; /* Make it a circle */
-  z-index: -1; /* Ensure the circle is behind the text */
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 75px; /* Adjust the size of the circle as needed */
+height: 75px; /* Adjust the size of the circle as needed */
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+border-radius: 50%; /* Make it a circle */
+z-index: -1; /* Ensure the circle is behind the text */
 }
 
 
 /* Algemene container voor de game-modus */
 .game-mode-container {
-  display: flex;
-  flex-wrap: wrap; /* Zorgt ervoor dat de kaarten op kleinere schermen goed schalen */
-  gap: 20px; /* Ruimte tussen de kaarten */
-  justify-content: center;
-  padding: 20px;
-  animation: magicAppear 0.5s ease-out;
+display: flex;
+flex-wrap: wrap; /* Zorgt ervoor dat de kaarten op kleinere schermen goed schalen */
+gap: 20px; /* Ruimte tussen de kaarten */
+justify-content: center;
+padding: 20px;
+animation: magicAppear 0.5s ease-out;
 
 }
 
 /* Stijl voor game-modus kaarten */
 .game-mode-card {
-  position: relative;
-  width: 300px; /* Standaard breedte van de kaart */
-  height: 300px; /* Standaard hoogte van de kaart */
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-  margin: 20px;
+position: relative;
+width: 300px; /* Standaard breedte van de kaart */
+height: 300px; /* Standaard hoogte van de kaart */
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+margin: 20px;
 }
 
 .game-mode-card:hover {
-  transform: scale(1.05); /* Schaal de kaart wanneer de gebruiker eroverheen zweeft */
+transform: scale(1.05); /* Schaal de kaart wanneer de gebruiker eroverheen zweeft */
 }
 
 /* Dynamische stijlen voor Coming Soon modus */
 .game-mode-card.coming-soon::before {
-  content: "Coming Soon";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  z-index: 2;
-  pointer-events: none; /* voorkomt dat het aanklikbaar is */
+content: "Coming Soon";
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgba(0, 0, 0, 0.7);
+color: white;
+padding: 10px 20px;
+border-radius: 10px;
+font-size: 1.2rem;
+z-index: 2;
+pointer-events: none; /* voorkomt dat het aanklikbaar is */
 }
 
 /* Grijsfilter voor niet-beschikbare modi */
 .game-mode-card.coming-soon {
-  filter: grayscale(80%);
-  pointer-events: none; /* voorkomt klikken */
+filter: grayscale(80%);
+pointer-events: none; /* voorkomt klikken */
 }
 
 /* Algemene link voor navigatie naar game-modus */
 .game-mode-link {
-  text-decoration: none;
-  display: block;
-  height: 100%;
+text-decoration: none;
+display: block;
+height: 100%;
 }
 
 /* Algemene content van de game-mode card */
 .game-mode-card-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  height: 100%;
-  background-color: #fff; /* Basisachtergrondkleur */
-  border-radius: 10px;
-  color: #fff;
-  text-align: center;
-  position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+height: 100%;
+background-color: #fff; /* Basisachtergrondkleur */
+border-radius: 10px;
+color: #fff;
+text-align: center;
+position: relative;
 }
 
 /* Specifieke stijlen voor Quiz Master Mode */
 .game-mode-card-content.quiz-master {
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Specifieke stijlen voor Live Mode */
 .game-mode-card-content.live-mode {
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Flexibele stijl voor tekst binnen de kaarten */
 .game-mode-card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+font-size: 1.5rem;
+font-weight: bold;
+margin-bottom: 10px;
 }
 
 .game-mode-card-description {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 20px;
+font-size: 1rem;
+color: rgba(255, 255, 255, 0.8);
+margin-bottom: 20px;
 }
 
 .game-mode-card-button {
-  background-color: #ffffff;
-  color: #333;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+background-color: #ffffff;
+color: #333;
+padding: 10px 20px;
+border-radius: 5px;
+text-decoration: none;
+font-weight: bold;
+transition: background-color 0.3s ease;
 }
 
 .game-mode-card-button:hover {
-  background-color: #f4f4f4;
+background-color: #f4f4f4;
 }
 
 
 /* Icon stijl */
 .icon {
-  font-size: 40px;
-  color: white;
-  font-family: ionicons;
-  font-weight: normal;
+font-size: 40px;
+color: white;
+font-family: ionicons;
+font-weight: normal;
 }
 
 /* Titel van de modus */
 .mode-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-  margin-top: 1em;
+font-size: 1.5rem;
+font-weight: bold;
+color: white;
+margin-top: 1em;
 }
 
 /* Beschrijving van de modus */
 .mode-description {
-  font-size: 1rem;
-  color: white;
-  margin-top: 0.5em;
-  text-align: center;
-  opacity: 0.8;
+font-size: 1rem;
+color: white;
+margin-top: 0.5em;
+text-align: center;
+opacity: 0.8;
 }
 
 
 .title {
-  font-size: 3.5rem; /* Grotere tekstgrootte voor een opvallende titel */
-  font-weight: bold; /* Maak de tekst vetgedrukt */
-  color: #073a8d; /* Donkere kleur voor tekst */
-  padding-top: 10px;
-  text-align: center; /* Centrer de titel horizontaal */
+font-size: 3.5rem; /* Grotere tekstgrootte voor een opvallende titel */
+font-weight: bold; /* Maak de tekst vetgedrukt */
+color: #073a8d; /* Donkere kleur voor tekst */
+padding-top: 10px;
+text-align: center; /* Centrer de titel horizontaal */
 }
 
 
@@ -250,36 +250,36 @@ body h2 {
 
 
 .inputbox {
-  position: relative;
-  margin: 30px 0;
-  max-width: 310px;
-  border: 2px solid #073a8d;
+position: relative;
+margin: 30px 0;
+max-width: 310px;
+border: 2px solid #073a8d;
 }
 
 .inputbox label {
-  position:relative;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  color: #073a8d;
-  font-size: 1rem;
-  pointer-events: none;
-  transition: all 0.5s ease-in-out;
+position:relative;
+top: 50%;
+left: 5px;
+transform: translateY(-50%);
+color: #073a8d;
+font-size: 1rem;
+pointer-events: none;
+transition: all 0.5s ease-in-out;
 }
 
 input:focus ~ label,
 input:valid ~ label {
-  top: 5px;
+top: 5px;
 }
 
 
 
 
 .loginTitle {
-  font-size: 35px;
-  color: #073a8d;
-  margin-bottom: 40px;
-  text-shadow: 2px 2px 5px white;
+font-size: 35px;
+color: #073a8d;
+margin-bottom: 40px;
+text-shadow: 2px 2px 5px white;
 
 }
 
@@ -288,201 +288,200 @@ input:valid ~ label {
 
 
 .game-menu-container {
-  background-color: white;
-  border-radius: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px; /* Controleer of er geen conflict is met andere marges */
-  margin-left: 30px;
-  margin-right: 30px;
+background-color: white;
+border-radius: 10%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px; /* Controleer of er geen conflict is met andere marges */
+margin-left: 30px;
+margin-right: 30px;
 
 }
 
-  
-  .game-menu-card {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .game-menu-card input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
 
-  }
-  
+.game-menu-card {
+padding: 20px;
+border-radius: 10px;
+background-color: #f8f9fa;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 400px;
+text-align: center;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
 
-  .game-menu-card ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    max-height: 200px;
-    overflow-y: auto; /* Scroll als de lijst te groot is */
+.game-menu-card input {
+width: 100%;
+padding: 10px;
+margin-bottom: 15px;
+border-radius: 5px;
+border: 1px solid #ccc;
 
-  }
-
-  .game-menu-card .user-item {
-    padding: 10px;
-    background-color: #dcdcdcc0; /* Lichtgrijze achtergrond voor de cel */
-    border-radius: 5px; /* Optioneel: afgeronde hoeken voor een celvorm */
-    margin-bottom: 10px; /* Ruimte tussen de cellen */
-    font-size: 16px;
-    color: #000000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .game-menu-card .user-item:last-child {
-    margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
-  }
+}
 
 
+.game-menu-card ul {
+list-style-type: none;
+padding: 0;
+margin: 0;
+max-height: 200px;
+overflow-y: auto; /* Scroll als de lijst te groot is */
 
-  .how-to-play{
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: left;
-    align-items: left;
-    justify-content: center;
-    flex-direction: column;
-  }
+}
 
-  
-  .how-to-play h4{
-    text-align: center;
-    font-weight: bolder;
-  }
+.game-menu-card .user-item {
+padding: 10px;
+background-color: #dcdcdcc0; /* Lichtgrijze achtergrond voor de cel */
+border-radius: 5px; /* Optioneel: afgeronde hoeken voor een celvorm */
+margin-bottom: 10px; /* Ruimte tussen de cellen */
+font-size: 16px;
+color: #000000;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-
-  
-  .game-menu-card button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .game-start-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-  }
-  
+.game-menu-card .user-item:last-child {
+margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
+}
 
 
-  /* Stijl voor de titel "Quiz Master" */
+
+.how-to-play{
+padding: 20px;
+border-radius: 10px;
+background-color: #ffffff;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 400px;
+text-align: left;
+align-items: left;
+justify-content: center;
+flex-direction: column;
+}
+
+
+.how-to-play h4{
+text-align: center;
+font-weight: bolder;
+}
+
+
+
+.game-menu-card button {
+width: 100%;
+padding: 10px;
+border-radius: 5px;
+}
+
+.game-start-container {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+}
+
+
+
+/* Stijl voor de titel "Quiz Master" */
 .quiz-master-title-container {
-  display: flex; /* Maak de container een flexbox */
-  justify-content: center; /* Horizontaal centreren van de inhoud */
-  align-items: center; /* Verticaal centreren van de inhoud */
-  height: 100%; /* Zorg ervoor dat de container de volledige hoogte van de parent beslaat */
+display: flex; /* Maak de container een flexbox */
+justify-content: center; /* Horizontaal centreren van de inhoud */
+align-items: center; /* Verticaal centreren van de inhoud */
+height: 100%; /* Zorg ervoor dat de container de volledige hoogte van de parent beslaat */
 }
 
 .quiz-master-title {
-  font-size: 1rem; /* Grotere tekstgrootte voor een opvallende titel */
-  font-weight: bold; /* Maak de tekst vetgedrukt */
-  color: white; /* Donkere kleur voor tekst */
-  text-align: center; /* Centrer de titel horizontaal */
+font-size: 1rem; /* Grotere tekstgrootte voor een opvallende titel */
+font-weight: bold; /* Maak de tekst vetgedrukt */
+color: white; /* Donkere kleur voor tekst */
+text-align: center; /* Centrer de titel horizontaal */
 }
 
 
 
 /* Correcte achtergrondkleur met lineaire gradient */
 .btn {
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  padding: 10px 20px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
-  border: none;
-  width: 80%;
-  text-align: center;
-  text-decoration: none; /* Dit voorkomt de onderlijning */
-  margin: 40px;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+padding: 10px 20px;
+border-radius: 8px;
+color: white;
+font-weight: bold;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+border: none;
+width: 80%;
+text-align: center;
+text-decoration: none; /* Dit voorkomt de onderlijning */
+margin: 40px;
 
 }
 
 
 .btn-success {
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  width: 67%; /* Stel de breedte in op 67% */
-  padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
-  border-radius: 8px; /* Voeg afgeronde hoeken toe */
-  color: white; /* Zorg dat de tekstkleur wit is */
-  font-weight: bold; /* Maak de tekst vetgedrukt */
-  display: flex;
-  justify-content: center; /* Horizontaal centreren van de inhoud */
-  align-items: center; /* Verticaal centreren van de inhoud */
-  border: none; /* Verwijder standaard knopranden */
-  margin-left: auto; /* Gebruik auto voor de linker marge */
-  margin-right: auto; /* Centrer de knop horizontaal */
-  margin-top: 1rem; /* Voeg bovenmarge toe als nodig */
-  text-decoration: none; /* Dit voorkomt de onderlijning */
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+width: 67%; /* Stel de breedte in op 67% */
+padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
+border-radius: 8px; /* Voeg afgeronde hoeken toe */
+color: white; /* Zorg dat de tekstkleur wit is */
+font-weight: bold; /* Maak de tekst vetgedrukt */
+display: flex;
+justify-content: center; /* Horizontaal centreren van de inhoud */
+align-items: center; /* Verticaal centreren van de inhoud */
+border: none; /* Verwijder standaard knopranden */
+margin-left: auto; /* Gebruik auto voor de linker marge */
+margin-right: auto; /* Centrer de knop horizontaal */
+margin-top: 1rem; /* Voeg bovenmarge toe als nodig */
+text-decoration: none; /* Dit voorkomt de onderlijning */
 
 }
 
-
-
 a {
-  text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
+text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
 }
 
 
 .mt-3 {
-  margin-top: 1rem;
-  text-decoration: none; /* Dit voorkomt de onderlijning */
+margin-top: 1rem;
+text-decoration: none; /* Dit voorkomt de onderlijning */
 }
 
 .mt-3 a {
-  text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
+text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
 }
 
 
 
 
 body {
-background-color: #e9edf9;
+background-color: #e9edf9 !important;
 height: 100%;
 }
 
 .home-container  {
-  background-color: #e9edf9;
+background-color: #e9edf9;
 }
 
 .main-content  {
-  background-color: #e9edf9;
+background-color: #e9edf9;
 }
 
 
 
 .login-container {
-  max-width: 80%;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
-  }
+max-width: 80%;
+margin: 2rem auto;
+padding: 1rem;
+background: rgba(255, 255, 255, 0.9);
+border-radius: 20px;
+box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
+
+}
 
 
 
@@ -534,11 +533,11 @@ background: #ebf2fc;
 }
 
 .options-container {
-  background-color: white;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
+background-color: white;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 2rem 0;
 }
 
 .option-button {
@@ -667,9 +666,9 @@ border: none;
 }
 
 .card {
-  width: 100%;
-  text-align: center;
-  justify-content: center;  
+width: 100%;
+text-align: center;
+justify-content: center;  
 
 }
 
@@ -698,138 +697,138 @@ transition: transform 0.3s ease;
 
 /* Player name style */
 .player-name {
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: 'Waltograph', sans-serif; /* Disney-geïnspireerd lettertype */
+font-size: 1.4rem;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+font-family: 'Waltograph', sans-serif; /* Disney-geïnspireerd lettertype */
 }
 
 /* Player points style */
 .player-points {
-  font-size: 1.6rem;
-  color: #ffd700; /* Disney-goudkleur */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Zachte schaduw voor diepte */
-  font-family: 'Waltograph', sans-serif;
+font-size: 1.6rem;
+color: #ffd700; /* Disney-goudkleur */
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Zachte schaduw voor diepte */
+font-family: 'Waltograph', sans-serif;
 }
 
 /* Trophy icon style */
 .trophy {
-  font-size: 2.2rem;
-  margin-right: 1rem;
-  color: #ffd700; /* Disney-goudkleur voor de trofee */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+font-size: 2.2rem;
+margin-right: 1rem;
+color: #ffd700; /* Disney-goudkleur voor de trofee */
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* First place - Disney-inspired gold gradient */
 .first-place {
-  border-radius: 8px;
-  color: white;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Lichte schaduw voor extra diepte */
-  font-family: 'Waltograph', sans-serif;
-  display: flex;
+border-radius: 8px;
+color: white;
+padding: 0.5rem 1rem;
+font-weight: bold;
+text-transform: uppercase;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Lichte schaduw voor extra diepte */
+font-family: 'Waltograph', sans-serif;
+display: flex;
 }
 
 /* Second place - Disney silver gradient */
 .second-place {
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Waltograph', sans-serif;
-  display: flex;
+border-radius: 8px;
+padding: 0.5rem 1rem;
+font-weight: bold;
+text-transform: uppercase;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+font-family: 'Waltograph', sans-serif;
+display: flex;
 }
 
 /* Third place - Disney bronze gradient */
 .third-place {
-  border-radius: 8px;
-  color: black;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Waltograph', sans-serif;
-  display: flex;
+border-radius: 8px;
+color: black;
+padding: 0.5rem 1rem;
+font-weight: bold;
+text-transform: uppercase;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+font-family: 'Waltograph', sans-serif;
+display: flex;
 }
 
 /* Fourth place (no gradient, but subtle Disney style) */
 .player-ranking  {
-  background-color: white;
-  margin-top: 10px;
-  border-radius: 10px;
-  padding: 0.5rem 1.5rem;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-family: 'Waltograph', sans-serif;
-  display: flex;
-  align-items: center;
+background-color: white;
+margin-top: 10px;
+border-radius: 10px;
+padding: 0.5rem 1.5rem;
+font-weight: bold;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+font-family: 'Waltograph', sans-serif;
+display: flex;
+align-items: center;
 }
 
 .rankings-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
 .player-ranking {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+padding: 10px;
+margin: 5px 0;
+background-color: #f8f9fa;
+border-radius: 5px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .rank-position, .player-info {
-  flex: 1;
-  text-align: center;
+flex: 1;
+text-align: center;
 }
 
 
 .total-points {
-  flex: 1;
-  text-align: center;
+flex: 1;
+text-align: center;
 }
 
 .rank-position {
-  font-size: 1.2rem;
+font-size: 1.2rem;
 }
 
 .player-info {
-  font-size: 1rem;
+font-size: 1rem;
 }
 
 .total-points {
-  font-size: 1.2rem;
-  font-weight: bold;
+font-size: 1.2rem;
+font-weight: bold;
 }
 
 
 .total-points {
-  align-items: flex-end;
-  display: flex;
-  font-size: xxx-large;
-  margin-left: 30px;
+align-items: flex-end;
+display: flex;
+font-size: xxx-large;
+margin-left: 30px;
 }
 
 /* Animations for leaderboard ranks */
 @keyframes glowing {
-  0% { text-shadow: 0 0 5px #ffdf00, 0 0 10px #ffdf00, 0 0 15px #ffdf00; }
-  50% { text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff; }
-  100% { text-shadow: 0 0 5px #ffdd0079, 0 0 10px #ffdd0081, 0 0 15px #ffdd0084; }
+0% { text-shadow: 0 0 5px #ffdf00, 0 0 10px #ffdf00, 0 0 15px #ffdf00; }
+50% { text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff; }
+100% { text-shadow: 0 0 5px #ffdd0079, 0 0 10px #ffdd0081, 0 0 15px #ffdd0084; }
 }
 
 .first-place {
-  animation: glowing 2.5s ease-in-out infinite; /* Glow effect for first place */
-  background-color: var(--disney-gold);
-  color: white;
+animation: glowing 2.5s ease-in-out infinite; /* Glow effect for first place */
+background-color: var(--disney-gold);
+color: white;
 }
 
 
@@ -866,17 +865,17 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-newgame {
-  padding: 1rem;
-  width: 100%;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
+padding: 1rem;
+width: 100%;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 
 
 
@@ -886,31 +885,31 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
 .question-info {
-  display: flex;
-  flex-direction: column;  /* Zet de categorieën onder elkaar */
-  gap: 10px;  /* Zorg voor wat ruimte tussen de categorieën */
-  margin-bottom: 20px;
+display: flex;
+flex-direction: column;  /* Zet de categorieën onder elkaar */
+gap: 10px;  /* Zorg voor wat ruimte tussen de categorieën */
+margin-bottom: 20px;
 
 }
 
 .category {
-  display: block;  /* Zet de categorie-items onder elkaar */
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
-  padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
-  text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
-  border-radius: 10px;
-  color: white;
+display: block;  /* Zet de categorie-items onder elkaar */
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
+padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
+text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
+border-radius: 10px;
+color: white;
 
 }
 
 
 .label {
-  font-weight: bold;
+font-weight: bold;
 }
 
 .value {
-  margin-left: 5px;  /* Voeg een beetje ruimte toe tussen de label en de waarde */
+margin-left: 5px;  /* Voeg een beetje ruimte toe tussen de label en de waarde */
 }
 
 
@@ -919,36 +918,36 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
 .open-answer-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+width: 100%;
+max-width: 400px;
+margin: 0 auto;
 }
 
 .open-answer-input {
-  padding: 0.8rem;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
+padding: 0.8rem;
+border: 2px solid #ddd;
+border-radius: 8px;
+font-size: 1rem;
 }
 
 .submit-answer-button {
-  padding: 1rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 20px;
+padding: 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+margin-bottom: 20px;
 }
 
 .submit-answer-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+background-color: #ccc;
+cursor: not-allowed;
 }
 
 
@@ -956,21 +955,21 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
 .points {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 
 }
 
 .points .label {
-  font-weight: 500;
-  color: #ffffff;
+font-weight: 500;
+color: #ffffff;
 }
 
 .points .value {
-  font-weight: 600;
-  color: #ffffff;
+font-weight: 600;
+color: #ffffff;
 }
 
 
@@ -979,29 +978,29 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
 .pass-button-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  opacity: 90%;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+opacity: 90%;
 
 }
 
 .pass-button {
-  padding: 1rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  background: var(--disney-gold);
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+padding: 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 10px;
+background: var(--disney-gold);
+color: white;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
 
 .pass-button:hover:not(:disabled) {
-  background-color: #e0e0e0;
-  border-color: #ccc;
-  cursor: none;
+background-color: #e0e0e0;
+border-color: #ccc;
+cursor: none;
 
 
 }
@@ -1009,297 +1008,296 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 
 .pass-button:disabled, .pass-button[disabled], .pass-button.disabled {
-  background-color: #e0e0e0;
-  cursor: not-allowed;
-  pointer-events: none;
-  opacity: 0.5;
-  border-color: #ccc;
+background-color: #e0e0e0;
+cursor: not-allowed;
+pointer-events: none;
+opacity: 0.5;
+border-color: #ccc;
 }
 
 .message-item {
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f9f9f9;
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ddd;
+border-radius: 8px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #f9f9f9;
 }
 
 .message-item.read {
-  background-color: #e0e0e0;
+background-color: #e0e0e0;
 }
 
 .message-item.unread {
-  background-color: #fff;
+background-color: #fff;
 }
 
 .message-actions button {
-  margin-left: 10px;
+margin-left: 10px;
 }
 
 
 
 
-  /* Container voor de vriendenlijst */
-  .friends-list-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    max-width: 600px;
-    border-radius: 1rem;
-    box-shadow: var(--magical-shadow);
-    margin: 20px;
-    
-  }
-  
-  /* Vriendenlijst stijlen */
-  .friends-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .friend-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 10px;
-  }
-  
-  .friend-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-  
-  .friend-info {
-    flex-grow: 1;
-  }
-  
-  .friend-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .friend-actions {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .friend-actions button {
-    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-    color: white;
-    border: none;
-    padding: 4px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.7rem;
-    transition: background-color 0.3s ease;
-  }
-  
+/* Container voor de vriendenlijst */
+.friends-list-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem 1rem;
+background: rgba(255, 255, 255, 0.9);
+max-width: 600px;
+border-radius: 1rem;
+box-shadow: var(--magical-shadow);
+margin: 20px;
 
-  
-  /* Responsieve stijlen */
-  @media (max-width: 600px) {
-    .friends-list-container {
-      padding: 10px;
-    }
-  
-    .friend-item {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .friend-actions {
-      margin-top: 10px;
-    }
-  
-    .friend-actions button {
-      width: 100%;
-    }
-  }
+}
+
+/* Vriendenlijst stijlen */
+.friends-list {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.friend-item {
+display: flex;
+align-items: center;
+padding: 10px;
+border-bottom: 1px solid #eee;
+margin-bottom: 10px;
+}
+
+.friend-img {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+margin-right: 15px;
+}
+
+.friend-info {
+flex-grow: 1;
+}
+
+.friend-name {
+font-size: 1.2rem;
+font-weight: bold;
+color: #333;
+}
+
+.friend-actions {
+display: flex;
+gap: 10px;
+}
+
+.friend-actions button {
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+color: white;
+border: none;
+padding: 4px 16px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 0.7rem;
+transition: background-color 0.3s ease;
+}
 
 
-  .profile-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
+
+/* Responsieve stijlen */
+@media (max-width: 600px) {
+.friends-list-container {
+padding: 10px;
+}
+
+.friend-item {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.friend-actions {
+margin-top: 10px;
+}
+
+.friend-actions button {
+width: 100%;
+}
+}
 
 
-  .profile-image {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3rem;
+.profile-section {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 2rem;
+text-align: center;
+}
+
+
+.profile-image {
+margin-top: 30px;
+margin-bottom: 10px;
+width: 120px;
+height: 120px;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 3rem;
 }
 
 .profile-info h2 {
-  color: #1f2937;
-  margin-bottom: 0.25rem;
+color: #1f2937;
+margin-bottom: 0.25rem;
 }
 
 .profile-info p {
-  color: #6b7280;
+color: #6b7280;
 }
 
 .stats-inline {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  color: rgb(0, 51, 204);
-  margin-bottom: 20px;
-  margin-left: 50px;
-  margin-right: 50px;
-  font-weight: bolder;
+display: flex;
+justify-content: space-around;
+align-items: center;
+background: white;
+padding: 1rem;
+border-radius: 10px;
+color: rgb(0, 51, 204);
+margin-bottom: 20px;
+margin-left: 50px;
+margin-right: 50px;
+font-weight: bolder;
 
 
 }
 
 .stats-inline div {
-  text-align: center;
+text-align: center;
 }
 
 .stats-inline h4 {
-  margin-bottom: 0.25rem;
-  font-size: 1.2rem;
+margin-bottom: 0.25rem;
+font-size: 1.2rem;
 }
 
 .stats-inline p {
-  font-size: 1.5rem;
-  margin-bottom: 0;
+font-size: 1.5rem;
+margin-bottom: 0;
 }
 
 
 .logout {
 
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  padding: 1px 2px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
-  border: none;
-  width: 20%;
-  text-align: center;
-  text-decoration: none; /* Dit voorkomt de onderlijning */
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+padding: 1px 2px;
+border-radius: 8px;
+color: white;
+font-weight: bold;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+border: none;
+width: 20%;
+text-align: center;
+text-decoration: none; /* Dit voorkomt de onderlijning */
 
 }
-  
+
 
 
 
 .container {
-  max-width: 400px;
-  width: 100%;
-  border-radius: 12px;
-  padding: 2rem;
-  text-align: center;
-  align-items: center;
-  color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+width: 100%;
+border-radius: 12px;
+padding: 2rem;
+text-align: center;
+align-items: center;
+color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 }
 
 .container h1 {
-  color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+font-size: 2rem;
+margin-bottom: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
-  text-align: left;
+margin-bottom: 1rem;
+text-align: left;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: bold;
+display: block;
+margin-bottom: 0.5rem;
+color: #333;
+font-weight: bold;
 }
 
 .form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
+width: 100%;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 1rem;
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  transition: background 0.3s ease;
+width: 100%;
+padding: 12px;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+color: white;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 1rem;
+margin-bottom: 1rem;
+transition: background 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: #374bbf;
+background: #374bbf;
 }
 
 .auth-switch {
-  margin-top: 1rem;
+margin-top: 1rem;
 }
 
 .auth-switch p {
-  margin: 0.5rem 0;
+margin: 0.5rem 0;
 }
 
 .auth-switch button {
-  background: none;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
+background: none;
+border: none;
+color: #007bff;
+cursor: pointer;
 }
 
 .auth-switch button:hover {
-  text-decoration: underline;
+text-decoration: underline;
 }
 
 .error {
-  color: red;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+color: red;
+margin-bottom: 1rem;
+font-size: 0.9rem;
 }
 
 .reset-container {
-  display: none;
-  margin-top: 1.5rem;
+display: none;
+margin-top: 1.5rem;
 }
 
 .reset-container h2 {
-  margin-bottom: 1rem;
+margin-bottom: 1rem;
 }
 
 .subtext {
-  font-size: 14px;
-  margin-bottom: 1rem;
-  text-decoration: italic;
+font-size: 14px;
+margin-bottom: 1rem;
+text-decoration: italic;
 }

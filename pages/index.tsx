@@ -1,30 +1,59 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router"; // Import useRouter from Next.js
 import { supabase } from "../utils/supabaseClient"; // Zorg ervoor dat de Supabase-client wordt geïmporteerd
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter(); // Initialize the router
 
   useEffect(() => {
-    const session = supabase.auth.getSession();
-    setUser(session?.user ?? null);
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error fetching user session:", error);
+        router.push("/login"); // Redirect to login if there's an error fetching the session
+      } else {
+        if (!data.session) {
+          router.push("/login"); // Redirect to login if there's no active session
+        } else {
+          setUser(data.session.user);
+        }
+      }
+      setLoading(false); // Set loading to false after fetching the user
+    };
+
+    fetchUser();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        setUser(session?.user ?? null);
+        if (session) {
+          setUser(session.user);
+        } else {
+          router.push("/login"); // Redirect to login if the session is null
+        }
       }
     );
 
     return () => {
       authListener?.subscription?.unsubscribe();
     };
-  }, []);
+  }, [router]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/login"; // Redirect naar login na het uitloggen
+    router.push("/login"); // Redirect to login after logging out
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading spinner while checking the session
+  }
+
+  if (!user) {
+    return null; // Return null or a loading spinner while checking the session
+  }
 
   return (
     <>
@@ -49,19 +78,25 @@ const HomePage: React.FC = () => {
       <div>
         {/* Header */}
         <header className="header">
-          <div className="logout" onClick={handleLogout}>
-            Logout
-          </div>
+          {user && (
+            <div className="logout" onClick={handleLogout}>
+              Logout
+            </div>
+          )}
         </header>
 
         {/* Profile Section */}
-        <div className="profile-section text-center">
-          <div className="profile-image">👑</div>
-          <div className="profile-info">
-            <h2 className="username">{user?.email ?? "Gast"}</h2> {/* Gebruik email of placeholder */}
-            <p className="text-muted">Level: {user?.user_metadata?.level ?? "N/A"}</p>
+        {user ? (
+          <div className="profile-section text-center">
+            <div className="profile-image">👑</div>
+            <div className="profile-info">
+              <h2 className="username">{user.user_metadata.username ?? "N/A"}</h2> {/* Gebruik username of placeholder */}
+              <p className="text-muted">Level: {user.user_metadata?.level ?? "N/A"}</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p>Gelieve in te loggen om je profiel te bekijken.</p>
+        )}
 
         {/* Stats */}
         <div className="stats-inline">
