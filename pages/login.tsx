@@ -1,21 +1,17 @@
 import { useState } from "react";
-import Swal from "sweetalert2"; // Import SweetAlert2
-import {
-  loginUser,
-  registerUser,
-  resetPassword,
-} from "../utils/supabaseClient";
-import { useRouter } from "next/router"; // Import useRouter from Next.js
+import Swal from "sweetalert2";
+import { loginUser, registerUser, resetPassword } from "../utils/supabaseClient";
+import { useRouter } from "next/router";
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState(""); // Add username state
+  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [authMode, setAuthMode] = useState("login"); // login, register, reset
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,24 +20,22 @@ const AuthForm = () => {
 
     try {
       if (authMode === "login") {
-        console.log("Attempting to log in with email:", email);
-        await loginUser(email, password);
-        router.push("/"); // Redirect to the homepage
-
-        
+        const { error, user } = await loginUser(email, password);
+        if (error) {
+          throw error;
+        }
+        router.push("/"); // Redirect if no error
       } else if (authMode === "register") {
         if (password !== confirmPassword) {
           throw new Error("Wachtwoorden komen niet overeen");
         }
-        await registerUser(email, password, username); // Add username during registration
+        await registerUser(email, password, username);
         Swal.fire({
           icon: "success",
           title: "Registratie gelukt!",
           text: "Controleer je e-mail voor bevestiging.",
         });
-        router.push("/login"); // Redirect to the login page after successful registration
-
-
+        router.push("/login");
       } else if (authMode === "reset") {
         await resetPassword(email);
         Swal.fire({
@@ -50,7 +44,7 @@ const AuthForm = () => {
           text: "Er is een reset link naar je e-mail gestuurd.",
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error during authentication:", error);
       Swal.fire({
         icon: "error",
@@ -67,7 +61,7 @@ const AuthForm = () => {
       <h1>Disney Magic Quest</h1>
       <div className="form-container login-container">
         <form onSubmit={handleSubmit}>
-          {authMode === "login" && (
+          {authMode !== "reset" && (
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
               <input
@@ -120,18 +114,6 @@ const AuthForm = () => {
                   required
                 />
               </div>
-
-              <div className="form-group">
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
             </>
           )}
 
@@ -167,17 +149,19 @@ const AuthForm = () => {
             <>
               <p>
                 Nog geen account?{" "}
-                <button onClick={() => setAuthMode("register")}>
+                <button type="button" onClick={() => setAuthMode("register")}>
                   Registreer hier
                 </button>
               </p>
               <p>
                 Wachtwoord vergeten?{" "}
-                <button onClick={() => setAuthMode("reset")}>Reset hier</button>
+                <button type="button" onClick={() => setAuthMode("reset")}>
+                  Reset hier
+                </button>
               </p>
             </>
           ) : (
-            <button onClick={() => setAuthMode("login")}>
+            <button type="button" onClick={() => setAuthMode("login")}>
               Terug naar Login
             </button>
           )}
