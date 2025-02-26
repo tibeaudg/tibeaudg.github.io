@@ -20,7 +20,7 @@ const AuthForm = () => {
 
     try {
       if (authMode === "login") {
-        const { error, user } = await loginUser(email, password);
+        const { error } = await loginUser(email, password);
         if (error) {
           throw error;
         }
@@ -45,7 +45,6 @@ const AuthForm = () => {
         });
       }
     } catch (error: any) {
-      console.error("Error during authentication:", error);
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",
