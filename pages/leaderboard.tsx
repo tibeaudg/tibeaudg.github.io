@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { supabase } from "@/utils/supabaseClient";
+
+
+
 
 
 interface PlayerRanking {
@@ -13,11 +18,25 @@ interface PlayerRanking {
 
 const HomePage: React.FC = () => {
 
+    const [menuOpen, setMenuOpen] = useState(false);
+  
+  
+const toggleMenu = () => {
+  setMenuOpen(!menuOpen);
+};
+
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
 
   const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);
 
   useEffect(() => {
 
+    
 
     // Load player rankings from localStorage
     const loadPlayerRankings = () => {
@@ -53,7 +72,6 @@ const HomePage: React.FC = () => {
 
   const renderRankingBoard = () => {
     return (
-    <div className="card">
       <div className="scoreboard">
   
         {playerRankings.length > 0 ? (
@@ -90,7 +108,6 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
     );
   };
 
@@ -116,6 +133,24 @@ const HomePage: React.FC = () => {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </Head>
+
+            <header className="header">
+              <div className="logo">
+                <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+              </div>
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                <div className="hamburger-icon"></div>
+                <div className="hamburger-icon"></div>
+                <div className="hamburger-icon"></div>
+              </div>
+      
+              {menuOpen && (
+              <div className="menu">
+                <div className="menu-item" onClick={handleLogout}>Logout</div>
+                {/* Voeg hier meer menu-items toe */}
+              </div>
+            )}
+            </header>
 
       <div>
         <main>

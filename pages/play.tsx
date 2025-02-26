@@ -1,7 +1,25 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
+import { supabase } from "../utils/supabaseClient";
+import { useState } from "react";
+
+
 
 const HomePage: React.FC = () => {
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
+
   return (
     <>
       <Head>
@@ -25,6 +43,25 @@ const HomePage: React.FC = () => {
         />
       </Head>
       <div>
+
+
+      <header className="header">
+        <div className="logo">
+          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+        </div>
+          <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+        </div>
+
+        {menuOpen && (
+        <div className="menu">
+          <div className="menu-item" onClick={handleLogout}>Logout</div>
+          {/* Voeg hier meer menu-items toe */}
+        </div>
+      )}
+      </header>
 
 
 

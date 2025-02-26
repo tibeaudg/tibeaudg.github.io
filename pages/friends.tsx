@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 import { supabase, loginUser, registerUser, resetPassword, updatePassword, confirmEmail } from "../utils/supabaseClient"; // Updated import path
 
 interface Friend {
@@ -11,6 +13,10 @@ interface Friend {
 }
 
 interface FriendRequest extends Friend {
+
+
+
+  
   status: "pending" | "approved" | "rejected";
 }
 
@@ -24,6 +30,18 @@ const FriendsPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string | null>(null);
+
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+  
 
   useEffect(() => {
     // Check if user is already logged in
@@ -173,6 +191,25 @@ const handleInvite = async (e: React.FormEvent) => {
         />
       </Head>
 
+
+      <header className="header">
+        <div className="logo">
+          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+        </div>
+          <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+        </div>
+
+        {menuOpen && (
+        <div className="menu">
+          <div className="menu-item" onClick={handleLogout}>Logout</div>
+          {/* Voeg hier meer menu-items toe */}
+        </div>
+      )}
+      </header>
+
       {!isLoggedIn ? (
         <div className="auth-container">
           <form onSubmit={handleLogin}>
@@ -221,6 +258,7 @@ const handleInvite = async (e: React.FormEvent) => {
           <button onClick={handleResetPassword}>Reset Password</button>
           {authError && <p className="error-message">{authError}</p>}
         </div>
+        
       ) : (
         <>
           <div className="friends-list-container">

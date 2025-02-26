@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,6 +9,18 @@ const HomePage: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+
+
+
+
+
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,10 +55,21 @@ const HomePage: React.FC = () => {
     };
   }, [router]);
 
+
+
+
+
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
   };
+
+
+
+
+
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -76,13 +100,28 @@ const HomePage: React.FC = () => {
       </Head>
 
       <div>
-        <header className="header">
-          {user && (
-            <div className="logout" onClick={handleLogout}>
-              Logout
-            </div>
-          )}
-        </header>
+
+
+        
+      <header className="header">
+        <div className="logo">
+          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+        </div>
+          <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+        </div>
+
+        {menuOpen && (
+        <div className="menu">
+          <div className="menu-item" onClick={handleLogout}>Logout</div>
+          {/* Voeg hier meer menu-items toe */}
+        </div>
+      )}
+      </header>
+
+
 
         <div className="profile-section text-center">
           <div className="profile-image">👑</div>

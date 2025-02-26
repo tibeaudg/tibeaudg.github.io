@@ -73,10 +73,16 @@ const GameMenu: React.FC = () => {
 
       
 
+
       <nav className="navbar">
           <Link href="/" className="nav-link">
             <i className="bi bi-house-door"></i>
             <span className="d-block small">Home</span>
+          </Link>
+
+          <Link href="/leaderboard" className="nav-link">
+            <i className="bi bi-bar-chart-line"></i>
+            <span className="d-block small">Ranking</span>
           </Link>
 
           <Link href="/play" className="nav-link active">
@@ -94,6 +100,9 @@ const GameMenu: React.FC = () => {
             <span className="d-block small">Inbox</span>
           </Link>
         </nav>
+
+        
+
     </>
   );
 };

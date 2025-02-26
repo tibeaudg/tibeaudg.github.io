@@ -43,23 +43,85 @@ position: fixed !important;
 bottom: 0 !important;
 width: 100% !important;
 padding: 0.75rem 0 !important;
-border-color: #073a8d39;
+border-color: #073a8d6f;
 display: flex !important;
 justify-content: space-around !important;
 align-items: center !important;
 z-index: 1000 !important;
 left: 0 !important;
+box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+
 
 
 }
 
 
 .header {
-padding: 1.5rem;
-border-bottom: solid 1px;
-border-color: #073a8d39;
-background-color: white;
-}
+    display: flex;
+    align-items: center; /* Zorgt ervoor dat alles verticaal gecentreerd is */
+    background: white;
+    padding-right: 20px;
+    border-color: #073a8d6f;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+
+
+  }
+  
+  .header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Zorgt ervoor dat het logo in het midden staat */
+    padding-left: 50px;
+  }
+
+
+
+
+.header .hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 10; /* Zorg ervoor dat het hamburger-icoon voor andere elementen staat */
+  }
+  
+  .header .hamburger-icon {
+    background-color: #333;
+    height: 3px;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 60px; /* Pas dit aan afhankelijk van de hoogte van de header */
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .menu-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+
+
+.header .logo image {
+    width: 150px; /* Pas dit aan naar je gewenste grootte */
+    height: auto;
+  }
 
 .nav-link {
 color: #073a8d !important;
@@ -667,7 +729,7 @@ border: none;
 width: 100%;
 text-align: center;
 justify-content: center;  
-background: transparent;
+
 
 }
 

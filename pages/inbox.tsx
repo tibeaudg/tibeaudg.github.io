@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 
 interface Message {
   id: number;
@@ -27,6 +29,20 @@ const HomePage: React.FC = () => {
   });
 
   const [messages, setMessages] = useState<Message[]>([]);
+
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
 
   useEffect(() => {
     // Simulate API call to fetch user stats
@@ -66,10 +82,9 @@ const HomePage: React.FC = () => {
     fetchMessages();
   }, []);
 
-  const calculateAccuracy = (): string => {
-    const accuracy = (userStats.correctAnswers / userStats.gamesPlayed) * 100;
-    return accuracy.toFixed(1);
-  };
+
+
+
 
   return (
     <>
@@ -90,6 +105,26 @@ const HomePage: React.FC = () => {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </Head>
+
+
+        <header className="header">
+          <div className="logo">
+            <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+          </div>
+            <div className="hamburger-menu" onClick={toggleMenu}>
+            <div className="hamburger-icon"></div>
+            <div className="hamburger-icon"></div>
+            <div className="hamburger-icon"></div>
+          </div>
+  
+          {menuOpen && (
+          <div className="menu">
+            <div className="menu-item" onClick={handleLogout}>Logout</div>
+            {/* Voeg hier meer menu-items toe */}
+          </div>
+        )}
+        </header>
+  
 
 
 
