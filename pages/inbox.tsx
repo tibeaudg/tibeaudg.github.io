@@ -121,27 +121,34 @@ const HomePage: React.FC = () => {
         </motion.ul>
       </main>
 
+
       <nav className="navbar">
-        <Link href="/" className="nav-link">
-          <i className="bi bi-house-door"></i>
-          <span className="d-block small">Home</span>
-        </Link>
+          <Link href="/" className="nav-link">
+            <i className="bi bi-house-door"></i>
+            <span className="d-block small">Home</span>
+          </Link>
 
-        <Link href="/play" className="nav-link">
-          <i className="bi bi-rocket"></i>
-          <span className="d-block small">Play</span>
-        </Link>
+          <Link href="/leaderboard" className="nav-link">
+            <i className="bi bi-bar-chart-line"></i>
+            <span className="d-block small">Ranking</span>
+          </Link>
 
-        <Link href="/friends" className="nav-link">
-          <i className="bi bi-people"></i>
-          <span className="d-block small">Friends</span>
-        </Link>
+          <Link href="/play" className="nav-link">
+            <i className="bi bi-rocket"></i>
+            <span className="d-block small">Play</span>
+          </Link>
 
-        <Link href="/inbox" className="nav-link active">
-          <i className="bi bi-envelope-paper-fill"></i>
-          <span className="d-block small">Inbox</span>
-        </Link>
-      </nav>
+          <Link href="/friends" className="nav-link">
+            <i className="bi bi-people"></i>
+            <span className="d-block small">Friends</span>
+          </Link>
+
+          <Link href="/inbox" className="nav-link active">
+            <i className="bi bi-envelope-paper-fill"></i>
+            <span className="d-block small">Inbox</span>
+          </Link>
+        </nav>
+
     </>
   );
 };
