@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { supabase, loginUser, registerUser, resetPassword, updatePassword, confirmEmail } from "./supabaseClient"; // Adjust the import path as needed
+import { supabase, loginUser, registerUser, resetPassword, updatePassword, confirmEmail } from "../utils/supabaseClient"; // Updated import path
 
 interface Friend {
   id: number;
@@ -14,7 +14,7 @@ interface FriendRequest extends Friend {
   status: "pending" | "approved" | "rejected";
 }
 
-const HomePage: React.FC = () => {
+const FriendsPage: React.FC = () => {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
   const [inviteEmail, setInviteEmail] = useState<string>("");
@@ -26,54 +26,83 @@ const HomePage: React.FC = () => {
   const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch friends from your API
-    const fetchFriends = async () => {
-      try {
-        const { data, error } = await supabase.rpc('get_friends');
-        if (error) throw error;
-        setFriends(data);
-      } catch (error) {
-        console.error("Failed to fetch friends:", error);
+    // Check if user is already logged in
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setIsLoggedIn(true);
+        fetchFriends();
+        fetchFriendRequests();
       }
     };
-
-    fetchFriends();
-
-    // Fetch friend requests from your API
-    const fetchFriendRequests = async () => {
-      try {
-        const { data, error } = await supabase.rpc('get_friend_requests');
-        if (error) throw error;
-        setFriendRequests(data);
-      } catch (error) {
-        console.error("Failed to fetch friend requests:", error);
-      }
-    };
-
-    fetchFriendRequests();
+    
+    checkSession();
   }, []);
 
-  const handleInvite = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Fetch friends from your API
+  const fetchFriends = async () => {
     try {
-      const { error } = await supabase.rpc('send_invitation', { sender_id: supabase.auth.user()?.id, receiver_id: inviteEmail });
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
+      const { data, error } = await supabase.rpc('get_friends', { p_user_id: user.id });
       if (error) throw error;
-      setInvitationSent(true);
-      setInviteEmail("");
-      setTimeout(() => setInvitationSent(false), 3000);
+      setFriends(data || []);
     } catch (error) {
-      console.error("Failed to send invitation:", error);
+      console.error("Failed to fetch friends:", error);
     }
   };
+  
+
+
+
+  // Fetch friend requests from your API
+  const fetchFriendRequests = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
+      const { data, error } = await supabase.rpc('get_friend_requests', { p_user_id: user.id });
+      if (error) throw error;
+      setFriendRequests(data || []);
+    } catch (error) {
+      console.error("Failed to fetch friend requests:", error);
+    }
+  };
+  
+
+
+
+
+const handleInvite = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    const { error } = await supabase.rpc('send_invitation', { 
+      p_sender_id: user?.id, 
+      p_receiver_id: inviteEmail  // Pas dit aan als inviteEmail eigenlijk een UUID of ander type moet zijn
+    });
+    if (error) throw error;
+    setInvitationSent(true);
+    setInviteEmail("");
+    setTimeout(() => setInvitationSent(false), 3000);
+  } catch (error) {
+    console.error("Failed to send invitation:", error);
+  }
+};
+
+
+
 
   const handleRequest = async (requestId: number, action: "approve" | "reject") => {
     try {
-      const { error } = await supabase.rpc('handle_friend_request', { request_id: requestId, action });
+      const { error } = await supabase.rpc('Handle Friend Request', { 
+        p_request_id: requestId, 
+        p_action 
+      });
       if (error) throw error;
       setFriendRequests((prevRequests) =>
         prevRequests.map((request) =>
-          request.id === requestId
-            ? { ...request, status: action }
+          requestId === requestId
+            ? { ...request, status: p_action }
             : request
         )
       );
@@ -96,6 +125,8 @@ const HomePage: React.FC = () => {
     } else {
       setIsLoggedIn(true);
       setAuthError(null);
+      fetchFriends();
+      fetchFriendRequests();
     }
   };
 
@@ -103,8 +134,11 @@ const HomePage: React.FC = () => {
     e.preventDefault();
     try {
       await registerUser(email, password, username);
+      setIsLoggedIn(true);
       setAuthError(null);
-    } catch (error) {
+      fetchFriends();
+      fetchFriendRequests();
+    } catch (error: any) {
       setAuthError(error.message);
     }
   };
@@ -113,25 +147,8 @@ const HomePage: React.FC = () => {
     try {
       await resetPassword(email);
       setAuthError(null);
-    } catch (error) {
-      setAuthError(error.message);
-    }
-  };
-
-  const handleUpdatePassword = async (newPassword: string) => {
-    try {
-      await updatePassword(newPassword);
-      setAuthError(null);
-    } catch (error) {
-      setAuthError(error.message);
-    }
-  };
-
-  const handleConfirmEmail = async (token: string) => {
-    try {
-      await confirmEmail(token);
-      setAuthError(null);
-    } catch (error) {
+      alert("Password reset email sent. Please check your inbox.");
+    } catch (error: any) {
       setAuthError(error.message);
     }
   };
@@ -141,7 +158,7 @@ const HomePage: React.FC = () => {
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Disney Magic Quest</title>
+        <title>Disney Magic Quest - Friends</title>
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -202,67 +219,75 @@ const HomePage: React.FC = () => {
             <button type="submit">Register</button>
           </form>
           <button onClick={handleResetPassword}>Reset Password</button>
-          {authError && <p>{authError}</p>}
+          {authError && <p className="error-message">{authError}</p>}
         </div>
       ) : (
         <>
           <div className="friends-list-container">
             <h3>Vriendenlijst</h3>
             <ul className="friends-list">
-              {friends.map((friend) => (
-                <motion.li
-                  key={friend.id}
-                  className="friend-item"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <img
-                    src={friend.profileImage}
-                    alt={friend.name}
-                    className="friend-img"
-                  />
-                  <div className="friend-info">
-                    <p className="friend-name">{friend.name}</p>
-                    <div className="friend-actions">
-                      <button className="view-profile">Bekijk profiel</button>
-                      <button className="remove-friend">Verwijder</button>
+              {friends.length > 0 ? (
+                friends.map((friend) => (
+                  <motion.li
+                    key={friend.id}
+                    className="friend-item"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <img
+                      src={friend.profileImage}
+                      alt={friend.name}
+                      className="friend-img"
+                    />
+                    <div className="friend-info">
+                      <p className="friend-name">{friend.name}</p>
+                      <div className="friend-actions">
+                        <button className="view-profile">Bekijk profiel</button>
+                        <button className="remove-friend">Verwijder</button>
+                      </div>
                     </div>
-                  </div>
-                </motion.li>
-              ))}
+                  </motion.li>
+                ))
+              ) : (
+                <p>Je hebt nog geen vrienden toegevoegd.</p>
+              )}
             </ul>
           </div>
 
           <div className="friend-requests-container">
             <h3>Vriendverzoeken</h3>
             <ul className="friend-requests-list">
-              {friendRequests.map((request) => (
-                <li key={request.id} className="friend-request-item">
-                  <img
-                    src={request.profileImage}
-                    alt={request.name}
-                    className="friend-img"
-                  />
-                  <div className="friend-info">
-                    <p className="friend-name">{request.name}</p>
-                    <div className="request-actions">
-                      <button
-                        onClick={() => handleRequest(request.id, "approve")}
-                        disabled={request.status !== "pending"}
-                      >
-                        Accepteer
-                      </button>
-                      <button
-                        onClick={() => handleRequest(request.id, "reject")}
-                        disabled={request.status !== "pending"}
-                      >
-                        Weiger
-                      </button>
+              {friendRequests.length > 0 ? (
+                friendRequests.map((request) => (
+                  <li key={request.id} className="friend-request-item">
+                    <img
+                      src={request.profileImage}
+                      alt={request.name}
+                      className="friend-img"
+                    />
+                    <div className="friend-info">
+                      <p className="friend-name">{request.name}</p>
+                      <div className="request-actions">
+                        <button
+                          onClick={() => handleRequest(request.id, "approve")}
+                          disabled={request.status !== "pending"}
+                        >
+                          Accepteer
+                        </button>
+                        <button
+                          onClick={() => handleRequest(request.id, "reject")}
+                          disabled={request.status !== "pending"}
+                        >
+                          Weiger
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                ))
+              ) : (
+                <p>Je hebt geen openstaande vriendverzoeken.</p>
+              )}
             </ul>
           </div>
 
@@ -273,12 +298,12 @@ const HomePage: React.FC = () => {
                 type="email"
                 value={inviteEmail}
                 onChange={(e) => setInviteEmail(e.target.value)}
-                placeholder="Email of gebruikersnaam"
+                placeholder="Email"
                 required
               />
               <button type="submit">Verstuur uitnodiging</button>
             </form>
-            {invitationSent && <p>Uitnodiging verzonden!</p>}
+            {invitationSent && <p className="success-message">Uitnodiging verzonden!</p>}
           </div>
 
           <nav className="navbar">
@@ -309,4 +334,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default FriendsPage;
