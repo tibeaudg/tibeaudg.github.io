@@ -1,11 +1,13 @@
 @charset "UTF-8";
 
 :root {
-  --disney-blue: #0066cc;
+  --disney-blue: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+
   --disney-gold: #ffd700;
   --disney-silver: #e6e6fa;
   --disney-dark: #1f2937;
-  --disney-gradient: linear-gradient(73deg, #003366, #0066cc);
+  --disney-gradient: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+
   --magical-shadow: 0 2px 10px rgba(0, 102, 204, 0.3);
 }
 
@@ -37,7 +39,6 @@ body h2 {
 /* Navbar stijlen */
 .navbar {
   background: white;
-  color: #073a8d;
   position: fixed !important;
   bottom: 0 !important;
   width: 100% !important;
@@ -90,7 +91,7 @@ body h2 {
   transform: translate(-50%, -50%);
   width: 75px; /* Adjust the size of the circle as needed */
   height: 75px; /* Adjust the size of the circle as needed */
-  background-color: #073a8d; /* Use the same color as the text */
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   border-radius: 50%; /* Make it a circle */
   z-index: -1; /* Ensure the circle is behind the text */
 }
@@ -169,13 +170,13 @@ body h2 {
 
 /* Specifieke stijlen voor Quiz Master Mode */
 .game-mode-card-content.quiz-master {
-  background-image: linear-gradient(135deg, #4a00e0, #8e2de2);
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Specifieke stijlen voor Live Mode */
 .game-mode-card-content.live-mode {
-  background-image: linear-gradient(135deg, #ff416c, #ff4b2b);
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -404,7 +405,7 @@ input:valid ~ label {
 
 /* Correcte achtergrondkleur met lineaire gradient */
 .btn {
-  background: #073a8d;
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   padding: 10px 20px;
   border-radius: 8px;
   color: white;
@@ -423,7 +424,7 @@ input:valid ~ label {
 
 
 .btn-success {
-  background-image: linear-gradient(102.144deg, rgb(74, 0, 224), rgb(142, 45, 226));
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   width: 67%; /* Stel de breedte in op 67% */
   padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
   border-radius: 8px; /* Voeg afgeronde hoeken toe */
@@ -545,7 +546,7 @@ padding: 1rem;
 font-size: 1.2rem;
 border: none;
 border-radius: 10px;
-background: #073a8d;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 color: white;
 cursor: pointer;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -870,7 +871,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-size: 1.2rem;
   border: none;
   border-radius: 10px;
-  background: #073a8d;
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -894,7 +895,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 .category {
   display: block;  /* Zet de categorie-items onder elkaar */
-  background-color: #073a8d5e;  /* Transparante achtergrondkleur */
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
   padding: 5px;  /* Optioneel: voegt wat padding toe voor visuele ruimte */
   text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
@@ -938,7 +939,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-size: 1.2rem;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -958,7 +959,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  background: linear-gradient(45deg, var(--disney-purple), var(--disney-blue));
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 
 }
 
@@ -1093,7 +1094,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .friend-actions button {
-    background-color: #0066cc;
+    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
     color: white;
     border: none;
     padding: 4px 16px;
@@ -1140,7 +1141,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 10px;
     width: 120px;
     height: 120px;
-    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1191,7 +1192,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 .logout {
 
-  background: #073a8d;
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   padding: 1px 2px;
   border-radius: 8px;
   color: white;
@@ -1208,3 +1209,97 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
   
 
+
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  align-items: center;
+  color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+}
+
+.container h1 {
+  color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #374bbf;
+}
+
+.auth-switch {
+  margin-top: 1rem;
+}
+
+.auth-switch p {
+  margin: 0.5rem 0;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.reset-container {
+  display: none;
+  margin-top: 1.5rem;
+}
+
+.reset-container h2 {
+  margin-bottom: 1rem;
+}
+
+.subtext {
+  font-size: 14px;
+  margin-bottom: 1rem;
+  text-decoration: italic;
+}

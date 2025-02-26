@@ -52,11 +52,12 @@ const AuthForm = () => {
   };
 
   return (
-    <>
-      <h2 className="loginTitle">Disney Magic Quest</h2>
-      <div className="login-container">
+    <div className="container">
+      <h1>Disney Magic Quest</h1>
+      <div className="form-container login-container">
         <form onSubmit={handleSubmit}>
-          <div className="inputbox">
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
@@ -65,11 +66,11 @@ const AuthForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label htmlFor="email">Email</label>
           </div>
 
           {authMode !== "reset" && (
-            <div className="inputbox">
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
@@ -78,13 +79,12 @@ const AuthForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <label htmlFor="password">Password</label>
             </div>
           )}
 
           {errorMessage && <p className="error">{errorMessage}</p>}
 
-          <button className="btn" type="submit" disabled={loading}>
+          <button className="submit-btn" type="submit" disabled={loading}>
             {loading
               ? "Loading..."
               : authMode === "login"
@@ -118,7 +118,7 @@ const AuthForm = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
