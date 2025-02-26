@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { supabase } from "../utils/supabaseClient"; // Zorg ervoor dat de Supabase-client wordt geïmporteerd
 
 const HomePage: React.FC = () => {
-  // Simuleer het ophalen van sessiegegevens voor de gebruiker
-  const [username, setUsername] = useState<string>("Loading...");
-  const [level, setLevel] = useState<number>(0);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Deze code simuleert het ophalen van gebruikersinformatie (gebruik een echte API als nodig)
-    setUsername("John Doe"); // Dit zou uit je backend moeten komen
-    setLevel(5); // Dit zou ook dynamisch moeten zijn
+    const session = supabase.auth.getSession();
+    setUser(session?.user ?? null);
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => {
+      authListener?.subscription?.unsubscribe();
+    };
   }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/login"; // Redirect naar login na het uitloggen
+  };
 
   return (
     <>
       <Head>
-        {/* Meta en titel */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
-
-        {/* External CSS bestanden */}
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -39,10 +49,7 @@ const HomePage: React.FC = () => {
       <div>
         {/* Header */}
         <header className="header">
-          <div
-            className="logout"
-            onClick={() => (window.location.href = "/logout")}
-          >
+          <div className="logout" onClick={handleLogout}>
             Logout
           </div>
         </header>
@@ -51,29 +58,25 @@ const HomePage: React.FC = () => {
         <div className="profile-section text-center">
           <div className="profile-image">👑</div>
           <div className="profile-info">
-            <h2 className="username">{username}</h2>
-            <p className="text-muted">Level: {level}</p>
+            <h2 className="username">{user?.email ?? "Gast"}</h2> {/* Gebruik email of placeholder */}
+            <p className="text-muted">Level: {user?.user_metadata?.level ?? "N/A"}</p>
           </div>
         </div>
 
         {/* Stats */}
-        <div>
+        <div className="stats-inline">
+          <h4>Games Played</h4>
+          <p>120</p>
+        </div>
 
-          <div className="stats-inline">
-            <h4>Games Played</h4>
-            <p>120</p>
-          </div>
+        <div className="stats-inline">
+          <h4>Correct Answers</h4>
+          <p>95</p>
+        </div>
 
-          <div className="stats-inline">
-            <h4>Correct Answers</h4>
-            <p>95</p>
-          </div>
-
-          <div className="stats-inline">
-            <h4>Accuracy Percentage</h4>
-            <p>95%</p>
-          </div>
-
+        <div className="stats-inline">
+          <h4>Accuracy Percentage</h4>
+          <p>95%</p>
         </div>
 
         <nav className="navbar">
@@ -102,7 +105,6 @@ const HomePage: React.FC = () => {
             <span className="d-block small">Inbox</span>
           </Link>
         </nav>
-
       </div>
     </>
   );
