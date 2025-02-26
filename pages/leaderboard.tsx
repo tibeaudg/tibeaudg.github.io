@@ -117,8 +117,8 @@ const HomePage: React.FC = () => {
         />
       </Head>
 
-      <div className="home-container">
-        <main className="main-content">
+      <div>
+        <main>
           {renderRankingBoard()}
         </main>
 

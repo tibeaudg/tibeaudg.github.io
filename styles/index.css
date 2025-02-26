@@ -658,9 +658,7 @@ transform: scale(1) rotate(0deg);
 
 .scoreboard {
 padding: 2rem;
-max-width: 600px;
 animation: scoreboardAppear 0.8s ease-out;
-background-color: #e9edf9;
 border: none;
 
 }
@@ -669,6 +667,7 @@ border: none;
 width: 100%;
 text-align: center;
 justify-content: center;  
+background: transparent;
 
 }
 
@@ -688,9 +687,10 @@ justify-content: space-between;
 align-items: center;
 padding: 1rem;
 margin: 0.5rem 0;
-background: linear-gradient(to right, rgba(111, 53, 165, 0.1), transparent);
+border: 1px solid #073a8d;
 border-radius: 10px;
 transition: transform 0.3s ease;
+color: black;
 }
 
 
@@ -702,6 +702,7 @@ font-weight: bold;
 text-transform: uppercase;
 letter-spacing: 0.5px;
 font-family: 'Waltograph', sans-serif; /* Disney-geïnspireerd lettertype */
+color: black;
 }
 
 /* Player points style */
@@ -754,6 +755,26 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 font-family: 'Waltograph', sans-serif;
 display: flex;
 }
+
+
+
+.fourth-place {
+    border-radius: 8px;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Waltograph', sans-serif;
+    display: flex;
+    }
+
+
+
+
+
+
+
 
 /* Fourth place (no gradient, but subtle Disney style) */
 .player-ranking  {

@@ -16,14 +16,35 @@ interface GameState {
   players: string[];
   scores: Record<string, number>;
   usedPasses: Record<string, boolean>;
+  shuffledQuestions: any[]; // Voeg deze regel toe
+  usedQuestionIds: Set<number>; // Track used questions
+
 }
+
+
+
+// Utility functions
+const shuffleArray = (array: any[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
+
+const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
+  return allQuestions.filter(question => !usedIds.has(question.id));
+};
+
+
+
 
 // New interface for persistent player data
 interface PlayerData {
   username: string;
   totalPoints: number;
-  sessionsPlayed: number;
-  lastPlayed: string;
 }
 
 const GameMenu: React.FC = () => {
@@ -39,18 +60,21 @@ const GameMenu: React.FC = () => {
     openAnswer: "",
     players: [],
     scores: {},
-    usedPasses: {}
+    usedPasses: {},
+    shuffledQuestions: [],
+    usedQuestionIds: new Set()
   });
   
   // Track if scores have been saved already
   const [scoresSaved, setScoresSaved] = useState(false);
+  
 
   const getDifficultyPoints = (difficulty: 'easy' | 'medium' | 'difficult' | 'hard'): number => {
     const difficultyMap = {
       easy: 1,
       medium: 2,
       difficult: 3,
-      hard: 3
+      hard: 4
     };
     return difficultyMap[difficulty] || 1;
   };
@@ -59,14 +83,26 @@ const GameMenu: React.FC = () => {
 
 
   const initializeGameState = (playerList: string[]) => {
+    const uniqueQuestions = getUniqueQuestions(questions, new Set());
+    const shuffledQuestions = shuffleArray(uniqueQuestions);
+
+
+
     const initialState = {
       ...gameState,
       players: playerList,
       scores: Object.fromEntries(playerList.map(player => [player, 0])),
-      usedPasses: Object.fromEntries(playerList.map(player => [player, false]))
+      usedPasses: Object.fromEntries(playerList.map(player => [player, false])),
+      shuffledQuestions: shuffledQuestions,
+      usedQuestionIds: new Set(),
+      currentQuestionIndex: 0
     };
     setGameState(initialState);
   };
+
+
+
+
 
   useEffect(() => {
     if (router.query.players) {
@@ -74,6 +110,11 @@ const GameMenu: React.FC = () => {
       initializeGameState(playerList);
     }
   }, [router.query.players]);
+
+
+
+
+
 
   // Function to save scores to localStorage when session ends
   const saveScoresToStorage = () => {
@@ -170,13 +211,32 @@ const GameMenu: React.FC = () => {
     setTimeout(() => moveToNextQuestion(true), 3000);
   };
 
+
+
+
+
   const moveToNextQuestion = (isPass: boolean = false) => {
     setGameState(prev => {
       const nextQuestionIndex = prev.currentQuestionIndex + 1;
+      const currentQuestion = prev.shuffledQuestions[prev.currentQuestionIndex];
 
-      if (nextQuestionIndex >= questions.length) {
-        return { ...prev, isRoundOver: true };
+      // Mark question as used
+      const newUsedIds = new Set(prev.usedQuestionIds).add(currentQuestion.id);
+
+      if (nextQuestionIndex >= prev.shuffledQuestions.length) {
+        return {
+          ...prev,
+          isRoundOver: true,
+          usedQuestionIds: newUsedIds
+        };
       }
+
+
+
+
+
+
+
 
       return {
         ...prev,
@@ -185,15 +245,20 @@ const GameMenu: React.FC = () => {
         usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: false },
         answerStatus: "",
         isAnswerDisabled: false,
-        showMagicEffect: false
+        showMagicEffect: false,
+        usedQuestionIds: newUsedIds
       };
     });
   };
 
+
+
+
+
   const handleAnswer = (isCorrect: boolean) => {
-    const currentQuestion = questions[gameState.currentQuestionIndex];
+    const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
     const status = isCorrect ? "Correct!" : "Wrong!";
-    
+
     setGameState(prev => {
       const newState = {
         ...prev,
@@ -202,8 +267,12 @@ const GameMenu: React.FC = () => {
         isAnswerDisabled: true
       };
 
+
+
+
+
       if (isCorrect) {
-        const points = getDifficultyPoints(questions[prev.currentQuestionIndex].difficulty as 'easy' | 'medium' | 'difficult' | 'hard');
+        const points = getDifficultyPoints(currentQuestion.difficulty as 'easy' | 'medium' | 'difficult' | 'hard');
         newState.scores = {
           ...prev.scores,
           [prev.players[prev.currentPlayerIndex]]: prev.scores[prev.players[prev.currentPlayerIndex]] + points
@@ -213,12 +282,16 @@ const GameMenu: React.FC = () => {
       return newState;
     });
 
-    // Show the SweetAlert popup
-    showAnswerPopup(status, currentQuestion.correctAnswer || "");
 
-    // Wait for the alert to close before moving to next question
+
+
+    showAnswerPopup(status, currentQuestion.correctAnswer || "");
     setTimeout(() => moveToNextQuestion(), 3000);
   };
+
+
+
+
 
   const handleMultipleChoiceAnswer = (answer: string) => {
     const currentQuestion = questions[gameState.currentQuestionIndex];
@@ -234,14 +307,42 @@ const GameMenu: React.FC = () => {
     setGameState(prev => ({ ...prev, openAnswer: "" }));
   };
 
+
+
+
   const startNewRound = () => {
+    const uniqueQuestions = getUniqueQuestions(questions, gameState.usedQuestionIds);
+
+
+    if (uniqueQuestions.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'No More Questions',
+        text: 'All questions have been used in this session!',
+        showConfirmButton: true
+      });
+      return;
+    }
+
+    const shuffledQuestions = shuffleArray(uniqueQuestions);
+
+
+
+
+
     // Reset scores saved flag when starting a new round
     setScoresSaved(false);
     
+
+
+
+
+
     setGameState(prev => ({
       ...prev,
-      currentPlayerIndex: 0,
+      shuffledQuestions: shuffledQuestions,
       currentQuestionIndex: 0,
+      currentPlayerIndex: 0,
       isRoundOver: false,
       answerStatus: "",
       isAnswerDisabled: false,
@@ -252,6 +353,10 @@ const GameMenu: React.FC = () => {
       usedPasses: Object.fromEntries(prev.players.map(player => [player, false]))
     }));
   };
+
+
+
+
 
   const handleEndSession = () => {
     setGameState(prev => ({ 
@@ -273,11 +378,17 @@ const GameMenu: React.FC = () => {
     if (!scoresSaved) {
       saveScoresToStorage();
     }
-    router.push("/");
+    router.push("/play");
   };
 
   const renderQuestion = () => {
-    const currentQuestion = questions[gameState.currentQuestionIndex];
+    const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+    if (!currentQuestion) return null;
+
+
+
+
+    
     return (
       <div className="question-container">
         <div className="question-info">
@@ -348,21 +459,24 @@ const GameMenu: React.FC = () => {
     const sortedPlayers = [...gameState.players].sort((a, b) => gameState.scores[b] - gameState.scores[a]);
 
 
-    
     return (
       <div className="scoreboard">
         {sortedPlayers.map((player, index) => (
           <div
             key={player}
             className={`player-score ${
-              index === 0 ? "first-place" : index === 1 ? "second-place" : index === 2 ? "third-place" : ""
+              index === 0 ? "first-place" : 
+              index === 1 ? "second-place" : 
+              index === 2 ? "third-place" : 
+              index === 3 ? "fourth-place" : ""
             }`}
           >
             <span className="player-name">
               {index === 0 && "🏆 "}
               {index === 1 && "🥈 "}
               {index === 2 && "🥉 "}
-              {player}
+              {index === 3 && "💩 "}
+              {player} {/* Voeg de speler naam expliciet toe */}
             </span>
             <span className="player-points">{gameState.scores[player]}</span>
           </div>
