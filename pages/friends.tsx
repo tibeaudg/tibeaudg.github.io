@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 import { supabase, loginUser, registerUser, resetPassword} from "../utils/supabaseClient"; // Updated import path
+import router from "next/router";
 
 interface Friend {
   id: number;
@@ -110,16 +111,16 @@ const handleInvite = async (e: React.FormEvent) => {
 
 
 
-  const handleRequest = async (requestId: number, action: "approve" | "reject") => {
+  const handleRequest = async (requestId: number, action: "approved" | "rejected") => {
     try {
-      const { error } = await supabase.rpc('Handle Friend Request', { 
+      const { error } = await supabase.rpc('handle_friend_request', { 
         p_request_id: requestId, 
         action 
       });
       if (error) throw error;
       setFriendRequests((prevRequests) =>
         prevRequests.map((request) =>
-          requestId === requestId
+          request.id === requestId
             ? { ...request, status: action }
             : request
         )
@@ -127,7 +128,7 @@ const handleInvite = async (e: React.FormEvent) => {
 
 
 
-      if (action === "approve") {
+      if (action === "approved") {
         const approvedRequest = friendRequests.find((request) => request.id === requestId);
         if (approvedRequest) {
           setFriends((prevFriends) => [...prevFriends, approvedRequest]);
