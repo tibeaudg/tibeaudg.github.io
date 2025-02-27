@@ -4,7 +4,7 @@ import { questions } from "./questions.json";
 import Head from "next/head";
 import Script from 'next/script';
 
-import Swal from "sweetalert2";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 
 interface GameState {
   currentPlayerIndex: number;
@@ -181,7 +181,7 @@ const GameMenu: React.FC = () => {
     const title = status === "Correct!" ? status : "Wrong!";
     
     Swal.fire({
-      icon: icon as unknown,
+      icon: icon as SweetAlertIcon,
       title: title,
       html: status === "Correct!" 
         ? `<p>You got it right! 🎉</p>` 
@@ -211,10 +211,10 @@ const GameMenu: React.FC = () => {
       html: `<p>The correct answer is:</p><p class="font-weight-bold text-success">${currentQuestion.correctAnswer || ""}</p>`,
       timer: 3000,
       timerProgressBar: true,
-      showConfirmButton: false,
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      allowEnterKey: false
+      showConfirmButton: true,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true
     });
 
     setTimeout(() => moveToNextQuestion(true), 3000);
