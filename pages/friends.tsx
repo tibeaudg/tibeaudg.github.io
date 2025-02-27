@@ -223,7 +223,7 @@ const handleInvite = async (e: React.FormEvent) => {
 
       <header className="header">
         <div className="logo">
-          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+          <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
         </div>
           <div className="hamburger-menu" onClick={toggleMenu}>
           <div className="hamburger-icon"></div>
