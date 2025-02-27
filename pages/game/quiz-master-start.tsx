@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { questions } from "./questions.json";
 import Head from "next/head";
+import Script from 'next/script';
+
 import Swal from "sweetalert2";
 
 interface GameState {
@@ -63,7 +65,7 @@ const GameMenu: React.FC = () => {
     scores: {},
     usedPasses: {},
     shuffledQuestions: [],
-    usedQuestionIds: new Set()
+    usedQuestionIds: new Set<number>()
   });
   
   // Track if scores have been saved already
@@ -83,8 +85,9 @@ const GameMenu: React.FC = () => {
   const [isScoreboardVisible, setIsScoreboardVisible] = useState(false);
 
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initializeGameState = (playerList: string[]) => {
-    const uniqueQuestions = getUniqueQuestions(questions, new Set());
+    const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
     const shuffledQuestions = shuffleArray(uniqueQuestions);
 
 
@@ -95,10 +98,11 @@ const GameMenu: React.FC = () => {
       scores: Object.fromEntries(playerList.map(player => [player, 0])),
       usedPasses: Object.fromEntries(playerList.map(player => [player, false])),
       shuffledQuestions: shuffledQuestions,
-      usedQuestionIds: new Set(),
+      usedQuestionIds: new Set<number>(),
       currentQuestionIndex: 0
     };
     setGameState(initialState);
+    
   };
 
 
@@ -110,7 +114,7 @@ const GameMenu: React.FC = () => {
       const playerList = JSON.parse(router.query.players as string);
       initializeGameState(playerList);
     }
-  }, [router.query.players]);
+  }, [router.query.players, initializeGameState]);
 
 
 
@@ -495,14 +499,17 @@ const GameMenu: React.FC = () => {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-        {/* Add SweetAlert2 CDN */}
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       </Head>
 
       <div>
+        <Script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" strategy="lazyOnload" />
+
+
+
 
 
         <div className="quiz-container">
+
           {!gameState.isRoundOver ? (
             <>
               <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
