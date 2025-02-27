@@ -5,23 +5,29 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const handleAuthError = (error: any) => {
+  if (error) {
+    console.error("Authentication error:", error.message);
+    return { error, user: null };
+  }
+  return { error: null, user: null };
+};
+
+const signIn = async (email: string, password: string) => {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  return handleAuthError(error) || { user: data.user, error: null };
+};
+
 export const loginUser = async (email: string, password: string) => {
   try {
     console.log("Logging in user with email:", email);
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Login error:", error.message);
-      return { error, user: null };
-    }
-
-    return { user: data.user, error: null };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Caught login error:", err.message);
+    return await signIn(email, password);
+  } catch (err: unknown) {
+    console.error("Caught login error:", (err as Error).message);
     return { error: err, user: null };
   }
 };
@@ -29,7 +35,7 @@ export const loginUser = async (email: string, password: string) => {
 export const registerUser = async (email: string, password: string) => {
   try {
     console.log("Registering user with email:", email);
-    const { data, error: signUpError } = await supabase.auth.signUp({
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -40,24 +46,15 @@ export const registerUser = async (email: string, password: string) => {
     }
 
     console.log("User registered successfully. Logging in...");
+    const loginResult = await signIn(email, password);
 
-    // Log the user in automatically after registration
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (signInError) {
-      console.error("Error logging in after registration:", signInError.message);
-      throw signInError;
+    if (loginResult.error) {
+      throw loginResult.error;
     }
 
-
-
-    return data.user;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Error during registration:", err.message);
+    return loginResult.user;
+  } catch (err: unknown) {
+    console.error("Error during registration:", (err as Error).message);
     throw err;
   }
 };
@@ -75,9 +72,8 @@ export const resetPassword = async (email: string) => {
     }
 
     console.log("Password reset email sent successfully");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Error sending password reset email:", err.message);
+  } catch (err: unknown) {
+    console.error("Error sending password reset email:", (err as Error).message);
     throw err;
   }
 };
@@ -94,18 +90,17 @@ export const updatePassword = async (newPassword: string) => {
     }
 
     console.log("Password updated successfully");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Error updating password:", err.message);
+  } catch (err: unknown) {
+    console.error("Error updating password:", (err as Error).message);
     throw err;
   }
 };
 
-export const confirmEmail = async (token: string) => {
+export const confirmEmail = async (email: string, token: string) => {
   try {
     console.log("Confirming email with token:", token);
     const { error } = await supabase.auth.verifyOtp({
-      email: "user@example.com", // replace with the actual email
+      email,
       token,
       type: "signup",
     });
@@ -116,9 +111,8 @@ export const confirmEmail = async (token: string) => {
     }
 
     console.log("Email confirmed successfully");
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Error confirming email:", err.message);
+  } catch (err: unknown) {
+    console.error("Error confirming email:", (err as Error).message);
     throw err;
   }
 };

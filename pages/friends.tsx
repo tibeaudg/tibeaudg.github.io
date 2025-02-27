@@ -56,10 +56,16 @@ const FriendsPage: React.FC = () => {
     checkSession();
   }, []);
 
+
+
+
   const fetchFriends = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      // Haal de gebruiker op via het emailadres
+      const { data: user } = await supabase.from('users').select('*').eq('email', email).single();
       if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
+  
+      // Haal de vrienden op gebaseerd op de user_id van de gebruiker
       const { data, error } = await supabase.rpc('get_friends', { p_user_id: user.id });
       if (error) throw error;
       setFriends(data || []);
@@ -68,6 +74,9 @@ const FriendsPage: React.FC = () => {
     }
   };
 
+
+  
+  
   const fetchFriendRequests = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
