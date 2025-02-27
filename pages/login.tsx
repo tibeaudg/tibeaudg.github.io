@@ -45,10 +45,11 @@ const AuthForm = () => {
         });
       }
     } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Probeer opnieuw.";
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",
-        text: error.message || "Probeer opnieuw.",
+        text: errorMessage,
       });
     } finally {
       setLoading(false);
