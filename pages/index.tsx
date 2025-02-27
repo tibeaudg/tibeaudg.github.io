@@ -39,7 +39,7 @@ const availableAvatars = [
   "/assets/avatars/132.png",
   "/assets/avatars/133.png",
   "/assets/avatars/foTPoaY.png",
-  "/assets/avatars/foTPoaY.png",
+  "/assets/avatars/SRrVn2v.png",
 
 
 ];
