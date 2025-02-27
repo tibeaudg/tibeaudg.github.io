@@ -304,10 +304,12 @@ const GameMenu: React.FC = () => {
 
 const handleMultipleChoiceAnswer = (answer: string) => {
   const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
-  const isCorrect =
-    currentQuestion &&
-    currentQuestion.correctAnswer &&
-    answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+  if (!currentQuestion || !currentQuestion.correctAnswer) {
+    // Indien de vraag of het antwoord niet beschikbaar is, behandel dit als fout.
+    handleAnswer(false);
+    return;
+  }
+  const isCorrect = answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
   handleAnswer(isCorrect);
 };
 
@@ -316,10 +318,11 @@ const handleMultipleChoiceAnswer = (answer: string) => {
 const handleOpenAnswer = (e: React.FormEvent) => {
   e.preventDefault();
   const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
-  const isCorrect =
-    currentQuestion &&
-    currentQuestion.correctAnswer &&
-    gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+  if (!currentQuestion || !currentQuestion.correctAnswer) {
+    handleAnswer(false);
+    return;
+  }
+  const isCorrect = gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
   handleAnswer(isCorrect);
   setGameState(prev => ({ ...prev, openAnswer: "" }));
 };
