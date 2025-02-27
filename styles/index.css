@@ -141,7 +141,7 @@ font-size: 1.5rem;
 }
 
 .nav-link.active {
-color: white !important;
+color: #073a8d !important;
 position: relative; /* Ensure the pseudo-element is positioned relative to the nav-link */
 }
 
