@@ -2,6 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { loginUser, registerUser, resetPassword } from "../utils/supabaseClient";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +10,15 @@ const AuthForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [authMode, setAuthMode] = useState("login"); // login, register, reset
+  const [menuOpen, setMenuOpen] = useState(false); // For hamburger menu
   const router = useRouter();
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleLogout = () => {
+    // Implement logout functionality
+    console.log("Logged out");
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,14 +33,12 @@ const AuthForm = () => {
         }
         router.push("/"); // Redirect if no error
       } else if (authMode === "register") {
-
         await registerUser(email, password);
         Swal.fire({
           icon: "success",
           title: "Registratie gelukt!",
           text: "Controleer je e-mail voor bevestiging.",
         });
-
       } else if (authMode === "reset") {
         await resetPassword(email);
         Swal.fire({
@@ -42,6 +49,7 @@ const AuthForm = () => {
       }
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Probeer opnieuw.";
+      setErrorMessage(errorMessage);
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",
@@ -53,16 +61,28 @@ const AuthForm = () => {
   };
 
   return (
+    <>
+      <header className="header">
+        <div className="logo">
+          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+        </div>
+        <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+        </div>
 
+        {menuOpen && (
+          <div className="menu">
+            <div className="menu-item" onClick={handleLogout}>Logout</div>
+          </div>
+        )}
+      </header>
 
-
-
-    
-    <div className="container">
-      <h1>Disney Magic Quest</h1>
-      <div className="form-container login-container">
-        <form onSubmit={handleSubmit}>
-          {authMode !== "reset" && (
+      <div className="container">
+        <h1>Disney Magic Quest</h1>
+        <div className="form-container login-container">
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
               <input
@@ -74,79 +94,59 @@ const AuthForm = () => {
                 required
               />
             </div>
-          )}
 
-          {authMode !== "reset" && (
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-          )}
+            {authMode !== "reset" && (
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            )}
 
-          {authMode === "register" && (
-            <>
+            {errorMessage && <p className="error">{errorMessage}</p>}
 
-            </>
-          )}
-
-          {authMode === "reset" && (
-            <div className="form-group">
-              <label htmlFor="email">E-mail</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-          )}
-
-          {errorMessage && <p className="error">{errorMessage}</p>}
-
-          <button className="submit-btn" type="submit" disabled={loading}>
-            {loading
-              ? "Loading..."
-              : authMode === "login"
-              ? "Log In"
-              : authMode === "register"
-              ? "Register"
-              : "Reset Password"}
-          </button>
-        </form>
-
-        <div className="auth-switch">
-          {authMode === "login" ? (
-            <>
-              <p>
-                Nog geen account?{" "}
-                <button type="button" onClick={() => setAuthMode("register")}>
-                  Registreer hier
-                </button>
-              </p>
-              <p>
-                Wachtwoord vergeten?{" "}
-                <button type="button" onClick={() => setAuthMode("reset")}>
-                  Reset hier
-                </button>
-              </p>
-            </>
-          ) : (
-            <button type="button" onClick={() => setAuthMode("login")}>
-              Terug naar Login
+            <button className="submit-btn" type="submit" disabled={loading}>
+              {loading
+                ? "Loading..."
+                : authMode === "login"
+                ? "Log In"
+                : authMode === "register"
+                ? "Register"
+                : "Reset Password"}
             </button>
-          )}
+          </form>
+
+          <div className="auth-switch">
+            {authMode === "login" ? (
+              <>
+                <p>
+                  Nog geen account?{" "}
+                  <button type="button" onClick={() => setAuthMode("register")}>
+                    Registreer hier
+                  </button>
+                </p>
+                <p>
+                  Wachtwoord vergeten?{" "}
+                  <button type="button" onClick={() => setAuthMode("reset")}>
+                    Reset hier
+                  </button>
+                </p>
+              </>
+            ) : (
+              <button type="button" onClick={() => setAuthMode("login")}>
+                Terug naar Login
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
