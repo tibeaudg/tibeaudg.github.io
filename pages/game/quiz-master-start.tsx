@@ -302,20 +302,27 @@ const GameMenu: React.FC = () => {
 
 
 
-  const handleMultipleChoiceAnswer = (answer: string) => {
-    const currentQuestion = questions[gameState.currentQuestionIndex];
-    const isCorrect = currentQuestion && currentQuestion.correctAnswer && answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase() ? true : false || false;
-    handleAnswer(isCorrect);
-  };
+const handleMultipleChoiceAnswer = (answer: string) => {
+  const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+  const isCorrect =
+    currentQuestion &&
+    currentQuestion.correctAnswer &&
+    answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+  handleAnswer(isCorrect);
+};
 
-  const handleOpenAnswer = (e: React.FormEvent) => {
-    e.preventDefault();
-    const currentQuestion = questions[gameState.currentQuestionIndex];
-    const isCorrect = currentQuestion && currentQuestion.correctAnswer && gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase() || false;
-    handleAnswer(isCorrect);
-    setGameState(prev => ({ ...prev, openAnswer: "" }));
-  };
 
+
+const handleOpenAnswer = (e: React.FormEvent) => {
+  e.preventDefault();
+  const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+  const isCorrect =
+    currentQuestion &&
+    currentQuestion.correctAnswer &&
+    gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+  handleAnswer(isCorrect);
+  setGameState(prev => ({ ...prev, openAnswer: "" }));
+};
 
 
 
