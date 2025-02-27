@@ -5,12 +5,55 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/supabaseClient";
 
+
+
+// Gegevens per user
 interface User {
   user_metadata?: {
     username?: string;
     level?: string;
+    accuracy?: string;
+    correctanswers?: string;
+    gamesplayed?: string;
+    avatar?: string;
+
+
   };
 }
+
+
+
+
+// Definieer een lijst met beschikbare profielfoto's
+const availableAvatars = [
+  "/assets/avatars/31.png",
+  "/assets/avatars/38.png",
+  "/assets/avatars/100.png",
+  "/assets/avatars/101.png",
+  "/assets/avatars/102.png",
+  "/assets/avatars/105.png",
+  "/assets/avatars/109.png",
+  "/assets/avatars/111.png",
+  "/assets/avatars/112.png",
+  "/assets/avatars/113.png",
+  "/assets/avatars/119.png",
+  "/assets/avatars/122.png",
+  "/assets/avatars/126.png",
+  "/assets/avatars/131.png",
+  "/assets/avatars/132.png",
+  "/assets/avatars/133.png",
+
+
+
+
+
+
+
+
+
+];
+
+
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -21,10 +64,30 @@ const HomePage: React.FC = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
 
 
 
 
+
+  // Functie om de gekozen avatar op te slaan
+  const handleAvatarSelect = async (avatar: string) => {
+    if (!user) return;
+    // Update lokale state
+    const updatedUser = { ...user, user_metadata: { ...user.user_metadata, avatar } };
+    setUser(updatedUser);
+    // Update Supabase user metadata zodat de keuze bewaard blijft
+    const { data, error } = await supabase.auth.updateUser({
+      data: { avatar },
+    });
+    if (error) {
+      console.error("Error updating avatar:", error.message);
+    } else {
+      console.log("Avatar updated successfully");
+    }
+    // Sluit het keuzemenu
+    setAvatarMenuOpen(false);
+  };
 
 
 
@@ -131,8 +194,34 @@ const HomePage: React.FC = () => {
 
 
         <div className="profile-section text-center">
-          <div className="profile-image">👑</div>
-          <div className="profile-info">
+        <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
+            <Image
+              src={user.user_metadata?.avatar || "/assets/default-avatar.png"}
+              alt="Profile Avatar"
+              width={150}
+              height={150}
+            />
+             </div>
+            {avatarMenuOpen && (
+              <div className="avatar-menu">
+                <h3>Kies een profielfoto</h3>
+                <div className="avatar-options">
+                  {availableAvatars.map((avatar) => (
+                    <div
+                      key={avatar}
+                      className="avatar-option"
+                      onClick={() => handleAvatarSelect(avatar)}
+                      style={{ display: "inline-block", margin: "5px", cursor: "pointer" }}
+                    >
+                      <Image src={avatar} alt="Avatar option" width={50} height={50} />
+                    </div>
+                  ))}
+                </div>
+                <button onClick={() => setAvatarMenuOpen(false)}>Sluiten</button>
+              </div>
+            )}
+              
+            <div className="profile-info">
             <h2 className="username">
               {user.user_metadata?.username ?? "N/A"}
             </h2>
@@ -142,17 +231,17 @@ const HomePage: React.FC = () => {
 
         <div className="stats-inline">
           <h4>Games Played</h4>
-          <p>120</p>
+          <p>{user.user_metadata?.gamesplayed ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
           <h4>Correct Answers</h4>
-          <p>95</p>
+          <p>{user.user_metadata?.correctanswers ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
           <h4>Accuracy Percentage</h4>
-          <p>95%</p>
+          <p>{user.user_metadata?.accuracy ?? "N/A"}</p>
         </div>
 
         <nav className="navbar">
