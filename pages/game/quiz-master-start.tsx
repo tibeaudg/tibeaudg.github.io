@@ -16,7 +16,7 @@ interface GameState {
   players: string[];
   scores: Record<string, number>;
   usedPasses: Record<string, boolean>;
-  shuffledQuestions: any[]; // Voeg deze regel toe
+  shuffledQuestions: unknown[]; // Voeg deze regel toe
   usedQuestionIds: Set<number>; // Track used questions
 
 }
@@ -24,7 +24,7 @@ interface GameState {
 
 
 // Utility functions
-const shuffleArray = (array: any[]) => {
+const shuffleArray = (array: unknown[]) => {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -34,6 +34,7 @@ const shuffleArray = (array: any[]) => {
 };
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
   return allQuestions.filter(question => !usedIds.has(question.id));
 };
@@ -172,7 +173,7 @@ const GameMenu: React.FC = () => {
     const title = status === "Correct!" ? status : "Wrong!";
     
     Swal.fire({
-      icon: icon as any,
+      icon: icon as unknown,
       title: title,
       html: status === "Correct!" 
         ? `<p>You got it right! 🎉</p>` 
