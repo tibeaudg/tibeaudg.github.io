@@ -1224,6 +1224,18 @@ text-align: center;
 }
 
 
+.avatar-menu {
+  background-color: white;
+  margin: 20px; 
+  border-color: 1px #000000;
+}
+
+.avatar-options {
+  margin: 5px;
+}
+
+
+
 .profile-image {
 margin-top: 30px;
 margin-bottom: 10px;

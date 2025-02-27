@@ -28,6 +28,8 @@ interface User {
 const availableAvatars = [
   "/assets/avatars/31.png",
   "/assets/avatars/38.png",
+  "/assets/avatars/39.png",
+  "/assets/avatars/40.png",
   "/assets/avatars/100.png",
   "/assets/avatars/101.png",
   "/assets/avatars/102.png",
@@ -213,11 +215,11 @@ const HomePage: React.FC = () => {
                       onClick={() => handleAvatarSelect(avatar)}
                       style={{ display: "inline-block", margin: "5px", cursor: "pointer" }}
                     >
-                      <Image src={avatar} alt="Avatar option" width={50} height={50} />
+                      <Image src={avatar} alt="Avatar option" width={100} height={100} />
                     </div>
                   ))}
                 </div>
-                <button onClick={() => setAvatarMenuOpen(false)}>Sluiten</button>
+                <button className="btn" onClick={() => setAvatarMenuOpen(false)}>Sluiten</button>
               </div>
             )}
               
