@@ -23,6 +23,7 @@ const availableAvatars = [
   "/assets/avatars/38.png",
   "/assets/avatars/39.png",
   "/assets/avatars/40.png",
+  "/assets/avatars/75.png",
   "/assets/avatars/100.png",
   "/assets/avatars/101.png",
   "/assets/avatars/102.png",
@@ -37,6 +38,10 @@ const availableAvatars = [
   "/assets/avatars/131.png",
   "/assets/avatars/132.png",
   "/assets/avatars/133.png",
+  "/assets/avatars/foTPoaY.png",
+  "/assets/avatars/foTPoaY.png",
+
+
 ];
 
 const HomePage: React.FC = () => {
