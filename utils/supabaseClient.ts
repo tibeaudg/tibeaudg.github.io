@@ -52,19 +52,8 @@ export const registerUser = async (email: string, password: string) => {
       throw signInError;
     }
 
-    console.log("Updating username...");
 
-    // Update user metadata
-    const { error: updateError } = await supabase.auth.updateUser({
-      data: { username },
-    });
 
-    if (updateError) {
-      console.error("Error updating username:", updateError.message);
-      throw updateError;
-    }
-
-    console.log("Username updated successfully");
     return data.user;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
