@@ -53,6 +53,11 @@ const AuthForm = () => {
   };
 
   return (
+
+
+
+
+    
     <div className="container">
       <h1>Disney Magic Quest</h1>
       <div className="form-container login-container">
