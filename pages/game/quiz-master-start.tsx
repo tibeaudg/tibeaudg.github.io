@@ -127,7 +127,7 @@ const GameMenu: React.FC = () => {
       
       // Get existing player data from localStorage
       const existingDataStr = localStorage.getItem('playerRankings');
-      let playerRankings: PlayerData[] = existingDataStr ? JSON.parse(existingDataStr) : [];
+      const playerRankings: PlayerData[] = existingDataStr ? JSON.parse(existingDataStr) : [];
       
       // Update player data with current session scores
       gameState.players.forEach(playerName => {

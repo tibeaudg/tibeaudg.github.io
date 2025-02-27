@@ -44,7 +44,7 @@ const AuthForm = () => {
           text: "Er is een reset link naar je e-mail gestuurd.",
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",

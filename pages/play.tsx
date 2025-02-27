@@ -62,17 +62,10 @@ const HomePage: React.FC = () => {
         </div>
       )}
       </header>
-
-
-
-
-
-
-
-        {/* Game Modes */}
+          
         <div className="game-mode-container">
           <div className="game-mode-card">
-            <a href="/game/quiz-master" className="game-mode-link">
+            <Link href="/game/quiz-master" passHref>
               <div className="game-mode-card-content quiz-master">
                 <div className="icon">
                   <i className="bi bi-people-fill"></i>
@@ -82,11 +75,11 @@ const HomePage: React.FC = () => {
                   One player reads questions while others answer
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="game-mode-card coming-soon">
-            <a href="/game/live" className="game-mode-link">
+            <Link href="/game/live" passHref>
               <div className="game-mode-card-content live-mode">
                 <div className="icon">
                   <i className="bi bi-lightning-charge-fill"></i>
@@ -96,14 +89,11 @@ const HomePage: React.FC = () => {
                   Compete in real-time with other players
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
+        
       </div>
-
-
-
-
 
       <nav className="navbar">
           <Link href="/" className="nav-link">
