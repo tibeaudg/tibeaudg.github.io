@@ -18,7 +18,7 @@ interface GameState {
   players: string[];
   scores: Record<string, number>;
   usedPasses: Record<string, boolean>;
-  shuffledQuestions: unknown[]; // Voeg deze regel toe
+  shuffledQuestions: Question[]; // Voeg deze regel toe
   usedQuestionIds: Set<number>; // Track used questions
 
 }
@@ -48,6 +48,16 @@ const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
 interface PlayerData {
   username: string;
   totalPoints: number;
+}
+
+interface Question {
+  id: number;
+  category: string;
+  difficulty: 'easy' | 'medium' | 'difficult' | 'hard';
+  question: string;
+  correctAnswer: string;
+  options?: string[];
+  type: 'multiple-choice' | 'open';
 }
 
 const GameMenu: React.FC = () => {
@@ -88,7 +98,7 @@ const GameMenu: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initializeGameState = (playerList: string[]) => {
     const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
-    const shuffledQuestions = shuffleArray(uniqueQuestions);
+    const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
 
 
 
@@ -97,7 +107,7 @@ const GameMenu: React.FC = () => {
       players: playerList,
       scores: Object.fromEntries(playerList.map(player => [player, 0])),
       usedPasses: Object.fromEntries(playerList.map(player => [player, false])),
-      shuffledQuestions: shuffledQuestions,
+      shuffledQuestions: shuffledQuestions as Question[],
       usedQuestionIds: new Set<number>(),
       currentQuestionIndex: 0
     };
@@ -108,16 +118,14 @@ const GameMenu: React.FC = () => {
 
 
 
-
   useEffect(() => {
     if (router.query.players) {
       const playerList = JSON.parse(router.query.players as string);
       initializeGameState(playerList);
     }
-  }, [router.query.players, initializeGameState]);
-
-
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.players]);  // Removed initializeGameState from dependencies
+  
 
 
 
@@ -126,8 +134,6 @@ const GameMenu: React.FC = () => {
     if (scoresSaved) return; // Prevent duplicate saves
     
     try {
-      // Get current date in YYYY-MM-DD format
-      const today = new Date().toISOString().split('T')[0];
       
       // Get existing player data from localStorage
       const existingDataStr = localStorage.getItem('playerRankings');
@@ -148,8 +154,6 @@ const GameMenu: React.FC = () => {
           playerRankings.push({
             username: playerName,
             totalPoints: sessionScore,
-            sessionsPlayed: 1,
-            lastPlayed: today
           });
         }
       });
@@ -184,10 +188,10 @@ const GameMenu: React.FC = () => {
         : `<p>The correct answer is:</p><p class="font-weight-bold text-success">${correctAnswer}</p>`,
       timer: 3000,
       timerProgressBar: true,
-      showConfirmButton: false,
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      allowEnterKey: false
+      showConfirmButton: true,
+      allowOutsideClick: true,
+      allowEscapeKey: true,
+      allowEnterKey: true
     });
   };
 
@@ -226,7 +230,7 @@ const GameMenu: React.FC = () => {
       const currentQuestion = prev.shuffledQuestions[prev.currentQuestionIndex];
 
       // Mark question as used
-      const newUsedIds = new Set(prev.usedQuestionIds).add(currentQuestion.id);
+      const newUsedIds = new Set(prev.usedQuestionIds).add((currentQuestion as { id: number }).id);
 
       if (nextQuestionIndex >= prev.shuffledQuestions.length) {
         return {
@@ -277,7 +281,7 @@ const GameMenu: React.FC = () => {
 
 
       if (isCorrect) {
-        const points = getDifficultyPoints(currentQuestion.difficulty as 'easy' | 'medium' | 'difficult' | 'hard');
+        const points = getDifficultyPoints((currentQuestion as { difficulty: 'easy' | 'medium' | 'difficult' | 'hard' }).difficulty);
         newState.scores = {
           ...prev.scores,
           [prev.players[prev.currentPlayerIndex]]: prev.scores[prev.players[prev.currentPlayerIndex]] + points
@@ -290,7 +294,7 @@ const GameMenu: React.FC = () => {
 
 
 
-    showAnswerPopup(status, currentQuestion.correctAnswer || "");
+    showAnswerPopup(status, (currentQuestion as { correctAnswer: string }).correctAnswer || "");
     setTimeout(() => moveToNextQuestion(), 3000);
   };
 
@@ -329,7 +333,7 @@ const GameMenu: React.FC = () => {
       return;
     }
 
-    const shuffledQuestions = shuffleArray(uniqueQuestions);
+    const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
 
 
 

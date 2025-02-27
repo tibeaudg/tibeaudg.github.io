@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { supabase } from "@/utils/supabaseClient";
+import router from "next/router";
 
 
 
@@ -12,8 +13,6 @@ import { supabase } from "@/utils/supabaseClient";
 interface PlayerRanking {
   username: string;
   totalPoints: number;
-  sessionsPlayed: number;
-  lastPlayed: string;
 }
 
 const HomePage: React.FC = () => {
