@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/supabaseClient";
 
-
-
 // Gegevens per user
 interface User {
   user_metadata?: {
@@ -16,13 +14,8 @@ interface User {
     correctanswers?: string;
     gamesplayed?: string;
     avatar?: string;
-
-
   };
 }
-
-
-
 
 // Definieer een lijst met beschikbare profielfoto's
 const availableAvatars = [
@@ -44,18 +37,7 @@ const availableAvatars = [
   "/assets/avatars/131.png",
   "/assets/avatars/132.png",
   "/assets/avatars/133.png",
-
-
-
-
-
-
-
-
-
 ];
-
-
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -66,19 +48,16 @@ const HomePage: React.FC = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
-
-
-
-
+  const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
 
   // Functie om de gekozen avatar op te slaan
   const handleAvatarSelect = async (avatar: string) => {
     if (!user) return;
-    // Update lokale state
     const updatedUser = { ...user, user_metadata: { ...user.user_metadata, avatar } };
     setUser(updatedUser);
-    // Update Supabase user metadata zodat de keuze bewaard blijft
     const { error } = await supabase.auth.updateUser({
       data: { avatar },
     });
@@ -87,12 +66,24 @@ const HomePage: React.FC = () => {
     } else {
       console.log("Avatar updated successfully");
     }
-    // Sluit het keuzemenu
     setAvatarMenuOpen(false);
   };
 
-
-
+  // Functie om de nieuwe gebruikersnaam op te slaan
+  const handleUsernameSelect = async () => {
+    if (!user || !newUsername) return;
+    const updatedUser = { ...user, user_metadata: { ...user.user_metadata, username: newUsername } };
+    setUser(updatedUser);
+    const { error } = await supabase.auth.updateUser({
+      data: { username: newUsername },
+    });
+    if (error) {
+      console.error("Error updating username:", error.message);
+    } else {
+      console.log("Username updated successfully");
+      setUsernameMenuOpen(false); // Sluit de dropdown na het opslaan
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -127,21 +118,10 @@ const HomePage: React.FC = () => {
     };
   }, [router]);
 
-
-
-
-
-
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
   };
-
-
-
-
-
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -172,63 +152,76 @@ const HomePage: React.FC = () => {
       </Head>
 
       <div>
-
-
-        
-      <header className="header">
-        <div className="logo">
-          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
-        </div>
+        <header className="header">
+          <div className="logo">
+            <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+          </div>
           <div className="hamburger-menu" onClick={toggleMenu}>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-        </div>
+            <div className="hamburger-icon"></div>
+            <div className="hamburger-icon"></div>
+            <div className="hamburger-icon"></div>
+          </div>
 
-        {menuOpen && (
-        <div className="menu">
-          <div className="menu-item" onClick={handleLogout}>Logout</div>
-          {/* Voeg hier meer menu-items toe */}
-        </div>
-      )}
-      </header>
-
-
+          {menuOpen && (
+            <div className="menu">
+              <div className="menu-item" onClick={handleLogout}>Logout</div>
+            </div>
+          )}
+        </header>
 
         <div className="profile-section text-center">
-        <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
+          <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
             <Image
               src={user.user_metadata?.avatar || "/assets/default-avatar.png"}
               alt="Profile Avatar"
               width={150}
               height={150}
             />
-             </div>
-            {avatarMenuOpen && (
-              <div className="avatar-menu">
-                <h3>Kies een profielfoto</h3>
-                <div className="avatar-options">
-                  {availableAvatars.map((avatar) => (
-                    <div
-                      key={avatar}
-                      className="avatar-option"
-                      onClick={() => handleAvatarSelect(avatar)}
-                      style={{ display: "inline-block", margin: "5px", cursor: "pointer" }}
-                    >
-                      <Image src={avatar} alt="Avatar option" width={100} height={100} />
-                    </div>
-                  ))}
-                </div>
-                <button className="btn" onClick={() => setAvatarMenuOpen(false)}>Sluiten</button>
+          </div>
+          {avatarMenuOpen && (
+            <div className="avatar-menu">
+              <h3>Kies een profielfoto</h3>
+              <div className="avatar-options">
+                {availableAvatars.map((avatar) => (
+                  <div
+                    key={avatar}
+                    className="avatar-option"
+                    onClick={() => handleAvatarSelect(avatar)}
+                    style={{ display: "inline-block", margin: "5px", cursor: "pointer" }}
+                  >
+                    <Image src={avatar} alt="Avatar option" width={100} height={100} />
+                  </div>
+                ))}
               </div>
-            )}
-              
-            <div className="profile-info">
-            <h2 className="username">
+              <button className="btn" onClick={() => setAvatarMenuOpen(false)}>Sluiten</button>
+            </div>
+          )}
+
+          {/* Username Editing */}
+          <div className="username-section">
+            <h2
+              className="username"
+              onClick={() => setUsernameMenuOpen(true)}
+              style={{ cursor: "pointer" }}
+            >
               {user.user_metadata?.username ?? "N/A"}
             </h2>
-            <p className="text-muted">Level: {user.user_metadata?.level ?? "N/A"}</p>
+
+            {usernameMenuOpen && (
+              <div className="username-menu">
+                <input
+                  type="text"
+                  value={newUsername}
+                  onChange={(e) => setNewUsername(e.target.value)}
+                  placeholder="Nieuwe gebruikersnaam"
+                />
+                <button onClick={handleUsernameSelect}>Opslaan</button>
+                <button onClick={() => setUsernameMenuOpen(false)}>Annuleren</button>
+              </div>
+            )}
           </div>
+
+          <p className="text-muted">Level: {user.user_metadata?.level ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
@@ -263,7 +256,6 @@ const HomePage: React.FC = () => {
             <i className="bi bi-people"></i>
             <span className="d-block small">Friends</span>
           </Link>
-
         </nav>
       </div>
     </>
