@@ -75,7 +75,7 @@ const FriendsPage: React.FC = () => {
   };
 
 
-  
+
   
   const fetchFriendRequests = async () => {
     try {
@@ -88,23 +88,38 @@ const FriendsPage: React.FC = () => {
       console.error("Failed to fetch friend requests:", error);
     }
   };
+  
 
-  const handleInvite = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      const { error } = await supabase.rpc('send_invitation', {
-        p_sender_id: user?.id,
-        p_receiver_id: inviteEmail, // Ensure this is the correct type (e.g., UUID or string)
-      });
-      if (error) throw error;
-      setInvitationSent(true);
-      setInviteEmail("");
-      setTimeout(() => setInvitationSent(false), 3000);
-    } catch (error) {
-      console.error("Failed to send invitation:", error);
+
+
+
+
+const handleInvite = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    console.log('Sending invitation from user', user);  // Add logging to ensure user is fetched
+    const { error } = await supabase.rpc('send_invitation', {
+      p_sender_id: user?.id,
+      p_receiver_id: inviteEmail, // Ensure this is the correct type (e.g., UUID or string)
+    });
+    if (error) {
+      console.error("Error sending invitation:", error);
+      throw error;
     }
-  };
+    setInvitationSent(true);
+    setInviteEmail("");
+    setTimeout(() => setInvitationSent(false), 3000);
+  } catch (error) {
+    console.error("Failed to send invitation:", error);
+  }
+};
+
+
+
+
+
+
 
   const handleRequest = async (requestId: number, action: "approved" | "rejected") => {
     try {
