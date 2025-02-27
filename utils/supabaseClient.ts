@@ -19,8 +19,13 @@ const signIn = async (email: string, password: string) => {
     email,
     password,
   });
-  return handleAuthError(error) || { user: data.user, error: null };
+return error ? handleAuthError(error) : { user: data.user, error: null };
 };
+
+
+
+
+
 
 export const loginUser = async (email: string, password: string) => {
   try {
