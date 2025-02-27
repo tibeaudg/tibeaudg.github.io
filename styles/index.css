@@ -518,6 +518,11 @@ text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
 }
 
 
+.Email {
+  margin: 20px;
+}
+
+
 
 
 body {

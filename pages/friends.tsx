@@ -21,7 +21,16 @@ interface FriendRequest extends Friend {
   status: "pending" | "approved" | "rejected";
 }
 
+
+
+
+
+
+
+
+
 const FriendsPage: React.FC = () => {
+
   const [friends, setFriends] = useState<Friend[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
   const [inviteEmail, setInviteEmail] = useState<string>("");
@@ -61,8 +70,8 @@ const FriendsPage: React.FC = () => {
 
   const fetchFriends = async () => {
     try {
-      // Haal de gebruiker op via het emailadres
-      const { data: user } = await supabase.from('users').select('*').eq('email', email).single();
+      // Haal de ingelogde gebruiker op via Supabase Auth
+      const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
   
       // Haal de vrienden op gebaseerd op de user_id van de gebruiker
@@ -73,7 +82,7 @@ const FriendsPage: React.FC = () => {
       console.error("Failed to fetch friends:", error);
     }
   };
-
+  
 
 
   
