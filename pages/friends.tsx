@@ -32,17 +32,15 @@ const FriendsPage: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
-
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-    };
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
   };
-  
 
   useEffect(() => {
     // Check if user is already logged in
@@ -54,11 +52,10 @@ const FriendsPage: React.FC = () => {
         fetchFriendRequests();
       }
     };
-    
+
     checkSession();
   }, []);
 
-  // Fetch friends from your API
   const fetchFriends = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -70,11 +67,7 @@ const FriendsPage: React.FC = () => {
       console.error("Failed to fetch friends:", error);
     }
   };
-  
 
-
-
-  // Fetch friend requests from your API
   const fetchFriendRequests = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -86,38 +79,32 @@ const FriendsPage: React.FC = () => {
       console.error("Failed to fetch friend requests:", error);
     }
   };
-  
 
-
-
-
-const handleInvite = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    const { error } = await supabase.rpc('send_invitation', { 
-      p_sender_id: user?.id, 
-      p_receiver_id: inviteEmail  // Pas dit aan als inviteEmail eigenlijk een UUID of ander type moet zijn
-    });
-    if (error) throw error;
-    setInvitationSent(true);
-    setInviteEmail("");
-    setTimeout(() => setInvitationSent(false), 3000);
-  } catch (error) {
-    console.error("Failed to send invitation:", error);
-  }
-};
-
-
-
+  const handleInvite = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const { error } = await supabase.rpc('send_invitation', {
+        p_sender_id: user?.id,
+        p_receiver_id: inviteEmail, // Ensure this is the correct type (e.g., UUID or string)
+      });
+      if (error) throw error;
+      setInvitationSent(true);
+      setInviteEmail("");
+      setTimeout(() => setInvitationSent(false), 3000);
+    } catch (error) {
+      console.error("Failed to send invitation:", error);
+    }
+  };
 
   const handleRequest = async (requestId: number, action: "approved" | "rejected") => {
     try {
-      const { error } = await supabase.rpc('handle_friend_request', { 
-        p_request_id: requestId, 
-        action 
+      const { error } = await supabase.rpc('handle_friend_request', {
+        p_request_id: requestId,
+        action,
       });
       if (error) throw error;
+
       setFriendRequests((prevRequests) =>
         prevRequests.map((request) =>
           request.id === requestId
@@ -125,8 +112,6 @@ const handleInvite = async (e: React.FormEvent) => {
             : request
         )
       );
-
-
 
       if (action === "approved") {
         const approvedRequest = friendRequests.find((request) => request.id === requestId);
@@ -141,18 +126,19 @@ const handleInvite = async (e: React.FormEvent) => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await loginUser(email, password);
-    if (error) {
-      if (error instanceof Error) {
-        setAuthError(error.message);
-      } else {
-        setAuthError(String(error));
+    try {
+      const { error } = await loginUser(email, password);
+      if (error) {
+        setAuthError(error.message || "Login failed");
+        return;
       }
-    } else {
       setIsLoggedIn(true);
       setAuthError(null);
       fetchFriends();
       fetchFriendRequests();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setAuthError(error.message || "Unexpected error during login");
     }
   };
 
@@ -164,8 +150,9 @@ const handleInvite = async (e: React.FormEvent) => {
       setAuthError(null);
       fetchFriends();
       fetchFriendRequests();
-    } catch (error: unknown) {
-      setAuthError(error.message);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setAuthError(error.message || "Registration failed");
     }
   };
 
@@ -174,8 +161,9 @@ const handleInvite = async (e: React.FormEvent) => {
       await resetPassword(email);
       setAuthError(null);
       alert("Password reset email sent. Please check your inbox.");
-    } catch (error: unknown) {
-      setAuthError(error.message);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setAuthError(error.message || "Failed to send reset email");
     }
   };
 
@@ -306,13 +294,13 @@ const handleInvite = async (e: React.FormEvent) => {
                       <p className="friend-name">{request.name}</p>
                       <div className="request-actions">
                         <button
-                          onClick={() => handleRequest(request.id, "approve")}
+                          onClick={() => handleRequest(request.id, "approved")}
                           disabled={request.status !== "pending"}
                         >
                           Accepteer
                         </button>
                         <button
-                          onClick={() => handleRequest(request.id, "reject")}
+                          onClick={() => handleRequest(request.id, "rejected")}
                           disabled={request.status !== "pending"}
                         >
                           Weiger
