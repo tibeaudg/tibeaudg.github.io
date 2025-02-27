@@ -485,6 +485,27 @@ margin: 40px;
 }
 
 
+.btn-verstuurUitnodiging {
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+padding: 10px 20px;
+border-radius: 8px;
+color: white !important;
+font-weight: bold;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+border: none;
+text-align: center;
+text-decoration: none; /* Dit voorkomt de onderlijning */
+margin-top: 20px;
+
+}
+  
+
+
+
+
 .btn-success {
 background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 width: 67%; /* Stel de breedte in op 67% */
@@ -1140,14 +1161,38 @@ margin-left: 10px;
 display: flex;
 flex-direction: column;
 align-items: center;
-padding: 2rem 1rem;
+padding: 1rem;
 background: rgba(255, 255, 255, 0.9);
 max-width: 600px;
 border-radius: 1rem;
 box-shadow: var(--magical-shadow);
 margin: 20px;
-
 }
+
+
+.invite-friend-container { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  border-radius: 1rem;
+  box-shadow: var(--magical-shadow);
+  margin: 20px;
+}
+
+.Email { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: x-large;
+}
+
+
+
+
+
 
 /* Vriendenlijst stijlen */
 .friends-list {

@@ -350,7 +350,7 @@ const handleInvite = async (e: React.FormEvent) => {
 
           <div className="invite-friend-container">
             <h3>Nodig een vriend uit</h3>
-            <form onSubmit={handleInvite}>
+            <form className="Email" onSubmit={handleInvite}>
               <input
                 type="email"
                 value={inviteEmail}
@@ -358,7 +358,7 @@ const handleInvite = async (e: React.FormEvent) => {
                 placeholder="Email"
                 required
               />
-              <button type="submit">Verstuur uitnodiging</button>
+              <button className="btn-verstuurUitnodiging" type="submit">Verstuur uitnodiging</button>
             </form>
             {invitationSent && <p className="success-message">Uitnodiging verzonden!</p>}
           </div>
