@@ -31,10 +31,11 @@ const ResetPassword = () => {
       });
       router.push("/login"); // Redirect to the login page after successful password update
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Probeer opnieuw.";
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",
-        text: error.message || "Probeer opnieuw.",
+        text: errorMessage,
       });
       setLoading(false);
     }
