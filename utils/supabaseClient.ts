@@ -19,6 +19,7 @@ export const loginUser = async (email: string, password: string) => {
     }
 
     return { user: data.user, error: null };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Caught login error:", err.message);
     return { error: err, user: null };
@@ -65,6 +66,7 @@ export const registerUser = async (email: string, password: string, username: st
 
     console.log("Username updated successfully");
     return data.user;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Error during registration:", err.message);
     throw err;
@@ -84,6 +86,7 @@ export const resetPassword = async (email: string) => {
     }
 
     console.log("Password reset email sent successfully");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Error sending password reset email:", err.message);
     throw err;
@@ -102,6 +105,7 @@ export const updatePassword = async (newPassword: string) => {
     }
 
     console.log("Password updated successfully");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Error updating password:", err.message);
     throw err;
@@ -112,6 +116,7 @@ export const confirmEmail = async (token: string) => {
   try {
     console.log("Confirming email with token:", token);
     const { error } = await supabase.auth.verifyOtp({
+      email: "user@example.com", // replace with the actual email
       token,
       type: "signup",
     });
@@ -122,6 +127,7 @@ export const confirmEmail = async (token: string) => {
     }
 
     console.log("Email confirmed successfully");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.error("Error confirming email:", err.message);
     throw err;
