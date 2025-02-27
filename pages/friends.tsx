@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import { supabase, loginUser, registerUser, resetPassword, updatePassword, confirmEmail } from "../utils/supabaseClient"; // Updated import path
+import { supabase, loginUser, registerUser, resetPassword} from "../utils/supabaseClient"; // Updated import path
 
 interface Friend {
   id: number;
@@ -114,16 +114,19 @@ const handleInvite = async (e: React.FormEvent) => {
     try {
       const { error } = await supabase.rpc('Handle Friend Request', { 
         p_request_id: requestId, 
-        p_action 
+        action 
       });
       if (error) throw error;
       setFriendRequests((prevRequests) =>
         prevRequests.map((request) =>
           requestId === requestId
-            ? { ...request, status: p_action }
+            ? { ...request, status: action }
             : request
         )
       );
+
+
+
       if (action === "approve") {
         const approvedRequest = friendRequests.find((request) => request.id === requestId);
         if (approvedRequest) {
@@ -137,9 +140,13 @@ const handleInvite = async (e: React.FormEvent) => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { user, error } = await loginUser(email, password);
+    const { error } = await loginUser(email, password);
     if (error) {
-      setAuthError(error.message);
+      if (error instanceof Error) {
+        setAuthError(error.message);
+      } else {
+        setAuthError(String(error));
+      }
     } else {
       setIsLoggedIn(true);
       setAuthError(null);
@@ -156,7 +163,7 @@ const handleInvite = async (e: React.FormEvent) => {
       setAuthError(null);
       fetchFriends();
       fetchFriendRequests();
-    } catch (error: any) {
+    } catch (error: unknown) {
       setAuthError(error.message);
     }
   };
@@ -166,7 +173,7 @@ const handleInvite = async (e: React.FormEvent) => {
       await resetPassword(email);
       setAuthError(null);
       alert("Password reset email sent. Please check your inbox.");
-    } catch (error: any) {
+    } catch (error: unknown) {
       setAuthError(error.message);
     }
   };
@@ -273,11 +280,6 @@ const handleInvite = async (e: React.FormEvent) => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <img
-                      src={friend.profileImage}
-                      alt={friend.name}
-                      className="friend-img"
-                    />
                     <div className="friend-info">
                       <p className="friend-name">{friend.name}</p>
                       <div className="friend-actions">
@@ -299,11 +301,6 @@ const handleInvite = async (e: React.FormEvent) => {
               {friendRequests.length > 0 ? (
                 friendRequests.map((request) => (
                   <li key={request.id} className="friend-request-item">
-                    <img
-                      src={request.profileImage}
-                      alt={request.name}
-                      className="friend-img"
-                    />
                     <div className="friend-info">
                       <p className="friend-name">{request.name}</p>
                       <div className="request-actions">
@@ -361,10 +358,7 @@ const handleInvite = async (e: React.FormEvent) => {
               <i className="bi bi-people-fill"></i>
               <span className="d-block small">Friends</span>
             </Link>
-            <Link href="/inbox" className="nav-link">
-              <i className="bi bi-envelope-paper"></i>
-              <span className="d-block small">Inbox</span>
-            </Link>
+
           </nav>
         </>
       )}

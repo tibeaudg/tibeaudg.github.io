@@ -470,7 +470,7 @@ text-align: center; /* Centrer de titel horizontaal */
 background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 padding: 10px 20px;
 border-radius: 8px;
-color: white;
+color: white !important;
 font-weight: bold;
 cursor: pointer;
 display: flex;
@@ -723,6 +723,12 @@ padding: 2rem;
 animation: scoreboardAppear 0.8s ease-out;
 border: none;
 
+}
+
+
+.username {
+  font-size: xx-large;
+  font-weight: bolder;
 }
 
 .card {
@@ -1341,9 +1347,7 @@ margin-bottom: 1rem;
 transition: background 0.3s ease;
 }
 
-.submit-btn:hover {
-background: #374bbf;
-}
+
 
 .auth-switch {
 margin-top: 1rem;

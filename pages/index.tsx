@@ -165,10 +165,7 @@ const HomePage: React.FC = () => {
             <i className="bi bi-people"></i>
             <span className="d-block small">Friends</span>
           </Link>
-          <Link href="/inbox" className="nav-link">
-            <i className="bi bi-envelope-paper"></i>
-            <span className="d-block small">Inbox</span>
-          </Link>
+
         </nav>
       </div>
     </>

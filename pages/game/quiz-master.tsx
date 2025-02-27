@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
+
 import { useRouter } from 'next/router'; // Gebruik van useRouter
+import { supabase } from "@/utils/supabaseClient";
 
 const GameMenu: React.FC = () => {
-  const [usernameList, setUsernameList] = useState<string[]>([]); // Lijst om de gebruikersnamen op te slaan
+  const [, setUsernameList] = useState<string[]>([]); // Lijst om de gebruikersnamen op te slaan
   const router = useRouter(); // Hook om de router te gebruiken
 
   // Hardcoded lijst van gebruikersnamen
@@ -19,6 +22,17 @@ const GameMenu: React.FC = () => {
       query: { players: JSON.stringify(hardcodedUsernames) }
     });
   };
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const toggleMenu = () => {
+      setMenuOpen(!menuOpen);
+    };
+
+    const handleLogout = async () => {
+      await supabase.auth.signOut();
+      router.push("/login");
+    };
+  
 
   return (
     <>
@@ -39,6 +53,25 @@ const GameMenu: React.FC = () => {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
         />
       </Head>
+
+
+            <header className="header">
+              <div className="logo">
+                <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
+              </div>
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                <div className="hamburger-icon"></div>
+                <div className="hamburger-icon"></div>
+                <div className="hamburger-icon"></div>
+              </div>
+      
+              {menuOpen && (
+              <div className="menu">
+                <div className="menu-item" onClick={handleLogout}>Logout</div>
+                {/* Voeg hier meer menu-items toe */}
+              </div>
+            )}
+            </header>
 
       <div>
         <h3 className="title">Quiz Master</h3>
@@ -93,11 +126,6 @@ const GameMenu: React.FC = () => {
           <Link href="/friends" className="nav-link">
             <i className="bi bi-people"></i>
             <span className="d-block small">Friends</span>
-          </Link>
-
-          <Link href="/inbox" className="nav-link">
-            <i className="bi bi-envelope-paper"></i>
-            <span className="d-block small">Inbox</span>
           </Link>
         </nav>
 
