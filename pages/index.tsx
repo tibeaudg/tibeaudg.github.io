@@ -5,8 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/supabaseClient";
 
+interface User {
+  user_metadata?: {
+    username?: string;
+    level?: string;
+  };
+}
+
 const HomePage: React.FC = () => {
-  const [user, setUser] = useState<unknown>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

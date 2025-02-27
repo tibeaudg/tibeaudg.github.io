@@ -217,7 +217,7 @@ const GameMenu: React.FC = () => {
       allowEnterKey: true
     });
 
-    setTimeout(() => moveToNextQuestion(true), 3000);
+    setTimeout(() => moveToNextQuestion(true), 1000);
   };
 
 
