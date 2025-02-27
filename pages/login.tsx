@@ -64,19 +64,9 @@ const AuthForm = () => {
     <>
       <header className="header">
         <div className="logo">
-          <Image src="/assets/logo.png" alt="Logo" width={100} height={100} />
-        </div>
-        <div className="hamburger-menu" onClick={toggleMenu}>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
+          <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
         </div>
 
-        {menuOpen && (
-          <div className="menu">
-            <div className="menu-item" onClick={handleLogout}>Logout</div>
-          </div>
-        )}
       </header>
 
       <div className="container">
