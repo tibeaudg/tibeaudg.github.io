@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
     const updatedUser = { ...user, user_metadata: { ...user.user_metadata, avatar } };
     setUser(updatedUser);
     // Update Supabase user metadata zodat de keuze bewaard blijft
-    const { data, error } = await supabase.auth.updateUser({
+    const { error } = await supabase.auth.updateUser({
       data: { avatar },
     });
     if (error) {
