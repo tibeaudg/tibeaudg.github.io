@@ -76,6 +76,14 @@ box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
   }
 
 
+  .header .logo-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Zorgt ervoor dat het logo in het midden staat */
+  }
+
+
 
 
 .header .hamburger-menu {
