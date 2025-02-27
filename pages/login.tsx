@@ -6,8 +6,6 @@ import { useRouter } from "next/router";
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [authMode, setAuthMode] = useState("login"); // login, register, reset
@@ -26,16 +24,14 @@ const AuthForm = () => {
         }
         router.push("/"); // Redirect if no error
       } else if (authMode === "register") {
-        if (password !== confirmPassword) {
-          throw new Error("Wachtwoorden komen niet overeen");
-        }
-        await registerUser(email, password, username);
+
+        await registerUser(email, password);
         Swal.fire({
           icon: "success",
           title: "Registratie gelukt!",
           text: "Controleer je e-mail voor bevestiging.",
         });
-        router.push("/login");
+
       } else if (authMode === "reset") {
         await resetPassword(email);
         Swal.fire({
@@ -91,29 +87,7 @@ const AuthForm = () => {
 
           {authMode === "register" && (
             <>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
 
-              <div className="form-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  id="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
             </>
           )}
 

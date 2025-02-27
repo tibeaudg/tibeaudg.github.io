@@ -145,7 +145,7 @@ const FriendsPage: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await registerUser(email, password, username);
+      await registerUser(email, password);
       setIsLoggedIn(true);
       setAuthError(null);
       fetchFriends();
