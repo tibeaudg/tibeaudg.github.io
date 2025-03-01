@@ -3,8 +3,9 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { supabase } from "@/utils/supabaseClient";
 import router from "next/router";
+import { signOut } from "firebase/auth";
+import { auth } from "@/utils/firebase";
 
 
 
@@ -25,10 +26,10 @@ const toggleMenu = () => {
 };
 
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
-  };
+const handleLogout = async () => {
+  await signOut(auth);
+  router.push("/login");
+};
 
 
   const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);

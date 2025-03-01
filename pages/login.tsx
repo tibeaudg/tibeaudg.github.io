@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { loginUser, registerUser, resetPassword } from "../utils/supabaseClient";
+import { auth, loginUser } from "../utils/firebase"; // Zorg ervoor dat dit correct is geïmporteerd
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -9,15 +9,20 @@ const AuthForm = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [authMode, setAuthMode] = useState("login"); // login, register, reset
-  const [menuOpen, setMenuOpen] = useState(false); // For hamburger menu
+  const [menuOpen, setMenuOpen] = useState(false); // Voor hamburger menu
   const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const handleLogout = () => {
-    // Implement logout functionality
-    console.log("Logged out");
+  const handleLogout = async () => {
+    // Implement logout functionaliteit
+    try {
+      await signOut(auth); // Zorg dat Firebase correct is ingesteld in je utils
+      console.log("Logged out successfully");
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,34 +31,18 @@ const AuthForm = () => {
     setErrorMessage("");
 
     try {
-      if (authMode === "login") {
-        const { error } = await loginUser(email, password);
-        if (error) {
-          throw error;
-        }
-        router.push("/"); // Redirect if no error
-      } else if (authMode === "register") {
-        await registerUser(email, password);
-        Swal.fire({
-          icon: "success",
-          title: "Registratie gelukt!",
-          text: "Controleer je e-mail voor bevestiging.",
-        });
-      } else if (authMode === "reset") {
-        await resetPassword(email);
-        Swal.fire({
-          icon: "info",
-          title: "Wachtwoord reset!",
-          text: "Er is een reset link naar je e-mail gestuurd.",
-        });
+      const user = await loginUser(email, password);
+      if (!user) {
+        throw new Error("Login failed. Please check your credentials and try again.");
       }
+      router.push("/"); // Redirect na succesvolle login
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : "Probeer opnieuw.";
-      setErrorMessage(errorMessage);
+      const message = error instanceof Error ? error.message : "Er is een fout opgetreden. Probeer opnieuw.";
+      setErrorMessage(message);
       Swal.fire({
         icon: "error",
         title: "Er ging iets mis",
-        text: errorMessage,
+        text: message,
       });
     } finally {
       setLoading(false);
@@ -62,26 +51,12 @@ const AuthForm = () => {
 
   return (
     <>
-      <header className="header">
-        <div className="logo-login">
-          <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
-        </div>
-        <div className="hamburger-menu-white" onClick={toggleMenu}>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-        </div>
 
-        {menuOpen && (
-          <div className="menu">
-            <div className="menu-item" onClick={handleLogout}>Logout</div>
-          </div>
-        )}
-      </header>
 
       <div className="container">
-        <h1>Disney Magic Quest</h1>
         <div className="form-container login-container">
+        <Image src="/assets/Magic Quest.png" alt="Logo" width={200} height={200} />
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
@@ -95,55 +70,24 @@ const AuthForm = () => {
               />
             </div>
 
-            {authMode !== "reset" && (
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-            )}
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
             {errorMessage && <p className="error">{errorMessage}</p>}
 
             <button className="submit-btn" type="submit" disabled={loading}>
-              {loading
-                ? "Loading..."
-                : authMode === "login"
-                ? "Log In"
-                : authMode === "register"
-                ? "Register"
-                : "Reset Password"}
+              {loading ? "Loading..." : "Log In"}
             </button>
           </form>
-
-          <div className="auth-switch">
-            {authMode === "login" ? (
-              <>
-                <p>
-                  Nog geen account?{" "}
-                  <button type="button" onClick={() => setAuthMode("register")}>
-                    Registreer hier
-                  </button>
-                </p>
-                <p>
-                  Wachtwoord vergeten?{" "}
-                  <button type="button" onClick={() => setAuthMode("reset")}>
-                    Reset hier
-                  </button>
-                </p>
-              </>
-            ) : (
-              <button type="button" onClick={() => setAuthMode("login")}>
-                Terug naar Login
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </>
@@ -151,3 +95,7 @@ const AuthForm = () => {
 };
 
 export default AuthForm;
+function signOut(auth: any) {
+  throw new Error("Function not implemented.");
+}
+

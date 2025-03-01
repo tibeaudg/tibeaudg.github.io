@@ -1,211 +1,138 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
+import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import Image from "next/image";
 
-import { supabase, loginUser, registerUser, resetPassword} from "../utils/supabaseClient"; // Updated import path
-import router from "next/router";
-
-interface Friend {
-  id: number;
-  name: string;
-  profileImage: string;
-}
-
-interface FriendRequest extends Friend {
-
-
-
-  
-  status: "pending" | "approved" | "rejected";
+// Gegevens per user
+interface User {
+  username?: string;
+  level?: string;
+  accuracy?: string;
+  correctanswers?: string;
+  gamesplayed?: string;
+  avatar?: string;
 }
 
 
 
 
+const availableAvatars: any[] = [
+  "/assets/avatars/31.png",
+  "/assets/avatars/38.png",
+  "/assets/avatars/39.png",
+  "/assets/avatars/40.png",
+  "/assets/avatars/75.png",
+  "/assets/avatars/100.png",
+  "/assets/avatars/101.png",
+  "/assets/avatars/102.png",
+  "/assets/avatars/105.png",
+  "/assets/avatars/109.png",
+  "/assets/avatars/111.png",
+  "/assets/avatars/112.png",
+  "/assets/avatars/113.png",
+  "/assets/avatars/119.png",
+  "/assets/avatars/122.png",
+  "/assets/avatars/126.png",
+  "/assets/avatars/131.png",
+  "/assets/avatars/132.png",
+  "/assets/avatars/133.png",
+  "/assets/avatars/foTPoaY.png",
+  "/assets/avatars/SRrVn2v.png",
+];
 
-
-
-
-
-const FriendsPage: React.FC = () => {
-
-  const [friends, setFriends] = useState<Friend[]>([]);
-  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
-  const [inviteEmail, setInviteEmail] = useState<string>("");
-  const [invitationSent, setInvitationSent] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [authError, setAuthError] = useState<string | null>(null);
+const HomePage: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
+  const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+
+  // Functie om de gekozen avatar op te slaan
+  const handleAvatarSelect = async (avatar: string) => {
+    if (!user) return;
+
+    try {
+      // Update de Firestore gebruiker met het nieuwe avatar
+      const userRef = doc(db, "users", auth.currentUser?.uid || "");
+      await updateDoc(userRef, { avatar });
+
+      // Update ook de lokale state
+      setUser((prevUser) => prevUser && { ...prevUser, avatar });
+      setAvatarMenuOpen(false);
+    } catch (error) {
+      console.error("Error updating avatar:", error);
+    }
   };
 
+  // Functie om de nieuwe gebruikersnaam op te slaan
+  const handleUsernameSelect = async () => {
+    if (!newUsername || !auth.currentUser) return;
+
+    try {
+      // Update Firebase authentication profile
+      await updateProfile(auth.currentUser, {
+        displayName: newUsername,
+      });
+
+      // Update Firestore met de nieuwe gebruikersnaam
+      const userRef = doc(db, "users", auth.currentUser?.uid || "");
+      await updateDoc(userRef, { username: newUsername });
+
+      // Update de lokale state
+      setUser((prevUser) => prevUser && { ...prevUser, username: newUsername });
+      setUsernameMenuOpen(false);
+    } catch (error) {
+      console.error("Error updating username:", error);
+    }
+  };
+
+  // Gebruik de Firestore gegevens om de user informatie te krijgen
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        // Haal aanvullende gebruikersgegevens uit Firestore
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          setUser(userDoc.data() as User);
+        }
+      } else {
+        router.push("/login");
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut(auth);
     router.push("/login");
   };
 
-  useEffect(() => {
-    // Check if user is already logged in
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        setIsLoggedIn(true);
-        fetchFriends();
-        fetchFriendRequests();
-      }
-    };
-
-    checkSession();
-  }, []);
-
-
-
-
-  const fetchFriends = async () => {
-    try {
-      // Haal de ingelogde gebruiker op via Supabase Auth
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
-  
-      // Haal de vrienden op gebaseerd op de user_id van de gebruiker
-      const { data, error } = await supabase.rpc('get_friends', { p_user_id: user.id });
-      if (error) throw error;
-      setFriends(data || []);
-    } catch (error) {
-      console.error("Failed to fetch friends:", error);
-    }
-  };
-  
-
-
-  
-  const fetchFriendRequests = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Geen ingelogde gebruiker gevonden");
-      const { data, error } = await supabase.rpc('get_friend_requests', { p_user_id: user.id });
-      if (error) throw error;
-      setFriendRequests(data || []);
-    } catch (error) {
-      console.error("Failed to fetch friend requests:", error);
-    }
-  };
-  
-
-
-
-
-
-const handleInvite = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    console.log('Sending invitation from user', user);  // Add logging to ensure user is fetched
-    const { error } = await supabase.rpc('send_invitation', {
-      p_sender_id: user?.id,
-      p_receiver_id: inviteEmail, // Ensure this is the correct type (e.g., UUID or string)
-    });
-    if (error) {
-      console.error("Error sending invitation:", error);
-      throw error;
-    }
-    setInvitationSent(true);
-    setInviteEmail("");
-    setTimeout(() => setInvitationSent(false), 3000);
-  } catch (error) {
-    console.error("Failed to send invitation:", error);
+  if (loading) {
+    return <div>Loading...</div>;
   }
-};
 
-
-
-
-
-
-
-  const handleRequest = async (requestId: number, action: "approved" | "rejected") => {
-    try {
-      const { error } = await supabase.rpc('handle_friend_request', {
-        p_request_id: requestId,
-        action,
-      });
-      if (error) throw error;
-
-      setFriendRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request.id === requestId
-            ? { ...request, status: action }
-            : request
-        )
-      );
-
-      if (action === "approved") {
-        const approvedRequest = friendRequests.find((request) => request.id === requestId);
-        if (approvedRequest) {
-          setFriends((prevFriends) => [...prevFriends, approvedRequest]);
-        }
-      }
-    } catch (error) {
-      console.error(`Failed to ${action} friend request:`, error);
-    }
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { error } = await loginUser(email, password);
-      if (error) {
-        setAuthError(error.message || "Login failed");
-        return;
-      }
-      setIsLoggedIn(true);
-      setAuthError(null);
-      fetchFriends();
-      fetchFriendRequests();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setAuthError(error.message || "Unexpected error during login");
-    }
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await registerUser(email, password);
-      setIsLoggedIn(true);
-      setAuthError(null);
-      fetchFriends();
-      fetchFriendRequests();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setAuthError(error.message || "Registration failed");
-    }
-  };
-
-  const handleResetPassword = async () => {
-    try {
-      await resetPassword(email);
-      setAuthError(null);
-      alert("Password reset email sent. Please check your inbox.");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setAuthError(error.message || "Failed to send reset email");
-    }
-  };
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Disney Magic Quest - Friends</title>
+        <title>Disney Magic Quest</title>
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -220,172 +147,43 @@ const handleInvite = async (e: React.FormEvent) => {
         />
       </Head>
 
+              <header className="header">
+                <div className="logo">
+                  <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
+                </div>
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                  <div className="hamburger-icon"></div>
+                  <div className="hamburger-icon"></div>
+                  <div className="hamburger-icon"></div>
+                </div>
+      
+                {menuOpen && (
+                  <div className="menu">
+                    <div className="menu-item" onClick={handleLogout}>Logout</div>
+                  </div>
+                )}
+              </header>
 
-      <header className="header">
-        <div className="logo">
-          <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
-        </div>
-          <div className="hamburger-menu" onClick={toggleMenu}>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-        </div>
-
-        {menuOpen && (
-        <div className="menu">
-          <div className="menu-item" onClick={handleLogout}>Logout</div>
-          {/* Voeg hier meer menu-items toe */}
-        </div>
-      )}
-      </header>
-
-      {!isLoggedIn ? (
-        <div className="auth-container">
-          <form onSubmit={handleLogin}>
-            <h3>Login</h3>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              required
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              required
-            />
-            <button type="submit">Login</button>
-          </form>
-          <form onSubmit={handleRegister}>
-            <h3>Register</h3>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              required
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              required
-            />
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-              required
-            />
-            <button type="submit">Register</button>
-          </form>
-          <button onClick={handleResetPassword}>Reset Password</button>
-          {authError && <p className="error-message">{authError}</p>}
-        </div>
-        
-      ) : (
-        <>
-          <div className="friends-list-container">
-            <h3>Vriendenlijst</h3>
-            <ul className="friends-list">
-              {friends.length > 0 ? (
-                friends.map((friend) => (
-                  <motion.li
-                    key={friend.id}
-                    className="friend-item"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="friend-info">
-                      <p className="friend-name">{friend.name}</p>
-                      <div className="friend-actions">
-                        <button className="view-profile">Bekijk profiel</button>
-                        <button className="remove-friend">Verwijder</button>
-                      </div>
-                    </div>
-                  </motion.li>
-                ))
-              ) : (
-                <p>Je hebt nog geen vrienden toegevoegd.</p>
-              )}
-            </ul>
-          </div>
-
-          <div className="friend-requests-container">
-            <h3>Vriendverzoeken</h3>
-            <ul className="friend-requests-list">
-              {friendRequests.length > 0 ? (
-                friendRequests.map((request) => (
-                  <li key={request.id} className="friend-request-item">
-                    <div className="friend-info">
-                      <p className="friend-name">{request.name}</p>
-                      <div className="request-actions">
-                        <button
-                          onClick={() => handleRequest(request.id, "approved")}
-                          disabled={request.status !== "pending"}
-                        >
-                          Accepteer
-                        </button>
-                        <button
-                          onClick={() => handleRequest(request.id, "rejected")}
-                          disabled={request.status !== "pending"}
-                        >
-                          Weiger
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                ))
-              ) : (
-                <p>Je hebt geen openstaande vriendverzoeken.</p>
-              )}
-            </ul>
-          </div>
-
-          <div className="invite-friend-container">
-            <h3>Nodig een vriend uit</h3>
-            <form className="Email" onSubmit={handleInvite}>
-              <input
-                type="email"
-                value={inviteEmail}
-                onChange={(e) => setInviteEmail(e.target.value)}
-                placeholder="Email"
-                required
-              />
-              <button className="btn-verstuurUitnodiging" type="submit">Verstuur uitnodiging</button>
-            </form>
-            {invitationSent && <p className="success-message">Uitnodiging verzonden!</p>}
-          </div>
-
-          <nav className="navbar">
-            <Link href="/" className="nav-link">
-              <i className="bi bi-house-door"></i>
-              <span className="d-block small">Home</span>
-            </Link>
-            <Link href="/leaderboard" className="nav-link">
-              <i className="bi bi-bar-chart-line"></i>
-              <span className="d-block small">Ranking</span>
-            </Link>
-            <Link href="/play" className="nav-link">
-              <i className="bi bi-rocket"></i>
-              <span className="d-block small">Play</span>
-            </Link>
-            <Link href="/friends" className="nav-link active">
-              <i className="bi bi-people-fill"></i>
-              <span className="d-block small">Friends</span>
-            </Link>
-
-          </nav>
-        </>
-      )}
+        <nav className="navbar">
+          <Link href="/" className="nav-link">
+            <i className="bi bi-house-door"></i>
+            <span className="d-block small">Home</span>
+          </Link>
+          <Link href="/leaderboard" className="nav-link">
+            <i className="bi bi-bar-chart-line"></i>
+            <span className="d-block small">Ranking</span>
+          </Link>
+          <Link href="/play" className="nav-link">
+            <i className="bi bi-rocket"></i>
+            <span className="d-block small">Play</span>
+          </Link>
+          <Link href="/friends" className="nav-link active">
+            <i className="bi bi-people-fill"></i>
+            <span className="d-block small">Friends</span>
+          </Link>
+        </nav>
     </>
   );
 };
 
-export default FriendsPage;
+export default HomePage;

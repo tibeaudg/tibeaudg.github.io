@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
+import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { supabase } from "../utils/supabaseClient";
 
 // Gegevens per user
 interface User {
-  user_metadata?: {
-    username?: string;
-    level?: string;
-    accuracy?: string;
-    correctanswers?: string;
-    gamesplayed?: string;
-    avatar?: string;
-  };
+  username?: string;
+  level?: string;
+  accuracy?: string;
+  correctanswers?: string;
+  gamesplayed?: string;
+  avatar?: string;
 }
 
-// Definieer een lijst met beschikbare profielfoto's
-const availableAvatars = [
+
+
+
+const availableAvatars: any[] = [
   "/assets/avatars/31.png",
   "/assets/avatars/38.png",
   "/assets/avatars/39.png",
@@ -40,8 +42,6 @@ const availableAvatars = [
   "/assets/avatars/133.png",
   "/assets/avatars/foTPoaY.png",
   "/assets/avatars/SRrVn2v.png",
-
-
 ];
 
 const HomePage: React.FC = () => {
@@ -50,9 +50,7 @@ const HomePage: React.FC = () => {
   const router = useRouter();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
@@ -61,70 +59,63 @@ const HomePage: React.FC = () => {
   // Functie om de gekozen avatar op te slaan
   const handleAvatarSelect = async (avatar: string) => {
     if (!user) return;
-    const updatedUser = { ...user, user_metadata: { ...user.user_metadata, avatar } };
-    setUser(updatedUser);
-    const { error } = await supabase.auth.updateUser({
-      data: { avatar },
-    });
-    if (error) {
-      console.error("Error updating avatar:", error.message);
-    } else {
-      console.log("Avatar updated successfully");
+
+    try {
+      // Update de Firestore gebruiker met het nieuwe avatar
+      const userRef = doc(db, "users", auth.currentUser?.uid || "");
+      await updateDoc(userRef, { avatar });
+
+      // Update ook de lokale state
+      setUser((prevUser) => prevUser && { ...prevUser, avatar });
+      setAvatarMenuOpen(false);
+    } catch (error) {
+      console.error("Error updating avatar:", error);
     }
-    setAvatarMenuOpen(false);
   };
 
   // Functie om de nieuwe gebruikersnaam op te slaan
   const handleUsernameSelect = async () => {
-    if (!user || !newUsername) return;
-    const updatedUser = { ...user, user_metadata: { ...user.user_metadata, username: newUsername } };
-    setUser(updatedUser);
-    const { error } = await supabase.auth.updateUser({
-      data: { username: newUsername },
-    });
-    if (error) {
-      console.error("Error updating username:", error.message);
-    } else {
-      console.log("Username updated successfully");
-      setUsernameMenuOpen(false); // Sluit de dropdown na het opslaan
+    if (!newUsername || !auth.currentUser) return;
+
+    try {
+      // Update Firebase authentication profile
+      await updateProfile(auth.currentUser, {
+        displayName: newUsername,
+      });
+
+      // Update Firestore met de nieuwe gebruikersnaam
+      const userRef = doc(db, "users", auth.currentUser?.uid || "");
+      await updateDoc(userRef, { username: newUsername });
+
+      // Update de lokale state
+      setUser((prevUser) => prevUser && { ...prevUser, username: newUsername });
+      setUsernameMenuOpen(false);
+    } catch (error) {
+      console.error("Error updating username:", error);
     }
   };
 
+  // Gebruik de Firestore gegevens om de user informatie te krijgen
   useEffect(() => {
-    const fetchUser = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error fetching user session:", error.message);
-        router.push("/login");
-      } else {
-        if (!data.session) {
-          router.push("/login");
-        } else {
-          setUser(data.session.user);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        // Haal aanvullende gebruikersgegevens uit Firestore
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          setUser(userDoc.data() as User);
         }
+      } else {
+        router.push("/login");
       }
       setLoading(false);
-    };
+    });
 
-    fetchUser();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (session) {
-          setUser(session.user);
-        } else {
-          router.push("/login");
-        }
-      }
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+    return () => unsubscribe();
   }, [router]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut(auth);
     router.push("/login");
   };
 
@@ -177,7 +168,7 @@ const HomePage: React.FC = () => {
         <div className="profile-section text-center">
           <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
             <Image
-              src={user.user_metadata?.avatar || "/assets/default-avatar.png"}
+              src={user?.avatar || "/assets/default-avatar.png"}
               alt="Profile Avatar"
               width={150}
               height={150}
@@ -209,7 +200,7 @@ const HomePage: React.FC = () => {
               onClick={() => setUsernameMenuOpen(true)}
               style={{ cursor: "pointer" }}
             >
-              {user.user_metadata?.username ?? "N/A"}
+              {user?.username ?? "N/A"}
             </h2>
 
             {usernameMenuOpen && (
@@ -226,22 +217,22 @@ const HomePage: React.FC = () => {
             )}
           </div>
 
-          <p className="text-muted">Level: {user.user_metadata?.level ?? "N/A"}</p>
+          <p className="text-muted">Level: {user?.level ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
           <h4>Games Played</h4>
-          <p>{user.user_metadata?.gamesplayed ?? "N/A"}</p>
+          <p>{user?.gamesplayed ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
           <h4>Correct Answers</h4>
-          <p>{user.user_metadata?.correctanswers ?? "N/A"}</p>
+          <p>{user?.correctanswers ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
           <h4>Accuracy Percentage</h4>
-          <p>{user.user_metadata?.accuracy ?? "N/A"}</p>
+          <p>{user?.accuracy ?? "N/A"}</p>
         </div>
 
         <nav className="navbar">

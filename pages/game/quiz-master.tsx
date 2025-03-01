@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useRouter } from 'next/router'; // Gebruik van useRouter
-import { supabase } from "@/utils/supabaseClient";
+import { signOut } from "@firebase/auth";
+import { auth } from "@/utils/firebase";
 
 const GameMenu: React.FC = () => {
   const [, setUsernameList] = useState<string[]>([]); // Lijst om de gebruikersnamen op te slaan
@@ -29,7 +30,7 @@ const GameMenu: React.FC = () => {
     };
 
     const handleLogout = async () => {
-      await supabase.auth.signOut();
+      await signOut(auth);
       router.push("/login");
     };
   

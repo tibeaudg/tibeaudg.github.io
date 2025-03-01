@@ -1,9 +1,12 @@
+import React, { useState, useEffect } from "react";
+import router, { useRouter } from "next/router";
+import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
+import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-import { supabase } from "../utils/supabaseClient";
-import { useState } from "react";
-import router from "next/router";
+
 
 
 
@@ -16,10 +19,11 @@ const HomePage: React.FC = () => {
 
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut(auth);
     router.push("/login");
   };
 
+  
 
   return (
     <>
