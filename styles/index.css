@@ -363,6 +363,63 @@ margin-right: 30px;
 }
 
 
+
+
+
+
+
+
+/* Selecteren van de game mode */
+.game-mode-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.game-mode-select label {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.game-mode-select select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Stijlen voor de gebruikerslijst */
+.player-select {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding: 20px;
+}
+
+.player-select label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.player-select select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
 .game-menu-card {
 padding: 20px;
 border-radius: 10px;
