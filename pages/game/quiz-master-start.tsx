@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { questions } from "./questions.json";
+import questionsData from "./questions.json";
 import Head from "next/head";
 import Script from 'next/script';
 import Swal, { SweetAlertIcon } from "sweetalert2";
@@ -34,7 +34,7 @@ interface Question {
 }
 
 // Utility functions
-const shuffleArray = (array: unknown[]) => {
+const shuffleArray = <T,>(array: T[]): T[] => {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -43,13 +43,19 @@ const shuffleArray = (array: unknown[]) => {
   return newArray;
 };
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
-const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
+const getUniqueQuestions = (allQuestions: Question[], usedIds: Set<number>): Question[] => {
   return allQuestions.filter(question => !usedIds.has(question.id));
 };
 
 const GameMenu: React.FC = () => {
   const router = useRouter();
+  const questions: Question[] = questionsData.questions.map((q) => ({
+    ...q,
+    difficulty: q.difficulty as 'easy' | 'medium' | 'difficult' | 'hard',
+    type: q.type as 'multiple-choice' | 'open',
+    correctAnswer: q.correctAnswer || "", // Ensure correctAnswer is always a string
+  }));
+
   const [gameState, setGameState] = useState<GameState>({
     currentPlayerIndex: 0,
     currentQuestionIndex: 0,
@@ -100,13 +106,7 @@ const GameMenu: React.FC = () => {
       const playerList = JSON.parse(router.query.players as string);
       initializeGameState(playerList);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.players]);
-
-
-
-
-
 
   const saveScoresToFirebase = async () => {
     if (scoresSaved) return; // Prevent duplicate saves
@@ -139,10 +139,6 @@ const GameMenu: React.FC = () => {
           });
         }
       }
-
-
-
-
 
       // Commit the batch write
       await batch.commit();
