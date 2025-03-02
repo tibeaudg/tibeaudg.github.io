@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import router from "next/router";
-import { signOut } from "firebase/auth";
-import { auth } from "@/utils/firebase";
+import Header from "../pages/components/header"; // Importeer je Header component
+import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
 
 
 
@@ -18,18 +16,7 @@ interface PlayerRanking {
 
 const HomePage: React.FC = () => {
 
-    const [menuOpen, setMenuOpen] = useState(false);
   
-  
-const toggleMenu = () => {
-  setMenuOpen(!menuOpen);
-};
-
-
-const handleLogout = async () => {
-  await signOut(auth);
-  router.push("/login");
-};
 
 
   const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);
@@ -118,83 +105,17 @@ const handleLogout = async () => {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
-
-        {/* External CSS files */}
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-        />
       </Head>
 
-            <header className="header">
-              <div className="logo">
-                <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
-              </div>
-                <div className="hamburger-menu" onClick={toggleMenu}>
-                <div className="hamburger-icon"></div>
-                <div className="hamburger-icon"></div>
-                <div className="hamburger-icon"></div>
-              </div>
-      
-              {menuOpen && (
-              <div className="menu">
-                <div className="menu-item" onClick={handleLogout}>Logout</div>
-                {/* Voeg hier meer menu-items toe */}
-              </div>
-            )}
-            </header>
+      <Header /> {/* Hergebruik Header component */}
+
 
       <div>
         <main>
           {renderRankingBoard()}
         </main>
 
-
-
-        <div className="game-menu-container">
-          <div className="how-to-play">
-            <h4>Belangrijk!</h4>
-            <p>
-              Deze data wordt opgeslagen in de &quot;Local Storage&quot; van de browser<br />
-              - Gelieve browsergegevens NIET te wissen<br />
-            </p>
-          </div>
-        </div>
-
-
-        <nav className="navbar">
-          <Link href="/" className="nav-link">
-            <i className="bi bi-house-door"></i>
-            <span className="d-block small">Home</span>
-          </Link>
-
-          <Link href="/leaderboard" className="nav-link active">
-            <i className="bi bi-bar-chart-line-fill"></i>
-            <span className="d-block small">Ranking</span>
-          </Link>
-
-          <Link href="/play" className="nav-link">
-            <i className="bi bi-rocket"></i>
-            <span className="d-block small">Play</span>
-          </Link>
-
-          <Link href="/friends" className="nav-link">
-            <i className="bi bi-people"></i>
-            <span className="d-block small">Friends</span>
-          </Link>
-
-        </nav>
-
-
-
+        <Navbar /> {/* Hergebruik Navbar component */}
 
       </div>
     </>

@@ -352,7 +352,7 @@ text-shadow: 2px 2px 5px white;
 
 .game-menu-container {
 background-color: white;
-border-radius: 10%;
+border-radius: 10px;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -481,9 +481,10 @@ border: none;
 width: 80%;
 text-align: center;
 text-decoration: none; /* Dit voorkomt de onderlijning */
-margin: 40px;
-
+margin: 15px;
 }
+
+
 
 
 .btn-verstuurUitnodiging {

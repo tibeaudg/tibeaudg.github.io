@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { auth, loginUser } from "../utils/firebase"; // Zorg ervoor dat dit correct is geïmporteerd
+import { loginUser } from "../utils/firebase"; // Zorg ervoor dat dit correct is geïmporteerd
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -9,21 +9,10 @@ const AuthForm = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // Voor hamburger menu
   const router = useRouter();
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const handleLogout = async () => {
-    // Implement logout functionaliteit
-    try {
-      await signOut(auth); // Zorg dat Firebase correct is ingesteld in je utils
-      console.log("Logged out successfully");
-      router.push("/login");
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,7 +84,5 @@ const AuthForm = () => {
 };
 
 export default AuthForm;
-function signOut(auth: any) {
-  throw new Error("Function not implemented.");
-}
+
 

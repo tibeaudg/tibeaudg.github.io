@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
-import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 import Head from "next/head";
-import Link from "next/link";
+import Header from "../pages/components/header"; // Importeer je Header component
+import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
 
 // Gegevens per user
 interface User {
@@ -20,7 +21,7 @@ interface User {
 
 
 
-const availableAvatars: any[] = [
+const availableAvatars: string[] = [
   "/assets/avatars/31.png",
   "/assets/avatars/38.png",
   "/assets/avatars/39.png",
@@ -49,8 +50,6 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
@@ -114,10 +113,7 @@ const HomePage: React.FC = () => {
     return () => unsubscribe();
   }, [router]);
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.push("/login");
-  };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -133,37 +129,11 @@ const HomePage: React.FC = () => {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-        />
       </Head>
 
       <div>
-        <header className="header">
-          <div className="logo">
-            <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
-          </div>
-          <div className="hamburger-menu" onClick={toggleMenu}>
-            <div className="hamburger-icon"></div>
-            <div className="hamburger-icon"></div>
-            <div className="hamburger-icon"></div>
-          </div>
+      <Header /> {/* Hergebruik Header component */}
 
-          {menuOpen && (
-            <div className="menu">
-              <div className="menu-item" onClick={handleLogout}>Logout</div>
-            </div>
-          )}
-        </header>
 
         <div className="profile-section text-center">
           <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
@@ -204,15 +174,15 @@ const HomePage: React.FC = () => {
             </h2>
 
             {usernameMenuOpen && (
-              <div className="username-menu">
+              <div className="username">
                 <input
                   type="text"
                   value={newUsername}
                   onChange={(e) => setNewUsername(e.target.value)}
                   placeholder="Nieuwe gebruikersnaam"
                 />
-                <button onClick={handleUsernameSelect}>Opslaan</button>
-                <button onClick={() => setUsernameMenuOpen(false)}>Annuleren</button>
+                <button className="btn" onClick={handleUsernameSelect}>Opslaan</button>
+                <button className="btn" onClick={() => setUsernameMenuOpen(false)}>Annuleren</button>
               </div>
             )}
           </div>
@@ -225,34 +195,9 @@ const HomePage: React.FC = () => {
           <p>{user?.gamesplayed ?? "N/A"}</p>
         </div>
 
-        <div className="stats-inline">
-          <h4>Correct Answers</h4>
-          <p>{user?.correctanswers ?? "N/A"}</p>
-        </div>
 
-        <div className="stats-inline">
-          <h4>Accuracy Percentage</h4>
-          <p>{user?.accuracy ?? "N/A"}</p>
-        </div>
+        <Navbar /> {/* Hergebruik Navbar component */}
 
-        <nav className="navbar">
-          <Link href="/" className="nav-link active">
-            <i className="bi bi-house-door-fill"></i>
-            <span className="d-block small">Home</span>
-          </Link>
-          <Link href="/leaderboard" className="nav-link">
-            <i className="bi bi-bar-chart-line"></i>
-            <span className="d-block small">Ranking</span>
-          </Link>
-          <Link href="/play" className="nav-link">
-            <i className="bi bi-rocket"></i>
-            <span className="d-block small">Play</span>
-          </Link>
-          <Link href="/friends" className="nav-link">
-            <i className="bi bi-people"></i>
-            <span className="d-block small">Friends</span>
-          </Link>
-        </nav>
       </div>
     </>
   );

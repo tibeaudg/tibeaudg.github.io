@@ -95,7 +95,6 @@ const GameMenu: React.FC = () => {
   const [isScoreboardVisible, setIsScoreboardVisible] = useState(false);
 
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initializeGameState = (playerList: string[]) => {
     const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
     const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
