@@ -1,117 +1,78 @@
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "../utils/firebase";
 import Header from "../pages/components/header"; // Importeer je Header component
 import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../utils/firebase"; // Voeg je Firebase-configuratie toe
+import Head from 'next/head'; // Zorg ervoor dat je het 'Head' component van Next.js importeert
 
-// Initialize Firebase app and Firestore
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-interface PlayerRanking {
+interface UserDoc {
+  email: string;
   username: string;
-  totalPoints: number;
+  points: number;
+  avatar?: string;
 }
 
-const HomePage: React.FC = () => {
-  const [playerRankings, setPlayerRankings] = useState<PlayerRanking[]>([]);
+const Leaderboard: React.FC = () => {
+  const [users, setUsers] = useState<UserDoc[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadPlayerRankings = async () => {
+    const fetchLeaderboard = async () => {
       try {
-        // Haal spelersgegevens op uit Firestore
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const rankings: PlayerRanking[] = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            username: data.username,
-            totalPoints: data.totalPoints,
-          };
+        // Haal de gebruikers op, gesorteerd op 'points' aflopend
+        const usersCollection = collection(db, "users");
+        const q = query(usersCollection, orderBy("points", "desc"));
+        const querySnapshot = await getDocs(q);
+        const usersList: UserDoc[] = [];
+
+        querySnapshot.forEach(docSnap => {
+          usersList.push({
+            email: docSnap.id, // Document-ID is de email
+            ...docSnap.data()
+          } as UserDoc);
         });
 
-        // Sorteer spelers op basis van hun punten
-        rankings.sort((a, b) => b.totalPoints - a.totalPoints);
-
-        // Update de state met de opgehaalde data
-        setPlayerRankings(rankings);
-        setLoading(false);
+        setUsers(usersList);
       } catch (error) {
-        console.error("Error loading player rankings from Firebase:", error);
-        setPlayerRankings([]);
+        console.error("Error fetching leaderboard: ", error);
+      } finally {
         setLoading(false);
       }
     };
 
-    loadPlayerRankings();
+    fetchLeaderboard();
   }, []);
 
-  const renderRankingBoard = () => {
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-
-    return (
-      <div className="scoreboard">
-        {playerRankings.length > 0 ? (
-          <div className="rankings-container">
-            {playerRankings.map((player, index) => (
-              <motion.div
-                key={player.username}
-                className={`player-ranking ${
-                  index === 0 ? "first-place" : index === 1 ? "second-place" : index === 2 ? "third-place" : ""
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="rank-position">
-                  {index === 0 && "🏆"}
-                  {index === 1 && "🥈"}
-                  {index === 2 && "🥉"}
-                  {index > 2 && `#${index + 1}`}
-                </div>
-                <div className="player-info">
-                  <span className="player-name">{player.username}</span>
-                </div>
-                <div className="total-points">{player.totalPoints}</div>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="no-rankings">
-            <p>No quiz sessions completed yet. Play a game to appear on the leaderboard!</p>
-            <Link href="/play" className="start-game-button">
-              <i className="bi bi-controller"></i> Start Playing
-            </Link>
-          </div>
-        )}
-      </div>
-    );
-  };
+  if (loading) {
+    return <div>Loading leaderboard...</div>;
+  }
 
   return (
     <>
       <Head>
-        {/* Meta en titel */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
       </Head>
 
-      <Header /> {/* Hergebruik Header component */}
+      <Header />
 
       <div>
-        <main>{renderRankingBoard()}</main>
-
-        <Navbar /> {/* Hergebruik Navbar component */}
+        <h2>Leaderboard</h2>
+        <ul>
+          {users.map((user, index) => (
+            <li key={user.email}>
+              <span>{index + 1}. </span>
+              <span>{user.username || user.email} - </span>
+              <span>{user.points} points</span>
+            </li>
+          ))}
+        </ul>
       </div>
+
+      <Navbar />
     </>
   );
 };
 
-export default HomePage;
+export default Leaderboard;

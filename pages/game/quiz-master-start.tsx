@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import { questions } from "./questions.json";
 import Head from "next/head";
 import Script from 'next/script';
-
 import Swal, { SweetAlertIcon } from "sweetalert2";
+// Import Firebase modules
+import { collection, doc, getDocs, increment, query, where, writeBatch } from "firebase/firestore";
+import { db } from "../../utils/firebase"; // Import initialized Firebase app and Firestore
 
 interface GameState {
   currentPlayerIndex: number;
@@ -17,36 +19,8 @@ interface GameState {
   players: string[];
   scores: Record<string, number>;
   usedPasses: Record<string, boolean>;
-  shuffledQuestions: Question[]; // Voeg deze regel toe
-  usedQuestionIds: Set<number>; // Track used questions
-
-}
-
-
-
-// Utility functions
-const shuffleArray = (array: unknown[]) => {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
-};
-
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
-  return allQuestions.filter(question => !usedIds.has(question.id));
-};
-
-
-
-
-// New interface for persistent player data
-interface PlayerData {
-  username: string;
-  totalPoints: number;
+  shuffledQuestions: Question[];
+  usedQuestionIds: Set<number>;
 }
 
 interface Question {
@@ -58,6 +32,21 @@ interface Question {
   options?: string[];
   type: 'multiple-choice' | 'open';
 }
+
+// Utility functions
+const shuffleArray = (array: unknown[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+const getUniqueQuestions = (allQuestions: any[], usedIds: Set<number>) => {
+  return allQuestions.filter(question => !usedIds.has(question.id));
+};
 
 const GameMenu: React.FC = () => {
   const router = useRouter();
@@ -75,10 +64,10 @@ const GameMenu: React.FC = () => {
     shuffledQuestions: [],
     usedQuestionIds: new Set<number>()
   });
-  
+
   // Track if scores have been saved already
   const [scoresSaved, setScoresSaved] = useState(false);
-  
+  const [isScoreboardVisible, setIsScoreboardVisible] = useState(false);
 
   const getDifficultyPoints = (difficulty: 'easy' | 'medium' | 'difficult' | 'hard'): number => {
     const difficultyMap = {
@@ -90,30 +79,21 @@ const GameMenu: React.FC = () => {
     return difficultyMap[difficulty] || 1;
   };
 
-  const [isScoreboardVisible, setIsScoreboardVisible] = useState(false);
-
-
-  const initializeGameState = (playerList: string[]) => {
+  const initializeGameState = (playerEmails: string[]) => {
     const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
     const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
 
-
-
     const initialState = {
       ...gameState,
-      players: playerList,
-      scores: Object.fromEntries(playerList.map(player => [player, 0])),
-      usedPasses: Object.fromEntries(playerList.map(player => [player, false])),
+      players: playerEmails,
+      scores: Object.fromEntries(playerEmails.map(email => [email, 0])),
+      usedPasses: Object.fromEntries(playerEmails.map(email => [email, false])),
       shuffledQuestions: shuffledQuestions as Question[],
       usedQuestionIds: new Set<number>(),
       currentQuestionIndex: 0
     };
     setGameState(initialState);
-    
   };
-
-
-
 
   useEffect(() => {
     if (router.query.players) {
@@ -121,53 +101,60 @@ const GameMenu: React.FC = () => {
       initializeGameState(playerList);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.players]);  // Removed initializeGameState from dependencies
-  
+  }, [router.query.players]);
 
 
 
-  // Function to save scores to localStorage when session ends
-  const saveScoresToStorage = () => {
+
+
+
+  const saveScoresToFirebase = async () => {
     if (scoresSaved) return; // Prevent duplicate saves
-    
+
     try {
-      
-      // Get existing player data from localStorage
-      const existingDataStr = localStorage.getItem('playerRankings');
-      const playerRankings: PlayerData[] = existingDataStr ? JSON.parse(existingDataStr) : [];
-      
-      // Update player data with current session scores
-      gameState.players.forEach(playerName => {
-        const sessionScore = gameState.scores[playerName] || 0;
+      const batch = writeBatch(db); // Use a batch write for atomic updates
+
+      for (const playerEmail of gameState.players) {
+        const sessionScore = gameState.scores[playerEmail] || 0;
+        const usersCollection = collection(db, "users");
+
+        // Zoek het juiste document op basis van username
+        const userQuery = query(usersCollection, where("username", "==", playerEmail));
+        const querySnapshot = await getDocs(userQuery);
         
-        // Find existing player data or create new entry
-        const existingPlayerIndex = playerRankings.findIndex(p => p.username === playerName);
+        if (!querySnapshot.empty) {
+          const userDoc = querySnapshot.docs[0]; // Neem het eerste gevonden document
+          const playerDocRef = doc(db, "users", userDoc.id); // De document-ID is de e-mail
         
-        if (existingPlayerIndex >= 0) {
-          // Update existing player
-          playerRankings[existingPlayerIndex].totalPoints += sessionScore;
+          batch.update(playerDocRef, {
+            points: increment(sessionScore),
+          });
         } else {
-          // Add new player
-          playerRankings.push({
-            username: playerName,
-            totalPoints: sessionScore,
+          console.error(`Document for user ${playerEmail} does not exist.`);
+          Swal.fire({
+            icon: 'error',
+            title: 'User Not Found',
+            text: `The user ${playerEmail} does not exist in the database.`,
+            showConfirmButton: true,
           });
         }
-      });
-      
-      // Save updated data back to localStorage
-      localStorage.setItem('playerRankings', JSON.stringify(playerRankings));
-      setScoresSaved(true);
-      
+      }
+
+
+
+
+
+      // Commit the batch write
+      await batch.commit();
+      setScoresSaved(true); // Mark scores as saved
     } catch (error) {
-      console.error('Error saving scores:', error);
-      
-      // Show error notification
+      console.error('Error saving scores to Firebase:', error);
+
       Swal.fire({
         icon: 'error',
         title: 'Error Saving Scores',
         text: 'There was a problem saving your scores to the leaderboard.',
-        showConfirmButton: true
+        showConfirmButton: true,
       });
     }
   };
@@ -176,14 +163,14 @@ const GameMenu: React.FC = () => {
     // Determine the icon and color based on status
     const icon = status === "Correct!" ? "success" : "error";
     const title = status === "Correct!" ? status : "Wrong!";
-    
+
     Swal.fire({
       icon: icon as SweetAlertIcon,
       title: title,
-      html: status === "Correct!" 
-        ? `<p>You got it right! 🎉</p>` 
+      html: status === "Correct!"
+        ? `<p>You got it right! 🎉</p>`
         : `<p>The correct answer is:</p><p class="font-weight-bold text-success">${correctAnswer}</p>`,
-      timer: 3000,
+      timer: 1000,
       timerProgressBar: true,
       showConfirmButton: true,
       allowOutsideClick: true,
@@ -193,21 +180,14 @@ const GameMenu: React.FC = () => {
   };
 
   const handlePass = () => {
-    
     setGameState(prev => ({
       ...prev,
       isAnswerDisabled: true,
       usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: true }
     }));
 
-
-
     setTimeout(() => moveToNextQuestion(true));
   };
-
-
-
-
 
   const moveToNextQuestion = (isPass: boolean = false) => {
     setGameState(prev => {
@@ -225,13 +205,6 @@ const GameMenu: React.FC = () => {
         };
       }
 
-
-
-
-
-
-
-
       return {
         ...prev,
         currentQuestionIndex: nextQuestionIndex,
@@ -245,10 +218,6 @@ const GameMenu: React.FC = () => {
     });
   };
 
-
-
-
-
   const handleAnswer = (isCorrect: boolean) => {
     const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
     const status = isCorrect ? "Correct!" : "Wrong!";
@@ -261,10 +230,6 @@ const GameMenu: React.FC = () => {
         isAnswerDisabled: true
       };
 
-
-
-
-
       if (isCorrect) {
         const points = getDifficultyPoints((currentQuestion as { difficulty: 'easy' | 'medium' | 'difficult' | 'hard' }).difficulty);
         newState.scores = {
@@ -276,47 +241,35 @@ const GameMenu: React.FC = () => {
       return newState;
     });
 
-
-
-
     showAnswerPopup(status, (currentQuestion as { correctAnswer: string }).correctAnswer || "");
-    setTimeout(() => moveToNextQuestion(), 3000);
+    setTimeout(() => moveToNextQuestion(), 1000);
   };
 
+  const handleMultipleChoiceAnswer = (answer: string) => {
+    const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+    if (!currentQuestion || !currentQuestion.correctAnswer) {
+      // If question or answer is not available, treat as wrong
+      handleAnswer(false);
+      return;
+    }
+    const isCorrect = answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+    handleAnswer(isCorrect);
+  };
 
-
-
-
-const handleMultipleChoiceAnswer = (answer: string) => {
-  const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
-  if (!currentQuestion || !currentQuestion.correctAnswer) {
-    // Indien de vraag of het antwoord niet beschikbaar is, behandel dit als fout.
-    handleAnswer(false);
-    return;
-  }
-  const isCorrect = answer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
-  handleAnswer(isCorrect);
-};
-
-
-
-const handleOpenAnswer = (e: React.FormEvent) => {
-  e.preventDefault();
-  const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
-  if (!currentQuestion || !currentQuestion.correctAnswer) {
-    handleAnswer(false);
-    return;
-  }
-  const isCorrect = gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
-  handleAnswer(isCorrect);
-  setGameState(prev => ({ ...prev, openAnswer: "" }));
-};
-
-
+  const handleOpenAnswer = (e: React.FormEvent) => {
+    e.preventDefault();
+    const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+    if (!currentQuestion || !currentQuestion.correctAnswer) {
+      handleAnswer(false);
+      return;
+    }
+    const isCorrect = gameState.openAnswer.toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+    handleAnswer(isCorrect);
+    setGameState(prev => ({ ...prev, openAnswer: "" }));
+  };
 
   const startNewRound = () => {
     const uniqueQuestions = getUniqueQuestions(questions, gameState.usedQuestionIds);
-
 
     if (uniqueQuestions.length === 0) {
       Swal.fire({
@@ -330,17 +283,8 @@ const handleOpenAnswer = (e: React.FormEvent) => {
 
     const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
 
-
-
-
-
     // Reset scores saved flag when starting a new round
     setScoresSaved(false);
-    
-
-
-
-
 
     setGameState(prev => ({
       ...prev,
@@ -358,29 +302,21 @@ const handleOpenAnswer = (e: React.FormEvent) => {
     }));
   };
 
-
-
-
-
   const handleEndSession = () => {
-    setGameState(prev => ({ 
-      ...prev, 
-      isSessionEnded: true, 
-      isRoundOver: true 
+    setGameState(prev => ({
+      ...prev,
+      isSessionEnded: true,
+      isRoundOver: true
     }));
 
-
-    setIsScoreboardVisible(true);  // Maak het scoreboard zichtbaar
-
-    
-    // Save scores when session ends
-    saveScoresToStorage();
+    setIsScoreboardVisible(true);
+    saveScoresToFirebase();
   };
 
   const handleQuit = () => {
     // Make sure scores are saved before quitting
     if (!scoresSaved) {
-      saveScoresToStorage();
+      saveScoresToFirebase();
     }
     router.push("/play");
   };
@@ -389,10 +325,6 @@ const handleOpenAnswer = (e: React.FormEvent) => {
     const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
     if (!currentQuestion) return null;
 
-
-
-
-    
     return (
       <div className="question-container">
         <div className="question-info">
@@ -458,16 +390,15 @@ const handleOpenAnswer = (e: React.FormEvent) => {
   const renderScoreboard = () => {
     const sortedPlayers = [...gameState.players].sort((a, b) => gameState.scores[b] - gameState.scores[a]);
 
-
     return (
       <div className="scoreboard">
         {sortedPlayers.map((player, index) => (
           <div
             key={player}
             className={`player-score ${
-              index === 0 ? "first-place" : 
-              index === 1 ? "second-place" : 
-              index === 2 ? "third-place" : 
+              index === 0 ? "first-place" :
+              index === 1 ? "second-place" :
+              index === 2 ? "third-place" :
               index === 3 ? "fourth-place" : ""
             }`}
           >
@@ -476,7 +407,7 @@ const handleOpenAnswer = (e: React.FormEvent) => {
               {index === 1 && "🥈 "}
               {index === 2 && "🥉 "}
               {index === 3 && "💩 "}
-              {player} {/* Voeg de speler naam expliciet toe */}
+              {player}
             </span>
             <span className="player-points">{gameState.scores[player]}</span>
           </div>
@@ -496,12 +427,7 @@ const handleOpenAnswer = (e: React.FormEvent) => {
       <div>
         <Script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" strategy="lazyOnload" />
 
-
-
-
-
         <div className="quiz-container">
-
           {!gameState.isRoundOver ? (
             <>
               <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
@@ -509,11 +435,9 @@ const handleOpenAnswer = (e: React.FormEvent) => {
             </>
           ) : (
             <div className="game-over" />
-            
           )}
 
           {isScoreboardVisible && renderScoreboard()}
-
 
           {!gameState.isSessionEnded ? (
             <div className="scoreboard-buttons">
@@ -521,11 +445,7 @@ const handleOpenAnswer = (e: React.FormEvent) => {
                 Scoreboard
               </button>
             </div>
-
-
-
           ) : (
-            
             <div className="scoreboard-buttons">
               <button className="btn-newgame" onClick={startNewRound}>
                 New Game

@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import Image from "next/image";
 import Head from "next/head";
 import Header from "../pages/components/header"; // Importeer je Header component
 import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+
+
+
+
 
 // Gegevens per user
 interface User {
