@@ -12,7 +12,6 @@ interface GameState {
   answerStatus: string;
   isRoundOver: boolean;
   isAnswerDisabled: boolean;
-  showMagicEffect: boolean;
   isSessionEnded: boolean;
   openAnswer: string;
   players: string[];
@@ -68,7 +67,6 @@ const GameMenu: React.FC = () => {
     answerStatus: "",
     isRoundOver: false,
     isAnswerDisabled: false,
-    showMagicEffect: false,
     isSessionEnded: false,
     openAnswer: "",
     players: [],
@@ -203,20 +201,9 @@ const GameMenu: React.FC = () => {
       usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: true }
     }));
 
-    // Show the answer in a popup
-    Swal.fire({
-      icon: 'info',
-      title: 'Question Passed',
-      html: `<p>The correct answer is:</p><p class="font-weight-bold text-success">${currentQuestion.correctAnswer || ""}</p>`,
-      timer: 3000,
-      timerProgressBar: true,
-      showConfirmButton: true,
-      allowOutsideClick: true,
-      allowEscapeKey: true,
-      allowEnterKey: true
-    });
 
-    setTimeout(() => moveToNextQuestion(true), 1000);
+
+    setTimeout(() => moveToNextQuestion(true));
   };
 
 
@@ -411,16 +398,12 @@ const handleOpenAnswer = (e: React.FormEvent) => {
       <div className="question-container">
         <div className="question-info">
           <div className="category">
-            <span className="label">Category:</span>
-            <span className="value">{currentQuestion.category}</span>
-          </div>
-          <div className="category">
-            <span className="label">Difficulty:</span>
             <span className="value">
-              {currentQuestion.difficulty} ({getDifficultyPoints(currentQuestion.difficulty as 'easy' | 'medium' | 'difficult' | 'hard')} points)
+              {currentQuestion.difficulty} (+{getDifficultyPoints(currentQuestion.difficulty)})
             </span>
           </div>
         </div>
+        <span className="value">{currentQuestion.category}</span>
 
         <h3 className="question">{currentQuestion.question}</h3>
         {currentQuestion.type === "multiple-choice" ? (
@@ -509,9 +492,6 @@ const handleOpenAnswer = (e: React.FormEvent) => {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Disney Magic Quest</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
       </Head>
 
       <div>
