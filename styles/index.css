@@ -345,6 +345,9 @@ top: 5px;
 
 
 
+
+
+
 .player-list {
   display: flex;
   flex-direction: column;
@@ -1141,4 +1144,101 @@ color: red;
 margin-bottom: 1rem;
 font-size: 0.9rem;
 }
+
+
+
+
+
+
+.players-container {
+  padding: 20px;
+}
+
+.player-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.player-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.player-info {
+  flex: 1;
+}
+
+.player-name {
+  font-weight: bold;
+  display: block;
+}
+
+.player-points {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.hamburger-menu {
+  position: relative;
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+
+.dropdown-content .remove {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+  color: red;
+  font-weight: bold;
+}
+
 
