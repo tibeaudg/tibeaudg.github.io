@@ -507,9 +507,6 @@ const handleOpenAnswer = (e: React.FormEvent) => {
             <>
               <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
               {renderQuestion()}
-              {gameState.showMagicEffect && (
-                <div className={`magic-effect ${gameState.answerStatus === "Correct!" ? "correct" : "wrong"}`} />
-              )}
             </>
           ) : (
             <div className="game-over" />
