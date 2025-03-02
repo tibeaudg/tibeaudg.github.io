@@ -271,42 +271,6 @@ background-color: #f4f4f4;
 }
 
 
-/* Icon stijl */
-.icon {
-font-size: 40px;
-color: white;
-font-family: ionicons;
-font-weight: normal;
-}
-
-/* Titel van de modus */
-.mode-title {
-font-size: 1.5rem;
-font-weight: bold;
-color: white;
-margin-top: 1em;
-}
-
-/* Beschrijving van de modus */
-.mode-description {
-font-size: 1rem;
-color: white;
-margin-top: 0.5em;
-text-align: center;
-opacity: 0.8;
-}
-
-
-.title {
-font-size: 3.5rem; /* Grotere tekstgrootte voor een opvallende titel */
-font-weight: bold; /* Maak de tekst vetgedrukt */
-color: #073a8d; /* Donkere kleur voor tekst */
-padding-top: 10px;
-text-align: center; /* Centrer de titel horizontaal */
-}
-
-
-
 
 
 
@@ -337,19 +301,6 @@ top: 5px;
 
 
 
-
-.loginTitle {
-font-size: 35px;
-color: #073a8d;
-margin-bottom: 40px;
-text-shadow: 2px 2px 5px white;
-
-}
-
-
-
-
-
 .game-menu-container {
   list-style-type: none; /* Remove default bullets */
   padding: 20px; /* Add padding around the list */
@@ -359,10 +310,6 @@ text-shadow: 2px 2px 5px white;
   margin: 20px;
   background-color: white;
 }
-
-
-
-
 
 
 
@@ -390,27 +337,41 @@ text-shadow: 2px 2px 5px white;
   cursor: pointer;
 }
 
-/* Stijlen voor de gebruikerslijst */
+
+
 .player-select {
-  margin-bottom: 1.5rem;
-  text-align: center;
   padding: 20px;
+} 
+
+
+
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.player-select label {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.player-select select {
-  width: 100%;
+.player-item {
+  display: flex;
+  align-items: center;
   padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  outline: none;
+  border-radius: 8px;
+  background-color: #ffffff;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.player-item input {
+  margin-right: 10px;
+}
+
+.player-item.selected {
+  background-color: #d4edda; /* Groene overlay */
+  border: 1px solid #28a745; /* Groene rand */
+}
+
+.player-item:hover {
+  background-color: #e9ecef; /* Lichte hover */
 }
 
 
@@ -469,24 +430,6 @@ margin-bottom: 0; /* Verwijder de onderste marge van het laatste item */
 
 
 
-.how-to-play{
-padding: 20px;
-border-radius: 10px;
-background-color: #ffffff;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-width: 100%;
-max-width: 400px;
-text-align: left;
-align-items: left;
-justify-content: center;
-flex-direction: column;
-}
-
-
-.how-to-play h4{
-text-align: center;
-font-weight: bolder;
-}
 
 
 
@@ -503,22 +446,6 @@ align-items: center;
 margin-top: 50px;
 }
 
-
-
-/* Stijl voor de titel "Quiz Master" */
-.quiz-master-title-container {
-display: flex; /* Maak de container een flexbox */
-justify-content: center; /* Horizontaal centreren van de inhoud */
-align-items: center; /* Verticaal centreren van de inhoud */
-height: 100%; /* Zorg ervoor dat de container de volledige hoogte van de parent beslaat */
-}
-
-.quiz-master-title {
-font-size: 1rem; /* Grotere tekstgrootte voor een opvallende titel */
-font-weight: bold; /* Maak de tekst vetgedrukt */
-color: white; /* Donkere kleur voor tekst */
-text-align: center; /* Centrer de titel horizontaal */
-}
 
 
 
@@ -543,45 +470,6 @@ margin: 15px;
 
 
 
-.btn-verstuurUitnodiging {
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-padding: 10px 20px;
-border-radius: 8px;
-color: white !important;
-font-weight: bold;
-font-size:large;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
-border: none;
-text-align: center;
-text-decoration: none; /* Dit voorkomt de onderlijning */
-margin-top: 20px;
-
-}
-  
-
-
-
-
-.btn-success {
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-width: 67%; /* Stel de breedte in op 67% */
-padding: 10px 20px; /* Voeg wat padding toe om de knop groter te maken */
-border-radius: 8px; /* Voeg afgeronde hoeken toe */
-color: white; /* Zorg dat de tekstkleur wit is */
-font-weight: bold; /* Maak de tekst vetgedrukt */
-display: flex;
-justify-content: center; /* Horizontaal centreren van de inhoud */
-align-items: center; /* Verticaal centreren van de inhoud */
-border: none; /* Verwijder standaard knopranden */
-margin-left: auto; /* Gebruik auto voor de linker marge */
-margin-right: auto; /* Centrer de knop horizontaal */
-margin-top: 1rem; /* Voeg bovenmarge toe als nodig */
-text-decoration: none; /* Dit voorkomt de onderlijning */
-
-}
 
 a {
 text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
@@ -656,7 +544,6 @@ margin-top: 20px; /* Voeg een marge toe om de knop wat afstand te geven */
 display: block; /* Zorg ervoor dat de knop een block-element is */
 visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
 
-
 }
 
 .player-turn {
@@ -699,12 +586,6 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
-
-.option-button:disabled {
-opacity: 0.7;
-cursor: not-allowed;
-}
-
 .answer-status {
 font-size: 2rem;
 text-align: center;
@@ -722,28 +603,8 @@ color: #BD353B;
 animation: wrongAnswer 0.5s ease-out;
 }
 
-.magic-effect {
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-pointer-events: none;
-z-index: 1000;
-}
-
-.magic-effect.correct {
-background: radial-gradient(circle at center, rgba(0, 200, 81, 0.2) 0%, transparent 70%);
-animation: magicExpand 1s ease-out;
-}
-
-.magic-effect.wrong {
-background: radial-gradient(circle at center, rgba(255, 68, 68, 0.2) 0%, transparent 70%);
-animation: magicExpand 1s ease-out;
-}
 
 .game-over {
-
 text-align: center;
 font-size: 3rem;
 color: var(--disney-purple);
@@ -803,12 +664,6 @@ transform: scale(1) rotate(0deg);
 
 
 
-.scoreboard {
-padding: 2rem;
-animation: scoreboardAppear 0.8s ease-out;
-border: none;
-
-}
 
 
 .username {
@@ -825,13 +680,6 @@ justify-content: center;
 }
 
 
-.scoreboard-title {
-color: #073a8d;
-text-align: center;
-font-size: 2.5rem;
-margin-bottom: 2rem;
-text-shadow: 2px 2px 4px rgba(111, 53, 165, 0.2);
-}
 
 .player-score {
 display: flex;
@@ -923,123 +771,8 @@ color: #ffd700; /* Disney-goudkleur voor de trofee */
 text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* First place - Disney-inspired gold gradient */
-.first-place {
-border-radius: 8px;
-color: white;
-padding: 0.5rem 1rem;
-font-weight: bold;
-text-transform: uppercase;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Lichte schaduw voor extra diepte */
-font-family: 'Waltograph', sans-serif;
-display: flex;
-}
-
-/* Second place - Disney silver gradient */
-.second-place {
-border-radius: 8px;
-padding: 0.5rem 1rem;
-font-weight: bold;
-text-transform: uppercase;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-font-family: 'Waltograph', sans-serif;
-display: flex;
-}
-
-/* Third place - Disney bronze gradient */
-.third-place {
-border-radius: 8px;
-color: black;
-padding: 0.5rem 1rem;
-font-weight: bold;
-text-transform: uppercase;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-font-family: 'Waltograph', sans-serif;
-display: flex;
-}
 
 
-
-.fourth-place {
-    border-radius: 8px;
-    color: black;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-family: 'Waltograph', sans-serif;
-    display: flex;
-    }
-
-
-
-
-
-
-
-
-/* Fourth place (no gradient, but subtle Disney style) */
-.player-ranking  {
-background-color: white;
-margin-top: 10px;
-border-radius: 10px;
-padding: 0.5rem 1.5rem;
-font-weight: bold;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-font-family: 'Waltograph', sans-serif;
-display: flex;
-align-items: center;
-}
-
-.rankings-container {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-.player-ranking {
-display: flex;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-padding: 10px;
-margin: 5px 0;
-background-color: #f8f9fa;
-border-radius: 5px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.rank-position, .player-info {
-flex: 1;
-text-align: center;
-}
-
-
-.total-points {
-flex: 1;
-text-align: center;
-}
-
-.rank-position {
-font-size: 1.2rem;
-}
-
-.player-info {
-font-size: 1rem;
-}
-
-.total-points {
-font-size: 1.2rem;
-font-weight: bold;
-}
-
-
-.total-points {
-align-items: flex-end;
-display: flex;
-font-size: xxx-large;
-margin-left: 30px;
-}
 
 /* Animations for leaderboard ranks */
 @keyframes glowing {
@@ -1121,7 +854,6 @@ margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
 text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
 font-weight: bolder;
 font-size: 2rem;
-
 }
 
 .value {
@@ -1163,10 +895,7 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 margin-bottom: 20px;
 }
 
-.submit-answer-button:disabled {
-background-color: #ccc;
-cursor: not-allowed;
-}
+
 
 
 
@@ -1177,7 +906,6 @@ display: flex;
 flex-direction: column;
 gap: 0.2rem;
 background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-
 }
 
 .points .label {
@@ -1219,8 +947,6 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 background-color: #e0e0e0;
 border-color: #ccc;
 cursor: none;
-
-
 }
 
 
@@ -1233,57 +959,8 @@ opacity: 0.5;
 border-color: #ccc;
 }
 
-.message-item {
-padding: 10px;
-margin: 10px 0;
-border: 1px solid #ddd;
-border-radius: 8px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-background-color: #f9f9f9;
-}
-
-.message-item.read {
-background-color: #e0e0e0;
-}
-
-.message-item.unread {
-background-color: #fff;
-}
-
-.message-actions button {
-margin-left: 10px;
-}
 
 
-
-
-/* Container voor de vriendenlijst */
-.friends-list-container {
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 1rem;
-background: rgba(255, 255, 255, 0.9);
-max-width: 600px;
-border-radius: 1rem;
-box-shadow: var(--magical-shadow);
-margin: 20px;
-}
-
-
-.invite-friend-container { 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  max-width: 600px;
-  border-radius: 1rem;
-  box-shadow: var(--magical-shadow);
-  margin: 20px;
-}
 
 .Email { 
   display: flex;
@@ -1292,58 +969,6 @@ margin: 20px;
   font-size: x-large;
 }
 
-
-
-
-
-
-/* Vriendenlijst stijlen */
-.friends-list {
-list-style-type: none;
-padding: 0;
-margin: 0;
-}
-
-.friend-item {
-display: flex;
-align-items: center;
-padding: 10px;
-border-bottom: 1px solid #eee;
-margin-bottom: 10px;
-}
-
-.friend-img {
-width: 50px;
-height: 50px;
-border-radius: 50%;
-margin-right: 15px;
-}
-
-.friend-info {
-flex-grow: 1;
-}
-
-.friend-name {
-font-size: 1.2rem;
-font-weight: bold;
-color: #333;
-}
-
-.friend-actions {
-display: flex;
-gap: 10px;
-}
-
-.friend-actions button {
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-color: white;
-border: none;
-padding: 4px 16px;
-border-radius: 5px;
-cursor: pointer;
-font-size: 0.7rem;
-transition: background-color 0.3s ease;
-}
 
 
 
@@ -1424,8 +1049,6 @@ margin-bottom: 20px;
 margin-left: 50px;
 margin-right: 50px;
 font-weight: bolder;
-
-
 }
 
 .stats-inline div {
@@ -1513,42 +1136,9 @@ transition: background 0.3s ease;
 
 
 
-.auth-switch {
-margin-top: 1rem;
-}
-
-.auth-switch p {
-margin: 0.5rem 0;
-}
-
-.auth-switch button {
-background: none;
-border: none;
-color: #007bff;
-cursor: pointer;
-}
-
-.auth-switch button:hover {
-text-decoration: underline;
-}
-
 .error {
 color: red;
 margin-bottom: 1rem;
 font-size: 0.9rem;
 }
 
-.reset-container {
-display: none;
-margin-top: 1.5rem;
-}
-
-.reset-container h2 {
-margin-bottom: 1rem;
-}
-
-.subtext {
-font-size: 14px;
-margin-bottom: 1rem;
-text-decoration: italic;
-}

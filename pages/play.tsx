@@ -39,9 +39,12 @@ const GameMenu: React.FC = () => {
   };
 
   // Functie om de geselecteerde spelers bij te werken
-  const handlePlayerSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-    setSelectedPlayers(selectedOptions);
+  const handlePlayerSelection = (username: string) => {
+    setSelectedPlayers((prevSelected) =>
+      prevSelected.includes(username)
+        ? prevSelected.filter((player) => player !== username) // Verwijder als al geselecteerd
+        : [...prevSelected, username] // Voeg toe als nog niet geselecteerd
+    );
   };
 
   // Functie om het spel te starten
@@ -78,14 +81,23 @@ const GameMenu: React.FC = () => {
         {/* Dynamische lijst van gebruikers voor multiplayer, alleen zichtbaar als multiplayer is geselecteerd */}
         {gameMode === "multiplayer" && (
           <div className="player-select">
-            <label htmlFor="players">Select Players:</label>
-            <select id="players" multiple value={selectedPlayers} onChange={handlePlayerSelection}>
+            <label>Select Players:</label>
+            <div className="player-list">
               {playerList.map((player, index) => (
-                <option key={index} value={player.username}>
-                  {player.username}
-                </option>
+                <div
+                  key={index}
+                  className={`player-item ${selectedPlayers.includes(player.username) ? "selected" : ""}`}
+                  onClick={() => handlePlayerSelection(player.username)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedPlayers.includes(player.username)}
+                    onChange={() => handlePlayerSelection(player.username)}
+                  />
+                  <span>{player.username}</span>
+                </div>
               ))}
-            </select>
+            </div>
           </div>
         )}
 
