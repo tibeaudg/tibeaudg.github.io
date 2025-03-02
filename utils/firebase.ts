@@ -34,5 +34,4 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 // Exporteer de initialisaties
-// Exporteer de initialisaties
 export { auth, db, firebaseConfig, app };

@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
+
 import { useRouter } from "next/router";
 import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import Image from "next/image";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";import Image from "next/image";
 import Head from "next/head";
 import Header from "../pages/components/header"; // Importeer je Header component
 import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
 
 // Gegevens per user
 interface User {
+  avatar: string;
   username?: string;
-  level?: string;
-  accuracy?: string;
-  correctanswers?: string;
-  gamesplayed?: string;
-  avatar?: string;
 }
 
 
@@ -47,7 +43,7 @@ const availableAvatars: string[] = [
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const router = useRouter();
 
 
@@ -55,75 +51,132 @@ const HomePage: React.FC = () => {
   const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
   const [newUsername, setNewUsername] = useState("");
 
-  // Functie om de gekozen avatar op te slaan
-  const handleAvatarSelect = async (avatar: string) => {
-    if (!user) return;
 
-    try {
-      // Update de Firestore gebruiker met het nieuwe avatar
-      const userRef = doc(db, "users", auth.currentUser?.uid || "");
-      await updateDoc(userRef, { avatar });
 
-      // Update ook de lokale state
-      setUser((prevUser) => prevUser && { ...prevUser, avatar });
-      setAvatarMenuOpen(false);
-    } catch (error) {
-      console.error("Error updating avatar:", error);
-    }
-  };
+// Functie om de gekozen avatar op te slaan
+const handleAvatarSelect = async (avatar: string) => {
+  if (!auth.currentUser || !auth.currentUser.email) return;
 
-  // Functie om de nieuwe gebruikersnaam op te slaan
-  const handleUsernameSelect = async () => {
-    if (!newUsername || !auth.currentUser) return;
+  try {
+    // Use email as document ID
+    const userRef = doc(db, "users", auth.currentUser.email);
+    
+    // Update the Firestore document
+    await updateDoc(userRef, { avatar });
+    
+    // Update local state
+    setUser(prevUser => prevUser ? {...prevUser, avatar} : null);
+    setAvatarMenuOpen(false);
+    
+    console.log("Avatar updated successfully!");
+  } catch (error) {
+    console.error("Error updating avatar:", error);
+  }
+};
 
-    try {
-      // Update Firebase authentication profile
-      await updateProfile(auth.currentUser, {
-        displayName: newUsername,
-      });
+// Functie om de nieuwe gebruikersnaam op te slaan
+const handleUsernameSelect = async () => {
+  if (!newUsername || !auth.currentUser || !auth.currentUser.email) return;
 
-      // Update Firestore met de nieuwe gebruikersnaam
-      const userRef = doc(db, "users", auth.currentUser?.uid || "");
-      await updateDoc(userRef, { username: newUsername });
+  try {
+    // Use email as document ID
+    const userRef = doc(db, "users", auth.currentUser.email);
 
-      // Update de lokale state
-      setUser((prevUser) => prevUser && { ...prevUser, username: newUsername });
-      setUsernameMenuOpen(false);
-    } catch (error) {
-      console.error("Error updating username:", error);
-    }
-  };
-
-  // Gebruik de Firestore gegevens om de user informatie te krijgen
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        // Haal aanvullende gebruikersgegevens uit Firestore
-        const userRef = doc(db, "users", firebaseUser.uid);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-          setUser(userDoc.data() as User);
-        }
-      } else {
-        router.push("/login");
-      }
-      setLoading(false);
+    // Update Firebase authentication profile
+    await updateProfile(auth.currentUser, {
+      displayName: newUsername,
     });
 
-    return () => unsubscribe();
-  }, [router]);
+    // Update Firestore with the new username
+    await updateDoc(userRef, { username: newUsername });
 
-
-
-  if (loading) {
-    return <div>Loading...</div>;
+    // Update local state
+    setUser(prevUser => prevUser ? {...prevUser, username: newUsername} : null);
+    setUsernameMenuOpen(false);
+    
+    console.log("Username updated successfully!");
+  } catch (error) {
+    console.error("Error updating username:", error);
   }
+};
 
-  if (!user) {
-    return null;
-  }
+
+
+
+
+// In your useEffect function for authentication state
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    if (firebaseUser) {
+      console.log("User email:", firebaseUser.email); // Debug: Log the email
+      
+      if (!firebaseUser.email) {
+        console.error("User has no email address!");
+        setLoading(false);
+        return;
+      }
+      
+      // IMPORTANT: Use the email as the document ID instead of UID
+      const userRef = doc(db, "users", firebaseUser.email);
+      const userDoc = await getDoc(userRef);
+      
+      if (userDoc.exists()) {
+        console.log("Existing user document found with email ID"); // Debug
+        const userData = userDoc.data();
+        setUser(userData as User);
+        
+        // Update any missing fields if necessary
+        const updates: Partial<User> = {};
+        let needsUpdate = false;
+        
+        if (!userData.avatar) {
+          updates.avatar = "/assets/avatars/31.png";
+          needsUpdate = true;
+        }
+        
+        if (!userData.username && firebaseUser.displayName) {
+          updates.username = firebaseUser.displayName;
+          needsUpdate = true;
+        }
+        
+        if (needsUpdate) {
+          console.log("Updating missing fields in existing document"); // Debug
+          await updateDoc(userRef, updates);
+          setUser(prevUser => prevUser ? {...prevUser, ...updates} : null);
+        }
+      } else {
+        console.log("No user document found with email ID, creating new one"); // Debug
+        // Create a new user document if it doesn't exist
+        const newUserData: User = {
+          avatar: "/assets/avatars/31.png",
+          username: firebaseUser.displayName || "User"
+        };
+        
+        // Create document with email as ID
+        await setDoc(userRef, newUserData);
+        setUser(newUserData);
+      }
+    } else {
+      setUser(null);
+      router.push("/login");
+    }
+    setLoading(false);
+  });
+
+  return () => unsubscribe();
+}, [router]);
+
+
+
+
+
+
+
+
+
 
   return (
+
     <>
       <Head>
         <meta charSet="UTF-8" />
@@ -138,7 +191,7 @@ const HomePage: React.FC = () => {
         <div className="profile-section text-center">
           <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
             <Image
-              src={user?.avatar || "/assets/default-avatar.png"}
+              src={user?.avatar || "/assets/default-avatar.jpg"}
               alt="Profile Avatar"
               width={150}
               height={150}
@@ -187,12 +240,9 @@ const HomePage: React.FC = () => {
             )}
           </div>
 
-          <p className="text-muted">Level: {user?.level ?? "N/A"}</p>
         </div>
 
         <div className="stats-inline">
-          <h4>Games Played</h4>
-          <p>{user?.gamesplayed ?? "N/A"}</p>
         </div>
 
 
@@ -202,5 +252,6 @@ const HomePage: React.FC = () => {
     </>
   );
 };
+
 
 export default HomePage;

@@ -15,6 +15,10 @@ const AuthForm = () => {
 
   const firestore = getFirestore(app); // Initialize Firestore
 
+
+
+
+
   const createUserDocument = async (userEmail: string) => {
     try {
       const userDocRef = doc(firestore, "users", userEmail); // Document referentie maken
@@ -22,12 +26,18 @@ const AuthForm = () => {
         email: userEmail,
         points: 0, // Je kunt de standaardwaarde hier instellen
         username: "", // Leeg laten voor nu, kan later door gebruiker ingevuld worden
+        avatar: "", // Leeg laten voor nu, kan later door gebruiker ingevuld worden
       });
     } catch (error) {
       console.error("Error creating user document: ", error);
     }
   };
 
+
+
+
+
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
