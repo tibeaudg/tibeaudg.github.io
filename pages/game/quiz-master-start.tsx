@@ -193,7 +193,6 @@ const GameMenu: React.FC = () => {
   };
 
   const handlePass = () => {
-    const currentQuestion = questions[gameState.currentQuestionIndex];
     
     setGameState(prev => ({
       ...prev,
