@@ -351,16 +351,15 @@ text-shadow: 2px 2px 5px white;
 
 
 .game-menu-container {
-background-color: white;
-border-radius: 10px;
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 20px; /* Controleer of er geen conflict is met andere marges */
-margin-left: 30px;
-margin-right: 30px;
-
+  list-style-type: none; /* Remove default bullets */
+  padding: 20px; /* Add padding around the list */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin: 20px;
+  background-color: white;
 }
+
 
 
 
@@ -845,6 +844,55 @@ border: 1px solid #073a8d;
 border-radius: 10px;
 transition: transform 0.3s ease;
 color: black;
+}
+
+
+
+
+
+.userList {
+  list-style-type: none; /* Remove default bullets */
+  padding: 20px; /* Add padding around the list */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin: 20px;
+  background-color: white;
+}
+
+
+.userList li {
+  display: flex; /* Use flexbox for horizontal alignment */
+  justify-content: space-between; /* Space out the spans */
+  align-items: center; /* Vertically center content */
+  padding: 10px; /* Padding inside each list item */
+  border-bottom: 1px solid #eee; /* Separator line between items */
+}
+
+.userList li:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+
+
+.userList li span:nth-child(1) {
+  width: 50px; /* Fixed width for rank */
+  font-weight: bold; /* Make rank stand out */
+  color: #333; /* Darker color for contrast */
+}
+
+.userList li span:nth-child(2) {
+  flex-grow: 1; /* Allow username to take up remaining space */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for long usernames */
+}
+
+.userList li span:nth-child(3) {
+  width: 100px; /* Fixed width for points */
+  text-align: right; /* Align points to the right */
+  font-weight: bold; /* Emphasize points */
+  color: #073a8d; /* Blue color for visual distinction */
 }
 
 
@@ -1396,7 +1444,6 @@ margin-bottom: 0;
 
 
 .logout {
-
 background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 padding: 1px 2px;
 border-radius: 8px;

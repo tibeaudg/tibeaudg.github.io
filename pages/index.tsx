@@ -16,6 +16,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 interface User {
   avatar: string;
   username?: string;
+  points?: number;
 }
 
 const availableAvatars: string[] = [
@@ -201,7 +202,12 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        <div className="stats-inline"></div>
+        <div className="stats-inline">
+          <div>
+            <p>{user?.points ?? 0} points</p>
+          </div>
+        </div>
+
 
         <Navbar />
       </div>

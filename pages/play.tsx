@@ -65,7 +65,6 @@ const GameMenu: React.FC = () => {
       <Header /> {/* Hergebruik Header component */}
 
       <div>
-        <h3 className="title">Quiz Master</h3>
 
         {/* Dropdown-menu om de gamemode te selecteren */}
         <div className="game-mode-select">
@@ -91,8 +90,8 @@ const GameMenu: React.FC = () => {
         )}
 
         {/* Start game knop */}
-        <div className="game-menu-container">
-          <button className="btn" onClick={handleStartGame}>
+        <div className="container">
+          <button className="submit-btn" onClick={handleStartGame}>
             Start Game
           </button>
         </div>

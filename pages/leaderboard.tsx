@@ -57,18 +57,24 @@ const Leaderboard: React.FC = () => {
 
       <Header />
 
+
+
+
+
       <div>
-        <h2>Leaderboard</h2>
-        <ul>
+        <ul className="userList">
           {users.map((user, index) => (
             <li key={user.email}>
               <span>{index + 1}. </span>
-              <span>{user.username || user.email} - </span>
+              <span>{user.username || user.email} </span>
               <span>{user.points} points</span>
             </li>
           ))}
         </ul>
       </div>
+
+
+
 
       <Navbar />
     </>
