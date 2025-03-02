@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { loginUser } from "../utils/firebase"; // Zorg ervoor dat dit correct is geïmporteerd
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { getFirestore, doc, setDoc } from "firebase/firestore"; // Importeer Firestore functies
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // Importeer Firestore functies
 import { app } from "../utils/firebase"; // Zorg dat je Firebase-configuratie correct is
 
 const AuthForm = () => {
@@ -19,21 +19,25 @@ const AuthForm = () => {
 
 
 
+
   const createUserDocument = async (userEmail: string) => {
     try {
-      const userDocRef = doc(firestore, "users", userEmail); // Document referentie maken
-      await setDoc(userDocRef, {
-        email: userEmail,
-        points: 0, // Je kunt de standaardwaarde hier instellen
-        username: "", // Leeg laten voor nu, kan later door gebruiker ingevuld worden
-        avatar: "", // Leeg laten voor nu, kan later door gebruiker ingevuld worden
-      });
+      const userDocRef = doc(firestore, "users", userEmail);
+      const docSnap = await getDoc(userDocRef);
+      
+      if (!docSnap.exists()) {
+        await setDoc(userDocRef, {
+          email: userEmail,
+          points: 0,
+          username: "", // Leeg laten, zodat de gebruiker dit later kan instellen
+          avatar: "",   // Leeg laten
+        });
+      }
     } catch (error) {
       console.error("Error creating user document: ", error);
     }
   };
-
-
+  
 
 
 
