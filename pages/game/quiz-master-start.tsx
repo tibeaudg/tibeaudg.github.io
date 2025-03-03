@@ -318,70 +318,71 @@ const GameMenu: React.FC = () => {
   };
 
   const renderQuestion = () => {
-    const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
-    if (!currentQuestion) return null;
+  const currentQuestion = gameState.shuffledQuestions[gameState.currentQuestionIndex];
+  if (!currentQuestion) return null;
 
-    return (
-      <div className="question-container">
-        <div className="question-info">
-          <div className="category">
-            <span className="value">
-              {currentQuestion.difficulty} (+{getDifficultyPoints(currentQuestion.difficulty)})
-            </span>
-          </div>
-        </div>
-        <span className="value">{currentQuestion.category}</span>
-
-        <h3 className="question">{currentQuestion.question}</h3>
-        {currentQuestion.type === "multiple-choice" ? (
-          <div className="answer-section">
-            <div className="options-container">
-              {currentQuestion.options?.map((option, index) => (
-                <button
-                  key={index}
-                  className="option-button"
-                  onClick={() => handleMultipleChoiceAnswer(option)}
-                  disabled={gameState.isAnswerDisabled}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="answer-section">
-            <form onSubmit={handleOpenAnswer} className="open-answer-form">
-              <input
-                type="text"
-                value={gameState.openAnswer}
-                onChange={(e) => setGameState(prev => ({ ...prev, openAnswer: e.target.value }))}
-                placeholder="Type your answer..."
-                disabled={gameState.isAnswerDisabled}
-                className="open-answer-input"
-              />
-              <button
-                type="submit"
-                disabled={gameState.isAnswerDisabled || !gameState.openAnswer.trim()}
-                className="submit-answer-button"
-              >
-                Submit Answer
-              </button>
-            </form>
-          </div>
-        )}
-
-        <div className="pass-button-container">
-          <button
-            className={`pass-button ${gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]] ? 'disabled' : ''}`}
-            onClick={handlePass}
-            disabled={gameState.isAnswerDisabled || gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]]}
-          >
-            Pass Question
-          </button>
+  return (
+    <div className="question-container">
+      <div className="question-info">
+        <div className="category">
+          <span className="value">
+            {currentQuestion.difficulty} (+{getDifficultyPoints(currentQuestion.difficulty)})
+          </span>
         </div>
       </div>
-    );
-  };
+      <span className="value">{currentQuestion.category}</span>
+
+      <h3 className="question">{currentQuestion.question}</h3>
+
+      {currentQuestion.type === "multiple-choice" ? (
+        <div className="answer-section">
+          <div className="options-container">
+            {currentQuestion.options?.map((option, index) => (
+              <button
+                key={index}
+                className="option-button"
+                onClick={() => handleMultipleChoiceAnswer(option)}
+                disabled={gameState.isAnswerDisabled}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="answer-section">
+          <form onSubmit={handleOpenAnswer} className="open-answer-form">
+            <input
+              type="text"
+              value={gameState.openAnswer}
+              onChange={(e) => setGameState((prev) => ({ ...prev, openAnswer: e.target.value }))}
+              placeholder="Type your answer..."
+              disabled={gameState.isAnswerDisabled}
+              className="open-answer-input"
+            />
+            <button
+              type="submit"
+              disabled={gameState.isAnswerDisabled || !gameState.openAnswer.trim()}
+              className="submit-answer-button"
+            >
+              Submit Answer
+            </button>
+          </form>
+        </div>
+      )}
+
+      <div className="pass-button-container">
+        <button
+          className={`pass-button ${gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]] ? 'disabled' : ''}`}
+          onClick={handlePass}
+          disabled={gameState.isAnswerDisabled || gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]]}
+        >
+          Pass Question
+        </button>
+      </div>
+    </div>
+  );
+};
 
   const renderScoreboard = () => {
     const sortedPlayers = [...gameState.players].sort((a, b) => gameState.scores[b] - gameState.scores[a]);
@@ -412,6 +413,7 @@ const GameMenu: React.FC = () => {
     );
   };
 
+
   return (
     <>
       <Head>
@@ -420,40 +422,40 @@ const GameMenu: React.FC = () => {
         <title>Disney Magic Quest</title>
       </Head>
 
-      <div>
+      <div className="quiz-background">
         <Script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" strategy="lazyOnload" />
 
-        <div className="quiz-container">
-          {!gameState.isRoundOver ? (
-            <>
-              <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
+        {!gameState.isRoundOver ? (
+          <>
+            <h2 className="player-turn">{gameState.players[gameState.currentPlayerIndex]}</h2>
+            <div className="answer-grid">
               {renderQuestion()}
-            </>
-          ) : (
-            <div className="game-over" />
-          )}
+            </div>
+          </>
+        ) : (
+          <div className="game-over" />
+        )}
 
-          {isScoreboardVisible && renderScoreboard()}
+        {isScoreboardVisible && renderScoreboard()}
 
-          {!gameState.isSessionEnded ? (
-            <div className="scoreboard-buttons">
-              <button className="end-session-button" onClick={handleEndSession}>
-                Scoreboard
+        {!gameState.isSessionEnded ? (
+          <div className="scoreboard-buttons">
+            <button className="end-session-button" onClick={handleEndSession}>
+              Scoreboard
+            </button>
+          </div>
+        ) : (
+          <div className="scoreboard-buttons">
+            <button className="btn-newgame" onClick={startNewRound}>
+              New Game
+            </button>
+            <div className="go-to-quizmaster-container">
+              <button className="end-session-button" onClick={handleQuit}>
+                Quit
               </button>
             </div>
-          ) : (
-            <div className="scoreboard-buttons">
-              <button className="btn-newgame" onClick={startNewRound}>
-                New Game
-              </button>
-              <div className="go-to-quizmaster-container">
-                <button className="end-session-button" onClick={handleQuit}>
-                  Quit
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
