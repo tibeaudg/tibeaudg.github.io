@@ -5,9 +5,10 @@ import Head from "next/head";
 import Script from 'next/script';
 import Swal, { SweetAlertIcon } from "sweetalert2";
 // Import Firebase modules
-import { collection, doc, getDocs, increment, query, where, writeBatch } from "firebase/firestore";
+import { collection, doc, getDocs, increment, query, where, writeBatch, getFirestore, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase"; // Import initialized Firebase app and Firestore
 import Header from "../components/header";
+
 
 interface GameState {
   currentPlayerIndex: number;
@@ -86,22 +87,45 @@ const GameMenu: React.FC = () => {
     return difficultyMap[difficulty] || 1;
   };
 
-  const initializeGameState = (playerEmails: string[]) => {
-    const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
-    const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
 
-    const initialState = {
-      ...gameState,
-      players: playerEmails,
-      scores: Object.fromEntries(playerEmails.map(email => [email, 0])),
-      usedPasses: Object.fromEntries(playerEmails.map(email => [email, false])),
-      shuffledQuestions: shuffledQuestions as Question[],
-      usedQuestionIds: new Set<number>(),
-      currentQuestionIndex: 0
-    };
-    setGameState(initialState);
+
+
+
+const initializeGameState = async (playerEmails: string[]) => {
+  // Haal de gebruikersnamen op uit de database op basis van de e-mailadressen
+  const playerUsernames: string[] = await Promise.all(
+    playerEmails.map(async (email) => {
+      const userRef = doc(collection(getFirestore(), 'users'), email);
+      const userSnapshot = await getDoc(userRef);
+      const userData = userSnapshot.data();
+      return userData ? userData.username : email; // Als er geen gebruikersnaam is, gebruik dan het e-mailadres
+    })
+  );
+
+  const uniqueQuestions = getUniqueQuestions(questions, new Set<number>());
+  const shuffledQuestions = shuffleArray(uniqueQuestions) as Question[];
+
+  const initialState = {
+    ...gameState,
+    players: playerUsernames, // Gebruik de gebruikersnamen hier
+    scores: Object.fromEntries(playerUsernames.map((username) => [username, 0])), // Scores op basis van gebruikersnamen
+    usedPasses: Object.fromEntries(playerUsernames.map((username) => [username, false])), // Passes op basis van gebruikersnamen
+    shuffledQuestions: shuffledQuestions as Question[],
+    usedQuestionIds: new Set<number>(),
+    currentQuestionIndex: 0
   };
 
+  setGameState(initialState);
+};
+
+
+
+
+
+
+
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (router.query.players) {
       const playerList = JSON.parse(router.query.players as string);
@@ -109,6 +133,9 @@ const GameMenu: React.FC = () => {
     }
   }, [router.query.players]);
 
+
+
+  
   const saveScoresToFirebase = async () => {
     if (scoresSaved) return; // Prevent duplicate saves
 
@@ -130,15 +157,7 @@ const GameMenu: React.FC = () => {
           batch.update(playerDocRef, {
             points: increment(sessionScore),
           });
-        } else {
-          console.error(`Document for user ${playerEmail} does not exist.`);
-          Swal.fire({
-            icon: 'error',
-            title: 'User Not Found',
-            text: `The user ${playerEmail} does not exist in the database.`,
-            showConfirmButton: true,
-          });
-        }
+        } 
       }
 
       // Commit the batch write
@@ -427,7 +446,7 @@ const GameMenu: React.FC = () => {
 
       <Header />
 
-      <button className="end-session-button" onClick={handleEndSession}>
+      <button className="goback-button" onClick={handleEndSession}>
         <i className="bi bi-arrow-left"></i> Return
       </button>
 

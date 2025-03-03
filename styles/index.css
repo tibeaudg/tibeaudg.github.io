@@ -148,7 +148,7 @@ position: relative; /* Ensure the pseudo-element is positioned relative to the n
   gap: 40px;
   padding: 20px;
   min-height: 100%;
-  padding-bottom: 100px;
+  padding-bottom: 150px;
 }
 
 
@@ -333,7 +333,7 @@ cursor: pointer;
 
 .player-select {
 padding-bottom: 100px;
-padding-top: -30px;
+margin: 20px;
 } 
 
 
@@ -549,8 +549,10 @@ visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
 }
 
 .player-turn {
-font-size: 3rem;
+font-size: 2rem;
 color: white;
+border-radius: 25px;
+
 background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 text-align: center;
 animation: magicAppear 0.5s ease-out;
@@ -576,16 +578,6 @@ gap: 1rem;
 margin: 2rem 0;
 }
 
-.option-button {
-padding: 1rem;
-font-size: 1.2rem;
-border: none;
-border-radius: 10px;
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-color: white;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
 
 .answer-status {
@@ -671,14 +663,48 @@ transform: scale(1) rotate(0deg);
 .username {
 font-size: xx-large;
 font-weight: bolder;
+padding: 10px;
 }
 
 .card {
 width: 100%;
 text-align: center;
 justify-content: center;  
+}
+
+.button-section {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.number {
+font-size: 1rem;
+font-weight: bold;
+}
+
+.user-description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  margin-top: -50px;
+  text-align: center; /* Zorgt ervoor dat tekst gecentreerd is binnen de p-tag */
+}
 
 
+
+.message-btn {
+  background-color: #fff;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.follow-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
 }
 
 
@@ -797,7 +823,7 @@ color: white;
 display: flex;
 flex-direction: column;
 gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
-margin-top: 20px;
+margin-top: 60px;
 }
 
 .button-container {
@@ -807,14 +833,26 @@ align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
 gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
 }
 
+.goback-button {
+padding: 0.5rem;
+margin-bottom: 10px;
+margin-top: 10px;
+border: none;
+background-color: transparent;
 
+}
+
+.quiz-background{
+  margin: 20px;
+}
 
 .end-session-button {
 padding: 1rem;
 width: 100%;
 font-size: 1.2rem;
-color: black;
-border: none;
+color: #073a8d;
+border: 1px solid #073a8d;
+border-radius: 10px;
 background-color: transparent;
 cursor: pointer;
 transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1026,9 +1064,26 @@ display: flex;
 align-items: center;
 justify-content: center;
 font-size: 3rem;
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-;
+box-shadow: 0 10px 50px rgba(0, 51, 204, 0.212);
 }
+
+
+
+.btn-draw-border {
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1.5;
+  font: 700 1.2rem 'Roboto Slab', sans-serif;
+  padding: 0.75em 2em;
+  letter-spacing: 0.05rem;
+  margin: 1em;
+  width: 13rem;
+}
+
+
+
+
 
 .profile-info h2 {
 color: #1f2937;
@@ -1040,32 +1095,30 @@ color: #6b7280;
 }
 
 .stats-inline {
-display: flex;
-justify-content: space-around;
-align-items: center;
-background: white;
-padding: 1rem;
-border-radius: 10px;
-color: rgb(0, 51, 204);
-margin-bottom: 20px;
-margin-left: 50px;
-margin-right: 50px;
-font-weight: bolder;
-box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-around;
+  margin: 16px 20px;
+  background-color: white;
+
+
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  margin: 20px;
 
 }
+
 
 .stats-inline div {
 text-align: center;
 }
 
-.stats-inline h4 {
-margin-bottom: 0.25rem;
-font-size: 1.2rem;
-}
+
 
 .stats-inline p {
-font-size: 1.5rem;
+font-size: 1rem;
 margin-bottom: 0;
 
 }
@@ -1255,7 +1308,7 @@ margin-bottom: 10px;
 .category .value {
 font-size: 1.2rem;
 font-weight: bold;
-color: #f9a825;
+color: rgb(0, 51, 204);
 }
 
 .question {
@@ -1276,8 +1329,8 @@ background: none;
 
 .option-button {
 padding: 15px;
-font-size: 1.2rem;
-background-color: #039be5;
+font-size: 1rem;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
 color: white;
 border: none;
 border-radius: 10px;
@@ -1285,9 +1338,6 @@ cursor: pointer;
 transition: background-color 0.3s;
 }
 
-.option-button:hover {
-background-color: #0288d1;
-}
 
 .option-button:disabled {
 background-color: #b0bec5;
@@ -1312,7 +1362,7 @@ border: 2px solid #0288d1;
 .submit-answer-button {
 padding: 10px 20px;
 font-size: 1.2rem;
-background-color: #f57f17;
+background-color: #0033cc;
 color: white;
 border: none;
 border-radius: 5px;
@@ -1320,9 +1370,7 @@ cursor: pointer;
 transition: background-color 0.3s;
 }
 
-.submit-answer-button:hover {
-background-color: #ef6c00;
-}
+
 
 .pass-button-container {
 margin-top: 20px;
@@ -1331,9 +1379,9 @@ margin-top: 20px;
 .pass-button {
 padding: 10px 20px;
 font-size: 1.2rem;
-background-color: #ff7043;
-color: white;
-border: none;
+background-color: transparent;
+color: #0033cc;
+border: 1px #0033cc solid;
 border-radius: 5px;
 cursor: pointer;
 }
@@ -1341,9 +1389,5 @@ cursor: pointer;
 .pass-button.disabled {
 background-color: #b0bec5;
 cursor: not-allowed;
-}
-
-.pass-button:hover:not(.disabled) {
-background-color: #e64a19;
 }
 

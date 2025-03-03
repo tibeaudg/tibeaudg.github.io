@@ -48,7 +48,12 @@ const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
         src={player.avatar || '/default-avatar.png'}
         alt={`${player.username} avatar`}
         className="player-avatar"
+        width={100}  // Adjust this width according to your design
+        height={100} // Adjust this height according to your design
       />
+
+
+
       <div className="player-info">
         <span className="player-name">{player.username || player.email}</span>
         <span className="player-points">{player.points} points</span>

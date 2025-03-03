@@ -17,6 +17,9 @@ interface User {
   avatar: string;
   username?: string;
   points?: number;
+  gamesPlayed?: number;
+  league?: string;
+  description?: string;
 }
 
 const availableAvatars: string[] = [
@@ -50,22 +53,27 @@ const HomePage: React.FC = () => {
 
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
+  const [descriptionMenuOpen, setDescriptionMenuOpen] = useState(false);
+  const [newDescription, setNewDescription] = useState("");
   const [newUsername, setNewUsername] = useState("");
 
   // Functie om de gekozen avatar op te slaan
   const handleAvatarSelect = async (avatar: string) => {
     if (!auth.currentUser || !auth.currentUser.email) return;
-
+  
     try {
       const userRef = doc(db, "users", auth.currentUser.email);
       await updateDoc(userRef, { avatar });
-      setUser(prevUser => prevUser ? { ...prevUser, avatar } : null);
+      setUser((prevUser) => (prevUser ? { ...prevUser, avatar } : null));
       setAvatarMenuOpen(false);
+      setUsernameMenuOpen(false);  // Close others when this opens
+      setDescriptionMenuOpen(false);
       console.log("Avatar updated successfully!");
     } catch (error) {
       console.error("Error updating avatar:", error);
     }
   };
+  
 
   // Functie om de nieuwe gebruikersnaam op te slaan
   const handleUsernameSelect = async () => {
@@ -87,6 +95,30 @@ const HomePage: React.FC = () => {
       console.error("Error updating username:", error);
     }
   };
+
+// Updated function to remove updateProfile for description
+const handleDescriptionSelect = async () => {
+  if (!newDescription || !auth.currentUser || !auth.currentUser.email) return;
+
+  try {
+    const userRef = doc(db, "users", auth.currentUser.email);
+
+    // Update the Firestore with the new description
+    await updateDoc(userRef, { description: newDescription });
+
+    setUser((prevUser) => (prevUser ? { ...prevUser, description: newDescription } : null));
+    setDescriptionMenuOpen(false);
+    console.log("Description updated successfully!");
+  } catch (error) {
+    console.error("Error updating description:", error);
+  }
+};
+
+
+    
+
+
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -110,15 +142,21 @@ const HomePage: React.FC = () => {
             userData.username = updatedUsername;
           }
           setUser(userData);
+          
         } else {
           // Document bestaat niet, dus maak er een aan met standaardwaarden
           const newUserData: User = {
             avatar: "/assets/avatars/31.png",
             username: firebaseUser.displayName || "User",
+            points: 0,   // Initialize points to 0
+            gamesPlayed: 0,    // Initialize games to 0
+            league: "Bronze",  // Default league
           };
           await setDoc(userRef, newUserData);
+          
           setUser(newUserData);
         }
+
       } else {
         setUser(null);
         router.push("/login");
@@ -148,8 +186,8 @@ const HomePage: React.FC = () => {
             <Image
               src={user?.avatar || "/assets/default-avatar.jpg"}
               alt="Profile Avatar"
-              width={160}
-              height={160}
+              width={150}
+              height={150}
             />
           </div>
 
@@ -168,11 +206,17 @@ const HomePage: React.FC = () => {
                   </div>
                 ))}
               </div>
+
+
+
+
               <button className="btn" onClick={() => setAvatarMenuOpen(false)}>
                 Sluiten
               </button>
             </div>
           )}
+
+
 
           {/* Gebruikersnaam tonen en bewerken */}
           <div className="username-section">
@@ -202,15 +246,45 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        <div className="stats-inline">
-          <div>
-            <p>{user?.points ?? 0} points</p>
+
+
+          {/* Beschrijving toevoegen */}
+            <p className="user-description" onClick={() => setDescriptionMenuOpen(true)} style={{ cursor: "pointer" }}>
+              {user?.description ? user.description : "Geen beschrijving"}
+            </p>
+            {descriptionMenuOpen && (
+              <div className="username-edit">
+                <input
+                  type="text"
+                  value={newDescription}
+                  onChange={(e) => setNewDescription(e.target.value)}
+                  placeholder="Nieuwe beschrijving"
+                />
+                <button className="btn" onClick={handleDescriptionSelect}>
+                  Opslaan
+                </button>
+                <button className="btn" onClick={() => setDescriptionMenuOpen(false)}>
+                  Annuleren
+                </button>
+              </div>
+            )}
           </div>
-        </div>
+
+          {/* Instagram-achtige layout voor games, points, league */}
+          <div className="stats-inline">
+            <div className="stats">
+              <p><span className="number">{user?.gamesPlayed ?? 0}</span><br />Games</p>
+            </div>
+            <div className="stats">
+              <p><span className="number">{user?.points ?? 0}</span><br />Points</p>
+            </div>
+            <div className="stats">
+              <p><span className="number">{user?.league ?? "N/A"}</span><br />League</p>
+            </div>
+          </div>
 
 
         <Navbar />
-      </div>
     </>
   );
 };
