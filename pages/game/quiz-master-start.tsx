@@ -7,6 +7,7 @@ import Swal, { SweetAlertIcon } from "sweetalert2";
 // Import Firebase modules
 import { collection, doc, getDocs, increment, query, where, writeBatch } from "firebase/firestore";
 import { db } from "../../utils/firebase"; // Import initialized Firebase app and Firestore
+import Header from "../components/header";
 
 interface GameState {
   currentPlayerIndex: number;
@@ -322,6 +323,7 @@ const GameMenu: React.FC = () => {
   if (!currentQuestion) return null;
 
   return (
+  <div className='a'>
     <div className="question-container">
       <div className="question-info">
         <div className="category">
@@ -381,6 +383,7 @@ const GameMenu: React.FC = () => {
         </button>
       </div>
     </div>
+  </div>
   );
 };
 
@@ -422,6 +425,13 @@ const GameMenu: React.FC = () => {
         <title>Disney Magic Quest</title>
       </Head>
 
+      <Header />
+
+      <button className="end-session-button" onClick={handleEndSession}>
+        <i className="bi bi-arrow-left"></i> Return
+      </button>
+
+
       <div className="quiz-background">
         <Script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" strategy="lazyOnload" />
 
@@ -440,9 +450,7 @@ const GameMenu: React.FC = () => {
 
         {!gameState.isSessionEnded ? (
           <div className="scoreboard-buttons">
-            <button className="end-session-button" onClick={handleEndSession}>
-              Scoreboard
-            </button>
+
           </div>
         ) : (
           <div className="scoreboard-buttons">

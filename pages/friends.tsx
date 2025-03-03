@@ -3,6 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import Head from 'next/head';
 import Header from "../pages/components/header";
+import Image from "next/image";
 import Navbar from "../pages/components/navbar";
 
 interface Player {
@@ -43,7 +44,7 @@ const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
 
   return (
     <li className="player-item">
-      <img
+      <Image
         src={player.avatar || '/default-avatar.png'}
         alt={`${player.username} avatar`}
         className="player-avatar"

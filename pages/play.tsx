@@ -24,7 +24,6 @@ const GameMenu: React.FC = () => {
   const [gameMode, setGameMode] = useState<string>("solo"); // Standaard modus is 'solo'
   const [playerList, setPlayerList] = useState<Player[]>([]); // Spelers uit de database
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([]); // Geselecteerde spelers voor multiplayer
-  const [showStartButton, setShowStartButton] = useState<boolean>(false); // Verberg de startknop tot multiplayer is geselecteerd
   const [currentUser, setCurrentUser] = useState<string | null>(null); // Huidige gebruiker 
   const router = useRouter(); // Voor router-navigatie
 
@@ -75,20 +74,6 @@ const GameMenu: React.FC = () => {
 
 
 
-  // Functie om de geselecteerde gamemode te wijzigen en multiplayer startknop te tonen
-  const handleGameModeChange = (mode: string) => {
-    setGameMode(mode);
-    if (mode === "multiplayer") {
-      setShowStartButton(true); // Toon startknop
-    } else {
-      setShowStartButton(false); // Verberg startknop als terug naar solo
-    }
-  };
-
-
-
-
-
   // Update de lijst van geselecteerde spelers
   const handlePlayerSelection = (username: string) => {
     setSelectedPlayers((prevSelected) =>
@@ -125,7 +110,7 @@ const GameMenu: React.FC = () => {
       <div className="game-mode-wrapper">
         {/* Solo Mode */}
         <div className="game-mode-container">
-          <Image src="/assets/background.jpg" alt="Solo" className="game-mode-image" width={150} height={150} />
+          <Image src="/assets/solo2.png" alt="Solo" className="game-mode-image" width={150} height={150} />
           <button className="disney-button" onClick={handleSoloStart}>
             <i className="bi bi-play-fill"></i> {/* Dit is een controller-icoon van Bootstrap Icons */}
           </button>
@@ -134,7 +119,7 @@ const GameMenu: React.FC = () => {
 
         {/* Multiplayer Mode */}
         <div className="game-mode-container">
-          <Image src="/assets/background.jpg" alt="Multiplayer" className="game-mode-image" width={150} height={150} />
+          <Image src="/assets/multiplayer.jpg" alt="Multiplayer" className="game-mode-image" width={150} height={150} />
           <button className="disney-button" onClick={() => setGameMode("multiplayer")}>
             <i className="bi bi-play-fill"></i> {/* Dit is een controller-icoon van Bootstrap Icons */}
           </button>
