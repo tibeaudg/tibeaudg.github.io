@@ -370,14 +370,7 @@
       "options": ["De Snap", "Het Oog van Thanos", "De Infinietijd", "Het einde"],
       "correctAnswer": "De Snap"
     },
-    {
-      "id": 60,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een belangrijk keerpunt in 'Toy Story 3'.",
-      "correctAnswer": "De beslissing van de personages om naar een nieuw hoofdstuk te gaan"
-    },
+
     {
       "id": 61,
       "category": "Gebeurtenissen",
@@ -396,14 +389,7 @@
       "options": ["Disney", "Pixar", "DreamWorks", "Warner Bros"],
       "correctAnswer": "Pixar"
     },
-    {
-      "id": 63,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de beroemde animator die Disney's eerste grote successen leidde.",
-      "correctAnswer": "Walt Disney"
-    },
+
     {
       "id": 64,
       "category": "Achter de schermen",
@@ -422,14 +408,7 @@
       "options": ["Pirates of the Caribbean", "Space Mountain", "Haunted Mansion", "Jungle Cruise"],
       "correctAnswer": "Pirates of the Caribbean"
     },
-    {
-      "id": 66,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland gebaseerd op 'Star Wars'.",
-      "correctAnswer": "Star Tours"
-    },
+
     {
       "id": 67,
       "category": "Attracties & parken",
@@ -448,14 +427,7 @@
       "options": ["Nemo", "Dory", "Marlin", "Crush"],
       "correctAnswer": "Dory"
     },
-    {
-      "id": 69,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waar de quote 'I can do this all day' vandaan komt.",
-      "correctAnswer": "Captain America: The First Avenger"
-    },
+
     {
       "id": 70,
       "category": "Quotes & dialogen",
@@ -474,14 +446,7 @@
       "options": ["Toy Story", "Finding Nemo", "Shrek", "Monsters, Inc."],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 72,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een bekende Easter egg uit de Marvel films.",
-      "correctAnswer": "Het nummer 42 dat verwijst naar het antwoord op het leven"
-    },
+
     {
       "id": 73,
       "category": "Details & trivia",
@@ -500,14 +465,7 @@
       "options": ["Toy Story", "The Muppets", "Cars", "Frozen"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 75,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een oude man en een jongen een avontuur beleven op zee, geproduceerd door Pixar.",
-      "correctAnswer": "Up"
-    },
+
     {
       "id": 76,
       "category": "Films & series",
@@ -526,14 +484,7 @@
       "options": ["Arlo", "Butch", "Spot", "Jasper"],
       "correctAnswer": "Arlo"
     },
-    {
-      "id": 78,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel-schurk die verschijnt in 'Thor: Ragnarok' en geassocieerd wordt met dood en vernietiging.",
-      "correctAnswer": "Hela"
-    },
+
     {
       "id": 79,
       "category": "Personages",
@@ -552,14 +503,7 @@
       "options": ["Anaheim", "Orlando", "Paris", "Tokyo"],
       "correctAnswer": "Orlando"
     },
-    {
-      "id": 81,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve locatie in 'Guardians of the Galaxy' die als schuilplaats dient.",
-      "correctAnswer": "Knowhere"
-    },
+
     {
       "id": 82,
       "category": "Plaatsen",
@@ -578,14 +522,7 @@
       "options": ["De slag om New York", "De Snap", "De val van Asgard", "De introductie van Spider-Man"],
       "correctAnswer": "De slag om New York"
     },
-    {
-      "id": 84,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een cruciaal moment in 'Guardians of the Galaxy Vol. 2'.",
-      "correctAnswer": "De onthulling van Peter Quill's afkomst"
-    },
+
     {
       "id": 85,
       "category": "Gebeurtenissen",
@@ -604,14 +541,7 @@
       "options": ["Disney", "Pixar", "DreamWorks", "Warner Bros"],
       "correctAnswer": "Pixar"
     },
-    {
-      "id": 87,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de stemacteur van Darth Vader.",
-      "correctAnswer": "James Earl Jones"
-    },
+
     {
       "id": 88,
       "category": "Achter de schermen",
@@ -630,14 +560,7 @@
       "options": ["Space Mountain", "Haunted Mansion", "Pirates of the Caribbean", "Jungle Cruise"],
       "correctAnswer": "Space Mountain"
     },
-    {
-      "id": 90,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die gebaseerd is op een Star Wars-saga.",
-      "correctAnswer": "Star Tours"
-    },
+
     {
       "id": 91,
       "category": "Attracties & parken",
@@ -656,14 +579,7 @@
       "options": ["Jessica Rabbit", "Marge Simpson", "Elsa", "Tinker Bell"],
       "correctAnswer": "Jessica Rabbit"
     },
-    {
-      "id": 93,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waaruit de quote 'With great power comes great responsibility' komt.",
-      "correctAnswer": "Spider-Man"
-    },
+ 
     {
       "id": 94,
       "category": "Quotes & dialogen",
@@ -682,14 +598,7 @@
       "options": ["Toy Story", "Monsters, Inc.", "A Bug's Life", "The Incredibles"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 96,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een triviafeit over de film 'Inside Out'.",
-      "correctAnswer": "De emoties zijn gebaseerd op echte psychologische theorieën"
-    },
+
     {
       "id": 97,
       "category": "Details & trivia",
@@ -708,14 +617,7 @@
       "options": ["Beauty and the Beast", "Tangled", "The Little Mermaid", "Sleeping Beauty"],
       "correctAnswer": "Sleeping Beauty"
     },
-    {
-      "id": 99,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Pixar film over een kapotte robot die een bijzondere vriendschap sluit.",
-      "correctAnswer": "WALL-E"
-    },
+   
     {
       "id": 100,
       "category": "Films & series",
@@ -734,14 +636,7 @@
       "options": ["Moana", "Mulan", "Pocahontas", "Tangled"],
       "correctAnswer": "Moana"
     },
-    {
-      "id": 102,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Disney film waarin een jonge heldin een draak temt.",
-      "correctAnswer": "Raya and the Last Dragon"
-    },
+
     {
       "id": 103,
       "category": "Films & series",
@@ -760,14 +655,7 @@
       "options": ["Simba", "Mufasa", "Rafiki", "Scar"],
       "correctAnswer": "Rafiki"
     },
-    {
-      "id": 105,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Pixar hoofdpersoon uit 'Coco'.",
-      "correctAnswer": "Miguel"
-    },
+ 
     {
       "id": 106,
       "category": "Personages",
@@ -786,14 +674,7 @@
       "options": ["Berlijn", "Parijs", "Londen", "Madrid"],
       "correctAnswer": "Parijs"
     },
-    {
-      "id": 108,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve planeet waar 'Star Wars: The Force Awakens' voor een groot deel zich afspeelt.",
-      "correctAnswer": "Jakku"
-    },
+    
     {
       "id": 109,
       "category": "Plaatsen",
@@ -812,14 +693,7 @@
       "options": ["Iron Man", "Thor", "The Avengers", "Captain America: The First Avenger"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 111,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Rogue One: A Star Wars Story'.",
-      "correctAnswer": "De diefstal van de plannen van de Death Star."
-    },
+   
     {
       "id": 112,
       "category": "Gebeurtenissen",
@@ -838,14 +712,7 @@
       "options": ["Walt Disney", "Ub Iwerks", "Roy O. Disney", "Frank Thomas"],
       "correctAnswer": "Ub Iwerks"
     },
-    {
-      "id": 114,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de regisseur van 'Coco'.",
-      "correctAnswer": "Lee Unkrich"
-    },
+ 
     {
       "id": 115,
       "category": "Achter de schermen",
@@ -864,14 +731,7 @@
       "options": ["Expedition Everest", "Soarin'", "Haunted Mansion", "Pirates of the Caribbean"],
       "correctAnswer": "Soarin'"
     },
-    {
-      "id": 117,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een populaire attractie in Disneyland die gebaseerd is op een klassieke animatiefilm.",
-      "correctAnswer": "It's a Small World"
-    },
+  
     {
       "id": 118,
       "category": "Attracties & parken",
@@ -881,14 +741,7 @@
       "options": ["Star Wars: Rise of the Resistance", "Star Tours", "Millennium Falcon: Smugglers Run", "Star Wars: The Adventures"],
       "correctAnswer": "Star Wars: Rise of the Resistance"
     },
-    {
-      "id": 119,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de spreker van de quote 'I have spoken' in 'The Mandalorian'.",
-      "correctAnswer": "Kuiil"
-    },
+  
     {
       "id": 120,
       "category": "Quotes & dialogen",
@@ -907,14 +760,7 @@
       "options": ["Cinderella", "Snow White and the Seven Dwarfs", "Pinocchio", "Fantasia"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 122,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een uniek productiedetail uit 'Coco' dat verwijst naar een Mexicaanse traditie.",
-      "correctAnswer": "Day of the Dead"
-    },
+  
     {
       "id": 123,
       "category": "Details & trivia",
@@ -933,14 +779,7 @@
       "options": ["Beauty and the Beast", "Cinderella", "Sleeping Beauty", "The Little Mermaid"],
       "correctAnswer": "Beauty and the Beast"
     },
-    {
-      "id": 125,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Pixar film waarin muziek een centrale rol speelt en familiebanden verkent.",
-      "correctAnswer": "Coco"
-    },
+ 
     {
       "id": 126,
       "category": "Films & series",
@@ -959,14 +798,7 @@
       "options": ["Ariel", "Belle", "Cinderella", "Mulan"],
       "correctAnswer": "Ariel"
     },
-    {
-      "id": 128,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de huidige stemacteur van Mickey Mouse.",
-      "correctAnswer": "Bret Iwan"
-    },
+ 
     {
       "id": 129,
       "category": "Personages",
@@ -985,14 +817,7 @@
       "options": ["Los Angeles", "Orlando", "New York", "San Francisco"],
       "correctAnswer": "Orlando"
     },
-    {
-      "id": 131,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve stad in de film 'Zootopia' waar alle dieren samenleven.",
-      "correctAnswer": "Zootopia"
-    },
+
     {
       "id": 132,
       "category": "Plaatsen",
@@ -1011,14 +836,7 @@
       "options": ["Frozen", "Tangled", "Moana", "Brave"],
       "correctAnswer": "Frozen"
     },
-    {
-      "id": 134,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een belangrijk moment in 'Star Wars: The Last Jedi'.",
-      "correctAnswer": "De confrontatie tussen Rey en Kylo Ren."
-    },
+  
     {
       "id": 135,
       "category": "Gebeurtenissen",
@@ -1037,14 +855,7 @@
       "options": ["Pixar", "Disney Animation", "DreamWorks", "Illumination Entertainment"],
       "correctAnswer": "Pixar"
     },
-    {
-      "id": 137,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een van de regisseurs van 'Raya and the Last Dragon'.",
-      "correctAnswer": "Don Hall"
-    },
+  
     {
       "id": 138,
       "category": "Achter de schermen",
@@ -1063,14 +874,7 @@
       "options": ["Jungle Cruise", "It's a Small World", "Pirates of the Caribbean", "Haunted Mansion"],
       "correctAnswer": "It's a Small World"
     },
-    {
-      "id": 140,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die recentelijk vernieuwd is met een Star Wars-thema.",
-      "correctAnswer": "Star Wars: Galaxy's Edge"
-    },
+
     {
       "id": 141,
       "category": "Attracties & parken",
@@ -1089,14 +893,7 @@
       "options": ["Lilo", "Stitch", "Nani", "Jumba"],
       "correctAnswer": "Lilo"
     },
-    {
-      "id": 143,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een quote uit 'Guardians of the Galaxy Vol. 2' die refereert aan familie of saamhorigheid.",
-      "correctAnswer": "I am Groot, y’all!"
-    },
+
     {
       "id": 144,
       "category": "Quotes & dialogen",
@@ -1115,14 +912,7 @@
       "options": ["Iron Man", "Thor", "Captain America: The First Avenger", "The Incredible Hulk"],
       "correctAnswer": "Iron Man"
     },
-    {
-      "id": 146,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een triviafeit over de productie van 'Zootopia'.",
-      "correctAnswer": "De film maakte gebruik van geavanceerde technologie om de bewegingen van diverse dieren na te bootsen."
-    },
+ 
     {
       "id": 147,
       "category": "Details & trivia",
@@ -1141,14 +931,7 @@
       "options": ["Mulan", "Brave", "Tangled", "Frozen"],
       "correctAnswer": "Tangled"
     },
-    {
-      "id": 149,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een jonge avonturier een digitale wereld betreedt om het mysterie van zijn verleden te ontrafelen.",
-      "correctAnswer": "Tron: Legacy"
-    },
+  
     {
       "id": 150,
       "category": "Films & series",
@@ -1167,14 +950,7 @@
       "options": ["Moana", "Maui", "Te Fiti", "Te Ka"],
       "correctAnswer": "Moana"
     },
-    {
-      "id": 152,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de heldin die in 'Captain Marvel' centraal staat.",
-      "correctAnswer": "Carol Danvers"
-    },
+  
     {
       "id": 153,
       "category": "Personages",
@@ -1193,14 +969,7 @@
       "options": ["Een kasteel", "Een bos", "Een koninkrijk", "Een dorp"],
       "correctAnswer": "Een koninkrijk"
     },
-    {
-      "id": 155,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve stad waar de familie Parr (The Incredibles) woont.",
-      "correctAnswer": "Metroville"
-    },
+  
     {
       "id": 156,
       "category": "Plaatsen",
@@ -1219,14 +988,7 @@
       "options": ["Beauty and the Beast", "Cinderella", "Sleeping Beauty", "Aladdin"],
       "correctAnswer": "Beauty and the Beast"
     },
-    {
-      "id": 158,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Captain Marvel'.",
-      "correctAnswer": "Carol Danvers ontdekt haar krachten tijdens een explosieve confrontatie."
-    },
+ 
     {
       "id": 159,
       "category": "Gebeurtenissen",
@@ -1244,14 +1006,7 @@
       "question": "Welke filmstudio wordt geprezen voor het revolutioneren van animatie met behulp van computertechnologie?",
       "options": ["Pixar", "DreamWorks", "Illumination", "Blue Sky Studios"]
     },
-    {
-      "id": 161,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de componist die de bekroonde soundtrack voor 'Up' heeft gecreëerd.",
-      "correctAnswer": "Michael Giacchino"
-    },
+
     {
       "id": 162,
       "category": "Achter de schermen",
@@ -1270,14 +1025,7 @@
       "options": ["Guardians of the Galaxy – Mission: Breakout!", "Radiator Springs Racers", "Incredicoaster", "Rock 'n' Roller Coaster"],
       "correctAnswer": "Incredicoaster"
     },
-    {
-      "id": 164,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die een ruimtevaartthema heeft en bezoekers een spannende rit biedt.",
-      "correctAnswer": "Space Mountain"
-    },
+
     {
       "id": 165,
       "category": "Attracties & parken",
@@ -1296,14 +1044,7 @@
       "options": ["Simba", "Mufasa", "Scar", "Rafiki"],
       "correctAnswer": "Mufasa"
     },
-    {
-      "id": 167,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een memorabele quote uit 'Raya and the Last Dragon'.",
-      "correctAnswer": "Trust is earned, not given."
-    },
+  
     {
       "id": 168,
       "category": "Quotes & dialogen",
@@ -1322,14 +1063,7 @@
       "options": ["Dumbo", "Bambi", "Fantasia", "Pinocchio"],
       "correctAnswer": "Dumbo"
     },
-    {
-      "id": 170,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een interessant feit over de productie van 'Monsters University'.",
-      "correctAnswer": "Het was de eerste prequel van Monsters, Inc. en maakte gebruik van vernieuwde animatietechnieken."
-    },
+
     {
       "id": 171,
       "category": "Details & trivia",
@@ -1348,14 +1082,7 @@
       "options": ["Finding Nemo", "Finding Dory", "A Bug's Life", "The Good Dinosaur"],
       "correctAnswer": "Finding Nemo"
     },
-    {
-      "id": 173,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Pixar film waarin dinosauriërs een belangrijke rol spelen en een alternatieve geschiedenis verkennen.",
-      "correctAnswer": "The Good Dinosaur"
-    },
+  
     {
       "id": 174,
       "category": "Films & series",
@@ -1374,14 +1101,7 @@
       "options": ["Merida", "Elsa", "Anna", "Mulan"],
       "correctAnswer": "Merida"
     },
-    {
-      "id": 176,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de ambitieuze konijnenvrouw die de hoofdpersoon is in 'Zootopia'.",
-      "correctAnswer": "Judy Hopps"
-    },
+  
     {
       "id": 177,
       "category": "Personages",
@@ -1400,14 +1120,7 @@
       "options": ["Arendelle", "Corona", "Atlantica", "Agrabah"],
       "correctAnswer": "Arendelle"
     },
-    {
-      "id": 179,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de stad die vaak als setting dient voor vele Marvel films en series.",
-      "correctAnswer": "New York"
-    },
+ 
     {
       "id": 180,
       "category": "Plaatsen",
@@ -1426,14 +1139,7 @@
       "options": ["The Avengers", "Guardians of the Galaxy", "Thor", "Iron Man"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 182,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een belangrijk moment in 'Spider-Man: Homecoming'.",
-      "correctAnswer": "Peter Parker balanceert zijn dagelijkse leven met zijn verantwoordelijkheden als superheld."
-    },
+  
     {
       "id": 183,
       "category": "Gebeurtenissen",
@@ -1452,14 +1158,7 @@
       "options": ["John Williams", "Michael Giacchino", "Hans Zimmer", "Danny Elfman"],
       "correctAnswer": "Michael Giacchino"
     },
-    {
-      "id": 185,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een animator die heeft bijgedragen aan de klassieke Disney film 'The Lion King'.",
-      "correctAnswer": "Mark Henn"
-    },
+ 
     {
       "id": 186,
       "category": "Achter de schermen",
@@ -1478,14 +1177,7 @@
       "options": ["Haunted Mansion", "Pirates of the Caribbean", "Space Mountain", "Jungle Cruise"],
       "correctAnswer": "Haunted Mansion"
     },
-    {
-      "id": 188,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Walt Disney World die is vernieuwd met interactieve technologie voor een augmented reality-ervaring.",
-      "correctAnswer": "Test Track"
-    },
+  
     {
       "id": 189,
       "category": "Attracties & parken",
@@ -1504,14 +1196,7 @@
       "options": ["Jessica Rabbit", "Marge Simpson", "Elsa", "Tinker Bell"],
       "correctAnswer": "Jessica Rabbit"
     },
-    {
-      "id": 191,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een memorabele quote uit 'Spider-Man: Far From Home'.",
-      "correctAnswer": "I’m just your friendly neighborhood Spider-Man."
-    },
+  
     {
       "id": 192,
       "category": "Quotes & dialogen",
@@ -1530,14 +1215,7 @@
       "options": ["Brave", "Frozen", "Moana", "Tangled"],
       "correctAnswer": "Brave"
     },
-    {
-      "id": 194,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een productiefeit over de ontwikkeling van 'Inside Out'.",
-      "correctAnswer": "De emoties werden ontwikkeld op basis van uitgebreid psychologisch onderzoek."
-    },
+ 
     {
       "id": 195,
       "category": "Details & trivia",
@@ -1556,14 +1234,7 @@
       "options": ["Cinderella", "The Princess and the Frog", "Tangled", "Mulan"],
       "correctAnswer": "The Princess and the Frog"
     },
-    {
-      "id": 197,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een Disney film waarin live-action en animatie op innovatieve wijze worden gecombineerd.",
-      "correctAnswer": "Mary Poppins"
-    },
+
     {
       "id": 198,
       "category": "Films & series",
@@ -1591,14 +1262,7 @@
       "options": ["Ratatouille", "Brave", "Cars", "The Incredibles"],
       "correctAnswer": "Ratatouille"
     },
-    {
-      "id": 202,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Disney film waarin een jongen een vriendschap sluit met een draak.",
-      "correctAnswer": "Pete's Dragon"
-    },
+  
     {
       "id": 203,
       "category": "Films & series",
@@ -1617,14 +1281,7 @@
       "options": ["Maleficent", "Ursula", "Cruella de Vil", "Yzma"],
       "correctAnswer": "Maleficent"
     },
-    {
-      "id": 205,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel superheld die na blootstelling aan gammastraling verandert in een enorme groene reus.",
-      "correctAnswer": "The Hulk"
-    },
+
     {
       "id": 206,
       "category": "Personages",
@@ -1643,14 +1300,7 @@
       "options": ["Cinderella Castle", "Sleeping Beauty Castle", "Beast's Castle", "Elsa's Ice Palace"],
       "correctAnswer": "Cinderella Castle"
     },
-    {
-      "id": 208,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de planeet in het Star Wars-universum die de thuisbasis is van de Wookiees.",
-      "correctAnswer": "Kashyyyk"
-    },
+   
     {
       "id": 209,
       "category": "Plaatsen",
@@ -1669,14 +1319,7 @@
       "options": ["Iron Man 2", "Captain America: Civil War", "The Avengers", "Avengers: Age of Ultron"],
       "correctAnswer": "Captain America: Civil War"
     },
-    {
-      "id": 211,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Guardians of the Galaxy' waarin Peter Quill geconfronteerd wordt met zijn ware afkomst.",
-      "correctAnswer": "Het moment waarop hij de waarheid over zijn afkomst en de betekenis van zijn cassette onthult."
-    },
+ 
     {
       "id": 212,
       "category": "Gebeurtenissen",
@@ -1695,14 +1338,7 @@
       "options": ["John Williams", "Hans Zimmer", "Danny Elfman", "Alan Menken"],
       "correctAnswer": "John Williams"
     },
-    {
-      "id": 214,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de regisseur die bekend staat als de drijvende kracht achter de originele 'Star Wars' trilogie.",
-      "correctAnswer": "George Lucas"
-    },
+   
     {
       "id": 215,
       "category": "Achter de schermen",
@@ -1721,14 +1357,7 @@
       "options": ["Haunted Mansion", "It's a Small World", "Pirates of the Caribbean", "Space Mountain"],
       "correctAnswer": "It's a Small World"
     },
-    {
-      "id": 217,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Walt Disney World die bezoekers een ruimtevaartsimulatie biedt.",
-      "correctAnswer": "Mission: SPACE"
-    },
+
     {
       "id": 218,
       "category": "Attracties & parken",
@@ -1747,14 +1376,7 @@
       "options": ["Mr. Incredible", "Frozone", "Violet", "Dash"],
       "correctAnswer": "Mr. Incredible"
     },
-    {
-      "id": 220,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een memorabele quote uit 'Doctor Strange' die te maken heeft met het concept tijd.",
-      "correctAnswer": "Tijd is een illusie, maar onze keuzes zijn echt."
-    },
+  
     {
       "id": 221,
       "category": "Quotes & dialogen",
@@ -1773,14 +1395,7 @@
       "options": ["Toy Story", "Finding Nemo", "The Incredibles", "Cars"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 223,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een minder bekend triviafeit over de productie van 'Ratatouille'.",
-      "correctAnswer": "De karakters zijn geïnspireerd op echte chef-koks en Franse keukentradities."
-    },
+  
     {
       "id": 224,
       "category": "Details & trivia",
@@ -1799,14 +1414,7 @@
       "options": ["Black Panther", "Captain Marvel", "Shang-Chi and the Legend of the Ten Rings", "Spider-Man: Far From Home"],
       "correctAnswer": "Shang-Chi and the Legend of the Ten Rings"
     },
-    {
-      "id": 226,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Disney film waarin een straatjongen een magisch tapijt ontdekt en een avontuurlijke reis beleeft.",
-      "correctAnswer": "Aladdin"
-    },
+  
     {
       "id": 227,
       "category": "Films & series",
@@ -1825,14 +1433,7 @@
       "options": ["Jasmine", "Iago", "Abu", "Genie"],
       "correctAnswer": "Abu"
     },
-    {
-      "id": 229,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel superheld die bekend staat om zijn scherpe humor en spinnenkrachten.",
-      "correctAnswer": "Spider-Man"
-    },
+ 
     {
       "id": 230,
       "category": "Personages",
@@ -1851,14 +1452,7 @@
       "options": ["Metroville", "Suburbia", "Springfield", "Radiator Springs"],
       "correctAnswer": "Metroville"
     },
-    {
-      "id": 232,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de afgelegen planeet waar Luke Skywalker in 'The Last Jedi' in ballingschap leeft.",
-      "correctAnswer": "Ahch-To"
-    },
+  
     {
       "id": 233,
       "category": "Plaatsen",
@@ -1877,14 +1471,7 @@
       "options": ["Iron Man 2", "Captain America: Civil War", "The Avengers", "Avengers: Age of Ultron"],
       "correctAnswer": "Captain America: Civil War"
     },
-    {
-      "id": 235,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Thor: Ragnarok' dat de toon van de film drastisch verandert.",
-      "correctAnswer": "Het moment waarop Thor geconfronteerd wordt met de vernietigende kracht van Hela en een persoonlijk verlies lijdt."
-    },
+ 
     {
       "id": 236,
       "category": "Gebeurtenissen",
@@ -1903,14 +1490,7 @@
       "options": ["Cinderella", "Alice in Wonderland", "The Little Mermaid", "Sleeping Beauty"],
       "correctAnswer": "Alice in Wonderland"
     },
-    {
-      "id": 238,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de filmregisseur die 'Inside Out' regisseerde.",
-      "correctAnswer": "Pete Docter"
-    },
+  
     {
       "id": 239,
       "category": "Achter de schermen",
@@ -1929,14 +1509,8 @@
       "options": ["Big Thunder Mountain Railroad", "Space Mountain", "Pirates of the Caribbean", "Jungle Cruise"],
       "correctAnswer": "Big Thunder Mountain Railroad"
     },
-    {
-      "id": 241,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die geïnspireerd is op de avonturen van Indiana Jones.",
-      "correctAnswer": "Indiana Jones Adventure"
-    },
+    
+  
     {
       "id": 242,
       "category": "Attracties & parken",
@@ -1955,14 +1529,7 @@
       "options": ["Anna", "Elsa", "Olaf", "Kristoff"],
       "correctAnswer": "Elsa"
     },
-    {
-      "id": 244,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een quote uit 'Guardians of the Galaxy Vol. 2' die het belang van familie benadrukt.",
-      "correctAnswer": "We are Groot."
-    },
+  
     {
       "id": 245,
       "category": "Quotes & dialogen",
@@ -1981,14 +1548,7 @@
       "options": ["A Bug's Life", "Finding Nemo", "Cars", "Up"],
       "correctAnswer": "A Bug's Life"
     },
-    {
-      "id": 247,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een minder bekend feit over de animatietechnieken die werden gebruikt in 'The Incredibles'.",
-      "correctAnswer": "De film combineerde traditionele animatie met CGI om realistische bewegingen te creëren."
-    },
+  
     {
       "id": 248,
       "category": "Details & trivia",
@@ -2007,14 +1567,7 @@
       "options": ["The Lion King", "The Jungle Book", "Bambi", "Tarzan"],
       "correctAnswer": "The Lion King"
     },
-    {
-      "id": 250,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin Alice via een magische spiegel een wonderlijk avontuur beleeft.",
-      "correctAnswer": "Alice Through the Looking Glass"
-    },
+  
     {
       "id": 251,
       "category": "Films & series",
@@ -2033,14 +1586,7 @@
       "options": ["Hiro", "Baymax", "GoGo Tomago", "Wasabi"],
       "correctAnswer": "Baymax"
     },
-    {
-      "id": 253,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel antiheld die bekend staat om zijn meedogenloze aanpak en opereert buiten de traditionele wet.",
-      "correctAnswer": "The Punisher"
-    },
+   
     {
       "id": 254,
       "category": "Personages",
@@ -2059,14 +1605,7 @@
       "options": ["Hoth", "Tatooine", "Endor", "Bespin"],
       "correctAnswer": "Hoth"
     },
-    {
-      "id": 256,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve wijk in New York die vaak als setting dient voor Marvel verhalen, met name voor Spider-Man.",
-      "correctAnswer": "Hell's Kitchen"
-    },
+ 
     {
       "id": 257,
       "category": "Plaatsen",
@@ -2085,14 +1624,7 @@
       "options": ["Revenge of the Sith", "A New Hope", "Return of the Jedi", "The Phantom Menace"],
       "correctAnswer": "Revenge of the Sith"
     },
-    {
-      "id": 259,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een cruciaal moment in 'Black Panther' dat de koers van Wakanda beïnvloedt.",
-      "correctAnswer": "Het moment waarop T'Challa geconfronteerd wordt met de erfenis van zijn familie en de traditionele waarden van Wakanda."
-    },
+   
     {
       "id": 260,
       "category": "Gebeurtenissen",
@@ -2111,14 +1643,7 @@
       "options": ["Snow White and the Seven Dwarfs", "Fantasia", "Pinocchio", "Dumbo"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 262,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een invloedrijke animator die werkte aan 'Fantasia'.",
-      "correctAnswer": "Ward Kimball"
-    },
+   
     {
       "id": 263,
       "category": "Achter de schermen",
@@ -2137,14 +1662,7 @@
       "options": ["The Little Mermaid ~ Ariel's Undersea Adventure", "Finding Nemo Submarine Voyage", "Pirates of the Caribbean", "Haunted Mansion"],
       "correctAnswer": "The Little Mermaid ~ Ariel's Undersea Adventure"
     },
-    {
-      "id": 265,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een attractie in Walt Disney World die bezoekers een interactieve rit door een futuristische stad biedt.",
-      "correctAnswer": "Test Track"
-    },
+  
     {
       "id": 266,
       "category": "Attracties & parken",
@@ -2163,14 +1681,7 @@
       "options": ["Carl Fredricksen", "Russell", "Ellie", "Kevin"],
       "correctAnswer": "Carl Fredricksen"
     },
-    {
-      "id": 268,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een memorabele quote uit 'Big Hero 6' die de essentie van vriendschap benadrukt.",
-      "correctAnswer": "Vriendschap is onze grootste kracht."
-    },
+ 
     {
       "id": 269,
       "category": "Quotes & dialogen",
@@ -2189,14 +1700,7 @@
       "options": ["Snow White and the Seven Dwarfs", "Fantasia", "Bambi", "Cinderella"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 271,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een technisch detail over de animatie in 'Cars' dat bijdroeg aan de realistische weergave van voertuigen.",
-      "correctAnswer": "De film maakte gebruik van geavanceerde lichtsimulatie en realistische textuurmapping."
-    },
+  
     {
       "id": 272,
       "category": "Details & trivia",
@@ -2215,14 +1719,7 @@
       "options": ["Alice in Wonderland", "Peter Pan", "Cinderella", "Snow White and the Seven Dwarfs"],
       "correctAnswer": "Alice in Wonderland"
     },
-    {
-      "id": 274,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Disney film waarin een prinses de conventies doorbreekt om haar ware liefde te vinden.",
-      "correctAnswer": "The Princess and the Frog"
-    },
+
     {
       "id": 275,
       "category": "Films & series",
@@ -2241,14 +1738,7 @@
       "options": ["Timon", "Pumbaa", "Zazu", "Rafiki"],
       "correctAnswer": "Timon"
     },
-    {
-      "id": 277,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel superheldin die een voormalig piloot is en kosmische krachten bezit.",
-      "correctAnswer": "Captain Marvel"
-    },
+  
     {
       "id": 278,
       "category": "Personages",
@@ -2267,14 +1757,7 @@
       "options": ["Tatooine", "Hoth", "Endor", "Coruscant"],
       "correctAnswer": "Tatooine"
     },
-    {
-      "id": 280,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve locatie in het Marvel Universum die bekend staat als de thuisbasis van de Black Panther.",
-      "correctAnswer": "Wakanda"
-    },
+  
     {
       "id": 281,
       "category": "Plaatsen",
@@ -2293,14 +1776,7 @@
       "options": ["Iron Man", "The Avengers", "Thor", "Captain America: The First Avenger"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 283,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Spider-Man: Far From Home' dat de groei van Peter Parker benadrukt.",
-      "correctAnswer": "Wanneer Peter Parker geconfronteerd wordt met de erfenis van Tony Stark en zijn eigen verantwoordelijkheden gaat omarmen."
-    },
+ 
     {
       "id": 284,
       "category": "Gebeurtenissen",
@@ -2319,14 +1795,7 @@
       "options": ["John Williams", "Alan Menken", "Hans Zimmer", "Danny Elfman"],
       "correctAnswer": "Alan Menken"
     },
-    {
-      "id": 286,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een belangrijke scenario-schrijver die heeft bijgedragen aan de ontwikkeling van 'Toy Story'.",
-      "correctAnswer": "Andrew Stanton"
-    },
+ 
     {
       "id": 287,
       "category": "Achter de schermen",
@@ -2345,14 +1814,8 @@
       "options": ["It's a Small World", "Pirates of the Caribbean", "Haunted Mansion", "Space Mountain"],
       "correctAnswer": "It's a Small World"
     },
-    {
-      "id": 289,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die bezoekers laat ervaren hoe het is om een ruimteschip te besturen.",
-      "correctAnswer": "Millennium Falcon: Smugglers Run"
-    },
+    
+  
     {
       "id": 290,
       "category": "Attracties & parken",
@@ -2371,14 +1834,7 @@
       "options": ["Moana", "Maui", "Te Fiti", "Heihei"],
       "correctAnswer": "Moana"
     },
-    {
-      "id": 292,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een quote uit 'Frozen II' die het thema van zelfontdekking benadrukt.",
-      "correctAnswer": "Ik moet mijn eigen weg vinden."
-    },
+
     {
       "id": 293,
       "category": "Quotes & dialogen",
@@ -2397,14 +1853,7 @@
       "options": ["Toy Story", "Monsters, Inc.", "The Incredibles", "Cars"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 295,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een triviafeit over de animatietechnieken die werden gebruikt in 'Coco'.",
-      "correctAnswer": "De film combineerde traditionele Mexicaanse kunststijlen met geavanceerde CGI voor een levendige wereld."
-    },
+  
     {
       "id": 296,
       "category": "Details & trivia",
@@ -2423,14 +1872,7 @@
       "options": ["Alice in Wonderland", "Peter Pan", "Cinderella", "Snow White and the Seven Dwarfs"],
       "correctAnswer": "Alice in Wonderland"
     },
-    {
-      "id": 298,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een superheld geconfronteerd wordt met een ingrijpend verlies dat zijn identiteit beïnvloedt.",
-      "correctAnswer": "Captain America: The Winter Soldier"
-    },
+  
     {
       "id": 299,
       "category": "Films & series",
@@ -2440,14 +1882,7 @@
       "options": ["Guardians of the Galaxy", "Avengers: Infinity War", "Spider-Man: Homecoming", "Thor: Ragnarok"],
       "correctAnswer": "Guardians of the Galaxy"
     },
-    {
-      "id": 300,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een film die volgens jou de perfecte balans vindt tussen humor, actie en emotie in het Marvel Universum.",
-      "correctAnswer": "Guardians of the Galaxy"
-    },
+  
     {
       "id": 301,
       "category": "Films & series",
@@ -2457,14 +1892,7 @@
       "options": ["WALL-E", "Up", "Toy Story", "Inside Out"],
       "correctAnswer": "WALL-E"
     },
-    {
-      "id": 302,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin huisdieren hun geheime leven leiden wanneer hun baasjes niet thuis zijn.",
-      "correctAnswer": "The Secret Life of Pets"
-    },
+  
     {
       "id": 303,
       "category": "Films & series",
@@ -2483,14 +1911,7 @@
       "options": ["Tinker Bell", "Cinderella", "Elsa", "Aurora"],
       "correctAnswer": "Tinker Bell"
     },
-    {
-      "id": 305,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel held (of antiheld) die bekend staat als de 'God of Mischief'.",
-      "correctAnswer": "Loki"
-    },
+  
     {
       "id": 306,
       "category": "Personages",
@@ -2509,14 +1930,7 @@
       "options": ["San Fransokyo", "Metroville", "New York", "Zootopia"],
       "correctAnswer": "San Fransokyo"
     },
-    {
-      "id": 308,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve wereld waarin 'Alice in Wonderland' zich afspeelt.",
-      "correctAnswer": "Wonderland"
-    },
+  
     {
       "id": 309,
       "category": "Plaatsen",
@@ -2535,14 +1949,7 @@
       "options": ["The Lion King", "Aladdin", "Mulan", "Tarzan"],
       "correctAnswer": "The Lion King"
     },
-    {
-      "id": 311,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf het moment in 'Avengers: Infinity War' dat leidde tot de 'Snap'.",
-      "correctAnswer": "Het moment waarop Thanos alle Infinity Stones verzamelt en zijn vingers snijdt, waardoor de helft van het universum verdwijnt."
-    },
+  
     {
       "id": 312,
       "category": "Gebeurtenissen",
@@ -2561,14 +1968,7 @@
       "options": ["Ub Iwerks", "Roy O. Disney", "Frank Thomas", "Marc Davis"],
       "correctAnswer": "Ub Iwerks"
     },
-    {
-      "id": 314,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de producer die het Marvel Cinematic Universe mede heeft opgericht.",
-      "correctAnswer": "Kevin Feige"
-    },
+
     {
       "id": 315,
       "category": "Achter de schermen",
@@ -2587,14 +1987,7 @@
       "options": ["Pirates of the Caribbean", "Haunted Mansion", "Space Mountain", "Jungle Cruise"],
       "correctAnswer": "Pirates of the Caribbean"
     },
-    {
-      "id": 317,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland waarin bezoekers een interactieve rit ervaren in het universum van Buzz Lightyear.",
-      "correctAnswer": "Buzz Lightyear Astro Blasters"
-    },
+   
     {
       "id": 318,
       "category": "Attracties & parken",
@@ -2613,14 +2006,7 @@
       "options": ["Woody", "Buzz Lightyear", "Mr. Potato Head", "Jessie"],
       "correctAnswer": "Buzz Lightyear"
     },
-    {
-      "id": 320,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een inspirerende quote uit 'Black Panther' die de trots van Wakanda weerspiegelt.",
-      "correctAnswer": "Wakanda forever"
-    },
+  
     {
       "id": 321,
       "category": "Quotes & dialogen",
@@ -2639,14 +2025,7 @@
       "options": ["Pinocchio", "Cinderella", "Snow White and the Seven Dwarfs", "Fantasia"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 323,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een triviafeit over de ontwikkeling van 'The Jungle Book' (1967).",
-      "correctAnswer": "De film combineerde realistische achtergronden met getekende personages, wat destijds uniek was."
-    },
+  
     {
       "id": 324,
       "category": "Details & trivia",
@@ -2665,14 +2044,7 @@
       "options": ["Ratatouille", "Brave", "Toy Story", "Cars"],
       "correctAnswer": "Ratatouille"
     },
-    {
-      "id": 326,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een familie van superhelden samenwerkt om de wereld te redden.",
-      "correctAnswer": "The Incredibles"
-    },
+   
     {
       "id": 327,
       "category": "Films & series",
@@ -2691,14 +2063,7 @@
       "options": ["Aladdin", "Jasmine", "Genie", "Iago"],
       "correctAnswer": "Aladdin"
     },
-    {
-      "id": 329,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de vrouwelijke Marvel superheld die oorspronkelijk een marinepiloot was.",
-      "correctAnswer": "Captain Marvel"
-    },
+ 
     {
       "id": 330,
       "category": "Personages",
@@ -2717,14 +2082,7 @@
       "options": ["Anaheim", "Orlando", "Paris", "Tokyo"],
       "correctAnswer": "Anaheim"
     },
-    {
-      "id": 332,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve stad die als setting dient voor 'Zootopia'.",
-      "correctAnswer": "Zootopia"
-    },
+  
     {
       "id": 333,
       "category": "Plaatsen",
@@ -2743,14 +2101,7 @@
       "options": ["The Avengers", "Iron Man", "Thor", "Captain America: The First Avenger"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 335,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Captain America: Civil War' dat leidde tot een breuk binnen de Avengers.",
-      "correctAnswer": "De confrontatie tussen Iron Man en Captain America over de registratie van superhelden."
-    },
+   
     {
       "id": 336,
       "category": "Gebeurtenissen",
@@ -2769,14 +2120,7 @@
       "options": ["Snow White and the Seven Dwarfs", "Fantasia", "Pinocchio", "Dumbo"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 338,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een invloedrijke animator die bijdroeg aan Disney's klassieke animatiestijl.",
-      "correctAnswer": "Ollie Johnston"
-    },
+   
     {
       "id": 339,
       "category": "Achter de schermen",
@@ -2795,14 +2139,7 @@
       "options": ["Space Mountain", "Buzz Lightyear Astro Blasters", "Haunted Mansion", "Pirates of the Caribbean"],
       "correctAnswer": "Space Mountain"
     },
-    {
-      "id": 341,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Walt Disney World die bezoekers een futuristische autoshow biedt.",
-      "correctAnswer": "Test Track"
-    },
+  
     {
       "id": 342,
       "category": "Attracties & parken",
@@ -2821,14 +2158,7 @@
       "options": ["Marlin", "Dory", "Nemo", "Crush"],
       "correctAnswer": "Dory"
     },
-    {
-      "id": 344,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een quote uit 'Inside Out' die het belang van emoties benadrukt.",
-      "correctAnswer": "Emoties zijn wat ons menselijk maakt."
-    },
+  
     {
       "id": 345,
       "category": "Quotes & dialogen",
@@ -2847,14 +2177,7 @@
       "options": ["Toy Story", "A Bug's Life", "Monsters, Inc.", "Finding Nemo"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 347,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een minder bekend productiefeit over de film 'Up'.",
-      "correctAnswer": "De storyboard-schetsen waren geïnspireerd op de avonturen van de regisseur."
-    },
+   
     {
       "id": 348,
       "category": "Details & trivia",
@@ -2873,14 +2196,7 @@
       "options": ["Alice in Wonderland", "Cinderella", "Peter Pan", "Sleeping Beauty"],
       "correctAnswer": "Alice in Wonderland"
     },
-    {
-      "id": 350,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin emoties de hoofdrol spelen in het brein van een jong meisje.",
-      "correctAnswer": "Inside Out"
-    },
+ 
     {
       "id": 351,
       "category": "Films & series",
@@ -2900,14 +2216,6 @@
       "correctAnswer": "Mickey Mouse"
     },
     {
-      "id": 353,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de slechterik uit 'The Lion King' die bekend staat om zijn verraderlijke plannen.",
-      "correctAnswer": "Scar"
-    },
-    {
       "id": 354,
       "category": "Personages",
       "difficulty": "difficult",
@@ -2925,23 +2233,8 @@
       "options": ["Anaheim", "Orlando", "Paris", "Tokyo"],
       "correctAnswer": "Orlando"
     },
-    {
-      "id": 356,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve planeet waar een groot deel van de Star Wars-saga zich afspeelt.",
-      "correctAnswer": "Tatooine"
-    },
-    {
-      "id": 357,
-      "category": "Plaatsen",
-      "difficulty": "difficult",
-      "type": "multiple-choice",
-      "question": "Welke fictieve locatie in het Marvel Universum fungeert als thuisbasis van de X-Men?",
-      "options": ["Xavier's Mansion", "Westchester County", "Stark Tower", "Sanctum Sanctorum"],
-      "correctAnswer": "Westchester County"
-    },
+
+ 
     {
       "id": 358,
       "category": "Gebeurtenissen",
@@ -2951,14 +2244,7 @@
       "options": ["The Avengers", "Iron Man", "Captain America: The First Avenger", "Thor"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 359,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een cruciaal moment in 'Guardians of the Galaxy Vol. 2'.",
-      "correctAnswer": "De onthulling van Peter Quill's ware afkomst."
-    },
+  
     {
       "id": 360,
       "category": "Gebeurtenissen",
@@ -2977,14 +2263,7 @@
       "options": ["Chicken Little", "Tarzan", "The Jungle Book", "Mulan"],
       "correctAnswer": "Chicken Little"
     },
-    {
-      "id": 362,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de regisseur van de live-action remake van 'The Jungle Book' (2016).",
-      "correctAnswer": "Jon Favreau"
-    },
+   
     {
       "id": 363,
       "category": "Achter de schermen",
@@ -3003,14 +2282,7 @@
       "options": ["It's a Small World", "Pirates of the Caribbean", "Haunted Mansion", "Space Mountain"],
       "correctAnswer": "It's a Small World"
     },
-    {
-      "id": 365,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disney's Hollywood Studios die gebaseerd is op de Star Wars-franchise.",
-      "correctAnswer": "Star Tours"
-    },
+  
     {
       "id": 366,
       "category": "Attracties & parken",
@@ -3029,14 +2301,7 @@
       "options": ["Lightning McQueen", "Mater", "Sally", "Doc Hudson"],
       "correctAnswer": "Lightning McQueen"
     },
-    {
-      "id": 368,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een quote uit 'Frozen' die het thema van acceptatie en zelfliefde benadrukt.",
-      "correctAnswer": "Laat los, laat gaan."
-    },
+  
     {
       "id": 369,
       "category": "Quotes & dialogen",
@@ -3055,14 +2320,7 @@
       "options": ["Toy Story", "A Bug's Life", "Monsters, Inc.", "Finding Nemo"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 371,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een technisch detail over de animatie in 'Cars' dat bijdroeg aan de realistische weergave van voertuigen.",
-      "correctAnswer": "Geavanceerde lichtsimulatie en realistische textuurmapping."
-    },
+   
     {
       "id": 372,
       "category": "Details & trivia",
@@ -3081,14 +2339,7 @@
       "options": ["The Lion King", "Bambi", "Dumbo", "Tarzan"],
       "correctAnswer": "The Lion King"
     },
-    {
-      "id": 374,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een oude man en een jongen een avontuurlijke reis maken in een vliegend huis.",
-      "correctAnswer": "Up"
-    },
+
     {
       "id": 375,
       "category": "Films & series",
@@ -3107,14 +2358,7 @@
       "options": ["Mr. Incredible", "Frozone", "Dash", "Syndrome"],
       "correctAnswer": "Mr. Incredible"
     },
-    {
-      "id": 377,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de slechterik uit 'The Incredibles' die ooit zelf een superheld was.",
-      "correctAnswer": "Syndrome"
-    },
+  
     {
       "id": 378,
       "category": "Personages",
@@ -3133,14 +2377,7 @@
       "options": ["Cinderella Castle", "Sleeping Beauty Castle", "Beast's Castle", "Elsa's Ice Palace"],
       "correctAnswer": "Cinderella Castle"
     },
-    {
-      "id": 380,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve planeet die als thuisbasis dient voor Thanos in het Marvel Universum.",
-      "correctAnswer": "Titan"
-    },
+
     {
       "id": 381,
       "category": "Plaatsen",
@@ -3159,14 +2396,7 @@
       "options": ["The Avengers", "Iron Man", "Captain America: The First Avenger", "Thor"],
       "correctAnswer": "The Avengers"
     },
-    {
-      "id": 383,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Spider-Man: Homecoming' dat de groei van Peter Parker illustreert.",
-      "correctAnswer": "Zijn confrontatie met de Vulture en het omarmen van zijn verantwoordelijkheid als superheld."
-    },
+
     {
       "id": 384,
       "category": "Gebeurtenissen",
@@ -3185,14 +2415,7 @@
       "options": ["John Williams", "Hans Zimmer", "Danny Elfman", "Alan Menken"],
       "correctAnswer": "John Williams"
     },
-    {
-      "id": 386,
-      "category": "Achter de schermen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de regisseur die ook een belangrijke rol speelde in het vormgeven van het verhaal van 'Toy Story'.",
-      "correctAnswer": "John Lasseter"
-    },
+   
     {
       "id": 387,
       "category": "Achter de schermen",
@@ -3211,14 +2434,7 @@
       "options": ["It's a Small World", "Pirates of the Caribbean", "Haunted Mansion", "Space Mountain"],
       "correctAnswer": "It's a Small World"
     },
-    {
-      "id": 389,
-      "category": "Attracties & parken",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de attractie in Disneyland die een spookachtige rit door een mysterieus kasteel biedt.",
-      "correctAnswer": "Haunted Mansion"
-    },
+  
     {
       "id": 390,
       "category": "Attracties & parken",
@@ -3237,14 +2453,7 @@
       "options": ["Peter Quill", "Drax", "Rocket", "Groot"],
       "correctAnswer": "Peter Quill"
     },
-    {
-      "id": 392,
-      "category": "Quotes & dialogen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een memorabele quote uit 'Captain America: The First Avenger' die de vastberadenheid van de held weerspiegelt.",
-      "correctAnswer": "I'm just a kid from Brooklyn."
-    },
+   
     {
       "id": 393,
       "category": "Quotes & dialogen",
@@ -3263,14 +2472,7 @@
       "options": ["Snow White and the Seven Dwarfs", "Fantasia", "Cinderella", "Alice in Wonderland"],
       "correctAnswer": "Snow White and the Seven Dwarfs"
     },
-    {
-      "id": 395,
-      "category": "Details & trivia",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een triviafeit over de techniek die werd gebruikt voor de animatie in 'Cinderella' (1950).",
-      "correctAnswer": "De film werd gecreëerd met handgetekende cels en verf, wat destijds een baanbrekende techniek was."
-    },
+  
     {
       "id": 396,
       "category": "Details & trivia",
@@ -3289,14 +2491,7 @@
       "options": ["Toy Story", "The Lego Movie", "The Muppets", "Coraline"],
       "correctAnswer": "Toy Story"
     },
-    {
-      "id": 398,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een jonge held opgroeit te midden van superhelden en zijn eigen krachten ontdekt.",
-      "correctAnswer": "Spider-Man: Homecoming"
-    },
+ 
     {
       "id": 399,
       "category": "Films & series",
@@ -3306,14 +2501,7 @@
       "options": ["Inside Out", "Coco", "Soul", "Up"],
       "correctAnswer": "Soul"
     },
-    {
-      "id": 400,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een filmkarakter uit het Marvel Universum die bekend staat om zijn onconventionele humor en antiheld-gedrag.",
-      "correctAnswer": "Deadpool"
-    },
+  
     {
       "id": 401,
       "category": "Films & series",
@@ -3323,14 +2511,7 @@
       "options": ["Up", "Coco", "Inside Out", "Finding Nemo"],
       "correctAnswer": "Up"
     },
-    {
-      "id": 402,
-      "category": "Films & series",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de film waarin een piraat op zoek is naar een verborgen schat.",
-      "correctAnswer": "Pirates of the Caribbean: The Curse of the Black Pearl"
-    },
+  
     {
       "id": 403,
       "category": "Films & series",
@@ -3349,14 +2530,7 @@
       "options": ["Spider-Man", "Captain America", "Iron Man", "Hulk"],
       "correctAnswer": "Captain America"
     },
-    {
-      "id": 405,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de Marvel heldin die in 'Captain Marvel' centraal staat.",
-      "correctAnswer": "Captain Marvel"
-    },
+   
     {
       "id": 406,
       "category": "Personages",
@@ -3375,14 +2549,7 @@
       "options": ["Anaheim", "Orlando", "Paris", "Tokyo"],
       "correctAnswer": "Anaheim"
     },
-    {
-      "id": 408,
-      "category": "Plaatsen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem de fictieve planeet uit 'Star Wars' waar Luke Skywalker opgroeide.",
-      "correctAnswer": "Tatooine"
-    },
+
     {
       "id": 409,
       "category": "Plaatsen",
@@ -3401,14 +2568,7 @@
       "options": ["Avengers: Infinity War", "Avengers: Endgame", "Captain America: Civil War", "Thor: Ragnarok"],
       "correctAnswer": "Avengers: Infinity War"
     },
-    {
-      "id": 411,
-      "category": "Gebeurtenissen",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Beschrijf een sleutelmoment in 'Star Wars: The Empire Strikes Back'.",
-      "correctAnswer": "De onthulling van Darth Vader als Luke's vader."
-    },
+
     {
       "id": 412,
       "category": "Gebeurtenissen",
@@ -3969,14 +3129,6 @@
       "question": "Welke film van Marvel verkent op een diepgaande manier de emoties en het innerlijke conflict van een superheld?",
       "options": ["Spider-Man: Homecoming", "Captain America: Civil War", "Black Panther", "Iron Man"],
       "correctAnswer": "Black Panther"
-    },
-    {
-      "id": 500,
-      "category": "Personages",
-      "difficulty": "medium",
-      "type": "open",
-      "question": "Noem een Marvel karakter dat vaak optreedt als mentor voor jongere helden.",
-      "correctAnswer": "Tony Stark"
     }
   ]
 }
