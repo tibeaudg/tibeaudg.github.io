@@ -14,7 +14,6 @@ interface Player {
 }
 
 const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
-  const menuRef = useRef<HTMLDivElement>(null);  // Added menuRef
 
 
 
