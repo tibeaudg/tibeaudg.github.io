@@ -14,33 +14,9 @@ interface Player {
 }
 
 const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);  // Added menuRef
 
-  const toggleMenu = () => {
-    setMenuOpen(prev => !prev);
-  };
 
-  const handleViewProfile = () => {
-    console.log('Bekijk profiel van', player.email);
-  };
-
-  const handleRemoveFriend = () => {
-    console.log('Verwijder vriend:', player.email);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <li className="player-item">
