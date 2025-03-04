@@ -58,17 +58,6 @@ const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
         <span className="player-name">{player.username || player.email}</span>
         <span className="player-points">{player.points} points</span>
       </div>
-      <div className="hamburger-menu" ref={menuRef}> {/* Added menuRef */}
-        <button className="hamburger-button" onClick={toggleMenu}>
-          ☰
-        </button>
-        {menuOpen && (
-          <div className="dropdown-content">
-            <button onClick={handleViewProfile}>Bekijk profiel</button>
-            <button className="remove" onClick={handleRemoveFriend}>Verwijder vriend</button>
-          </div>
-        )}
-      </div>
     </li>
   );
 };

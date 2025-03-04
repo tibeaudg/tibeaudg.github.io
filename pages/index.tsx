@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { auth, db } from "../utils/firebase"; // Firebase auth en db importeren
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
@@ -8,11 +8,6 @@ import Header from "../pages/components/header"; // Importeer je Header componen
 import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-
-
-
-
-
 
 // Gegevens per user
 interface User {
@@ -58,24 +53,26 @@ const HomePage: React.FC = () => {
   const [descriptionMenuOpen, setDescriptionMenuOpen] = useState(false);
   const [newDescription, setNewDescription] = useState("");
   const [newUsername, setNewUsername] = useState("");
+  
+  const menuRef = useRef<HTMLDivElement>(null);
+  const hamburgerIconRef = useRef<HTMLDivElement>(null);
 
   // Functie om de gekozen avatar op te slaan
   const handleAvatarSelect = async (avatar: string) => {
     if (!auth.currentUser || !auth.currentUser.email) return;
-  
+
     try {
       const userRef = doc(db, "users", auth.currentUser.email);
       await updateDoc(userRef, { avatar });
       setUser((prevUser) => (prevUser ? { ...prevUser, avatar } : null));
       setAvatarMenuOpen(false);
-      setUsernameMenuOpen(false);  // Close others when this opens
+      setUsernameMenuOpen(false); // Close others when this opens
       setDescriptionMenuOpen(false);
       console.log("Avatar updated successfully!");
     } catch (error) {
       console.error("Error updating avatar:", error);
     }
   };
-  
 
   // Functie om de nieuwe gebruikersnaam op te slaan
   const handleUsernameSelect = async () => {
@@ -98,36 +95,48 @@ const HomePage: React.FC = () => {
     }
   };
 
-// Updated function to remove updateProfile for description
-const handleDescriptionSelect = async () => {
-  if (!newDescription || !auth.currentUser || !auth.currentUser.email) return;
+  // Functie om de nieuwe beschrijving op te slaan
+  const handleDescriptionSelect = async () => {
+    if (!newDescription || !auth.currentUser || !auth.currentUser.email) return;
 
-  try {
-    const userRef = doc(db, "users", auth.currentUser.email);
+    try {
+      const userRef = doc(db, "users", auth.currentUser.email);
 
-    // Update the Firestore with the new description
-    await updateDoc(userRef, { description: newDescription });
+      // Update de Firestore met de nieuwe beschrijving
+      await updateDoc(userRef, { description: newDescription });
 
-    setUser((prevUser) => (prevUser ? { ...prevUser, description: newDescription } : null));
-    setDescriptionMenuOpen(false);
-    console.log("Description updated successfully!");
-  } catch (error) {
-    console.error("Error updating description:", error);
-  }
-};
+      setUser((prevUser) => (prevUser ? { ...prevUser, description: newDescription } : null));
+      setDescriptionMenuOpen(false);
+      console.log("Description updated successfully!");
+    } catch (error) {
+      console.error("Error updating description:", error);
+    }
+  };
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
-const toggleMenu = () => {
-  setMenuOpen(!menuOpen);
-};
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push("/login");
+  };
 
-const handleLogout = async () => {
-  await signOut(auth);
-  router.push("/login");
-};
+  // Detecteer klik buiten het hamburger menu en sluit het menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node) &&
+          hamburgerIconRef.current && !hamburgerIconRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
 
-
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -137,35 +146,29 @@ const handleLogout = async () => {
           setLoading(false);
           return;
         }
-        
+
         const userRef = doc(db, "users", firebaseUser.email);
         const userDoc = await getDoc(userRef);
 
         if (userDoc.exists()) {
-          // Gebruik de opgeslagen gegevens uit Firestore
           const userData = userDoc.data() as User;
-          // Indien de gebruikersnaam leeg is, update deze met firebaseUser.displayName of "User"
           if (!userData.username || userData.username.trim() === "") {
             const updatedUsername = firebaseUser.displayName || "User";
             await updateDoc(userRef, { username: updatedUsername });
             userData.username = updatedUsername;
           }
           setUser(userData);
-          
         } else {
-          // Document bestaat niet, dus maak er een aan met standaardwaarden
           const newUserData: User = {
             avatar: "/assets/avatars/31.png",
             username: firebaseUser.displayName || "User",
-            points: 0,   // Initialize points to 0
-            gamesPlayed: 0,    // Initialize games to 0
-            league: "Bronze",  // Default league
+            points: 0,
+            gamesPlayed: 0,
+            league: "Bronze",
           };
           await setDoc(userRef, newUserData);
-          
           setUser(newUserData);
         }
-
       } else {
         setUser(null);
         router.push("/login");
@@ -189,21 +192,20 @@ const handleLogout = async () => {
       </Head>
       <div>
         <Header />
-
-
         <div className="profile-section text-center">
-          <div className="hamburger-menu" onClick={toggleMenu}>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-          <div className="hamburger-icon"></div>
-        </div>
-
-        {menuOpen && (
-          <div className="menu">
-            <div className="menu-item" onClick={handleLogout}>Logout</div>
-            {/* Voeg hier meer menu-items toe */}
+          <div ref={hamburgerIconRef} onClick={toggleMenu}>
+            <i className="fa fa-bars hamburger-menu" style={{ fontSize: "30px" }}></i>
           </div>
-        )}
+
+          {menuOpen && (
+            <div className="menu" ref={menuRef}>
+              <div className="menu-item" onClick={() => setUsernameMenuOpen(true)}>Change Username</div>
+              <div className="menu-item" onClick={() => setDescriptionMenuOpen(true)}>Change Description</div>
+              <div className="menu-item" onClick={handleLogout} style={{ color: 'red', fontWeight: 'bold' }}>
+              Logout</div>
+
+            </div>
+          )}
 
           <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
             <Image
@@ -213,6 +215,12 @@ const handleLogout = async () => {
               height={150}
             />
           </div>
+
+          {/* Gebruikersnaam en beschrijving altijd zichtbaar */}
+          <div className="username-section">
+            <h2>{user?.username ? user.username : "N/A"}</h2>
+          </div>
+          <p>{user?.description ? user.description : "Geen beschrijving"}</p>
 
           {avatarMenuOpen && (
             <div className="avatar-menu">
@@ -230,71 +238,48 @@ const handleLogout = async () => {
                 ))}
               </div>
 
-
-
-
               <button className="btn" onClick={() => setAvatarMenuOpen(false)}>
                 Sluiten
               </button>
             </div>
           )}
 
-
-
-          {/* Gebruikersnaam tonen en bewerken */}
-          <div className="username-section">
-            <h2
-              className="username"
-              onClick={() => setUsernameMenuOpen(true)}
-              style={{ cursor: "pointer" }}
-            >
-              {user?.username ? user.username : "N/A"}
-            </h2>
-            {usernameMenuOpen && (
-              <div className="username-edit">
+          {/* Popup voor gebruikersnaam */}
+          {usernameMenuOpen && (
+            <div className="popup">
+              <div className="popup-content">
+                <h2>Change Username</h2>
                 <input
                   type="text"
                   value={newUsername}
                   onChange={(e) => setNewUsername(e.target.value)}
                   placeholder="Nieuwe gebruikersnaam"
                 />
-                <button className="btn" onClick={handleUsernameSelect}>
-                  Opslaan
-                </button>
-                <button className="btn" onClick={() => setUsernameMenuOpen(false)}>
-                  Annuleren
-                </button>
+                <button className="btn" onClick={handleUsernameSelect}>Opslaan</button>
+                <button className="btn" onClick={() => setUsernameMenuOpen(false)}>Annuleren</button>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
+          )}
 
-
-
-          {/* Beschrijving toevoegen */}
-            <p className="user-description" onClick={() => setDescriptionMenuOpen(true)} style={{ cursor: "pointer" }}>
-              {user?.description ? user.description : "Geen beschrijving"}
-            </p>
-            {descriptionMenuOpen && (
-              <div className="username-edit">
+          {/* Popup voor beschrijving */}
+          {descriptionMenuOpen && (
+            <div className="popup">
+              <div className="popup-content">
+                <h2>Change Description</h2>
                 <input
                   type="text"
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="Nieuwe beschrijving"
                 />
-                <button className="btn" onClick={handleDescriptionSelect}>
-                  Opslaan
-                </button>
-                <button className="btn" onClick={() => setDescriptionMenuOpen(false)}>
-                  Annuleren
-                </button>
+                <button className="btn" onClick={handleDescriptionSelect}>Opslaan</button>
+                <button className="btn" onClick={() => setDescriptionMenuOpen(false)}>Annuleren</button>
               </div>
-            )}
-          </div>
-
-
+            </div>
+          )}
+        </div>
         <Navbar />
+      </div>
     </>
   );
 };
