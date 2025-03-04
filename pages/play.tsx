@@ -81,7 +81,7 @@ const GameMenu: React.FC = () => {
       }
   
       router.push({
-        pathname: "/game/quiz-master-start",
+        pathname: "/game/progress",
         query: { players: JSON.stringify([currentUser.email]) },
       });
     }

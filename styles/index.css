@@ -531,22 +531,7 @@ border-radius: 20px;
 box-shadow: 0 0 20px rgba(111, 53, 165, 0.2);
 }
 
-.scoreboard-button {
-width: 80%; /* Zorg ervoor dat de knop dezelfde breedte heeft */
-padding: 1rem 2rem;
-font-size: 1.2rem;
-background: #BD353B;
-color: white;
-border: none;
-border-radius: 25px;
-cursor: pointer;
-transition: all 0.3s ease;
-box-shadow: 0 4px 15px rgba(111, 53, 165, 0.3);
-margin-top: 20px; /* Voeg een marge toe om de knop wat afstand te geven */
-display: block; /* Zorg ervoor dat de knop een block-element is */
-visibility: visible; /* Zorg ervoor dat de knop zichtbaar is */
 
-}
 
 .player-turn {
 font-size: 2rem;
@@ -819,11 +804,11 @@ color: white;
 
 
 
-.scoreboard-buttons {
+.scoreboard {
 display: flex;
 flex-direction: column;
 gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
-margin-top: 60px;
+margin: 30px;
 }
 
 .button-container {
@@ -1316,78 +1301,206 @@ font-size: 1.8rem;
 margin-bottom: 20px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+/* Section containing the answers */
 .answer-section {
-margin: 20px 0;
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: stretch;
 }
 
+/* Container for option buttons */
 .options-container {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 20px;
-background: none;
+  display: flex;
+  justify-content: center !important;
 }
 
+/* Individual option buttons */
 .option-button {
-padding: 15px;
-font-size: 1rem;
-background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
-color: white;
-border: none;
-border-radius: 10px;
-cursor: pointer;
-transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-size: 1rem;
+  color: #003366;
+  background-color: #ffffff;
+  border: 2px solid #003366;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;  /* Remove default outline */
+  margin: 10px;
 }
 
+/* Focus effect to replace outline */
+.option-button:focus {
+  border-color: #1e3d58;
+  box-shadow: 0 0 5px rgba(0, 61, 95, 0.6);
+}
 
+/* Hover effect for the option button */
+.option-button:hover {
+  background-color: #e6f0ff;
+  transform: translateY(-3px);
+}
+
+/* Correct answer style */
+.option-button.correct {
+  background-color: #28a745;
+  color: #ffffff;
+  border-color: #28a745;
+}
+
+/* Incorrect answer style */
+.option-button.selected {
+  background-color: #f44336;
+  color: #ffffff;
+  border-color: #f44336;
+}
+
+/* Disabled option button style */
 .option-button:disabled {
-background-color: #b0bec5;
-cursor: not-allowed;
+  background-color: #f0f0f0;
+  color: #ccc;
+  border-color: #ddd;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-.open-answer-form {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-.open-answer-input {
-padding: 10px;
-font-size: 1.2rem;
-width: 80%;
-margin-bottom: 10px;
-border-radius: 5px;
-border: 2px solid #0288d1;
-}
-
-.submit-answer-button {
-padding: 10px 20px;
-font-size: 1.2rem;
-background-color: #0033cc;
-color: white;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-transition: background-color 0.3s;
-}
-
-
-
+/* Container for pass button */
 .pass-button-container {
-margin-top: 20px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
 }
 
+/* Pass button */
 .pass-button {
-padding: 10px 20px;
-font-size: 1.2rem;
-background-color: transparent;
-color: #0033cc;
-border: 1px #0033cc solid;
-border-radius: 5px;
-cursor: pointer;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  background-color: transparent;
+  color: #003366;
+  border: 2px solid #003366;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Pass button hover effect */
+.pass-button:hover {
+  background-color: #e6f0ff;
+  transform: translateY(-2px);
+}
+
+/* Disabled pass button */
 .pass-button.disabled {
-background-color: #b0bec5;
-cursor: not-allowed;
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* Responsive adjustments for mobile devices */
+@media (max-width: 767px) {
+  .options-container {
+    gap: 10px;  /* Reduce gap between buttons on mobile */
+  }
+
+  .option-button {
+    padding: 12px 20px;  /* Adjust padding for smaller screens */
+    font-size: 0.9rem;    /* Reduce font size on mobile */
+    min-width: 100px;     /* Ensure buttons have a minimum width */
+  }
+
+  .pass-button {
+    padding: 10px 18px;  /* Adjust pass button padding on smaller screens */
+    font-size: 1rem;      /* Adjust font size of pass button */
+  }
+}
+
+
+
+
+
+
+.progress-page {
+  background-image: url('../public/assets/plattegrond-disneyland.webp');
+  background-size: cover; /* Zorgt ervoor dat de afbeelding het volledige scherm bedekt */
+  background-position: center; /* Zorgt ervoor dat de afbeelding in het midden van het scherm wordt uitgelijnd */
+  background-repeat: no-repeat; /* Voorkomt dat de afbeelding herhaald wordt */
+  min-height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+
+}
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-family: Arial, sans-serif;
+}
+.levels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.level {
+  background-color: #d3d3d3; /* Greyed out for incomplete levels */
+  border-radius: 50%; /* Makes the element circular */
+  width: 100px; /* Set width to a fixed value */
+  height: 100px; /* Set height to the same value as width */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  color: #3333333d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+
+}
+
+
+
+/* Current level styling */
+.level.current {
+  background-color: #0033cc; /* Oranje of een andere kleur om het huidige level te markeren */
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optionele extra schaduw */
+  border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+}
+
+
+
+.level.completed {
+  background-color: #58cc02; /* Bright green for completed levels */
+  color: #fff;
+  border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+
+}
+.check {
+  font-size: 1.2rem;
+  
+}
