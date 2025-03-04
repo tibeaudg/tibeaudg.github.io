@@ -847,13 +847,17 @@ gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
 }
 
 .goback-button {
+position: absolute;
+top: 50px; /* Zet de knop 10px van de bovenkant */
+left: 10px; /* Zet de knop 10px van de linkerkant */
 padding: 0.5rem;
 margin-bottom: 10px;
 margin-top: 10px;
 border: none;
 background-color: transparent;
-
 }
+
+
 
 .quiz-background{
   margin: 20px;
@@ -1505,12 +1509,8 @@ margin-bottom: 20px;
 
 
 .progress-page {
-  background-image: url('../public/assets/plattegrond-disneyland.webp');
-  background-size: cover; /* Zorgt ervoor dat de afbeelding het volledige scherm bedekt */
-  background-position: center; /* Zorgt ervoor dat de afbeelding in het midden van het scherm wordt uitgelijnd */
-  background-repeat: no-repeat; /* Voorkomt dat de afbeelding herhaald wordt */
+  margin-top: 40px;
   min-height: 100vh;
-  padding: 40px 20px;
   text-align: center;
 
 }

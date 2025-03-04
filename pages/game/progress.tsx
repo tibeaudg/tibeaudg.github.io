@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (_context) => {
 
 const SoloProgressPage = ({ currentUser }: { currentUser: User | null }) => {
   // Default to 5 levels; all initially incomplete
-  const [levels, setLevels] = useState<boolean[]>([false, false, false, false, false]);
+  const [levels, setLevels] = useState<boolean[]>([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -45,11 +45,11 @@ const SoloProgressPage = ({ currentUser }: { currentUser: User | null }) => {
 
           if (userDoc.exists()) {
             const data = userDoc.data();
-            const userProgress = data.levels ?? [false, false, false, false, false];
+            const userProgress = data.levels ?? [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
             setLevels(userProgress);
           } else {
             // If the user document doesn't exist, create it with default levels
-            const defaultLevels = [false, false, false, false, false];
+            const defaultLevels = [false, false, false, false, false ];
             await setDoc(userRef, { levels: defaultLevels });
             setLevels(defaultLevels);
           }

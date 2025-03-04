@@ -67,7 +67,7 @@ const Header: React.FC = () => {
       <div className="stats d-flex align-items-center">
         <i className="bi bi-lightning-fill me-2"></i>
         <p className="m-0">
-          <span className="number">{user?.streak ?? 0}</span>
+          <span className="number">{user?.league ?? 0}</span>
         </p>
       </div>
       <div className="stats d-flex align-items-center">
