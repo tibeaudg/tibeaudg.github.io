@@ -293,18 +293,6 @@ const handleLogout = async () => {
             )}
           </div>
 
-          <div className="stats-inline">
-            <div className="stats">
-              <p><span className="number">{user?.gamesPlayed ?? 0}</span><br />Games</p>
-            </div>
-            <div className="stats">
-              <p><span className="number">{user?.points ?? 0}</span><br />Points</p>
-            </div>
-            <div className="stats">
-              <p><span className="number">{user?.league ?? "N/A"}</span><br />Level</p>
-            </div>
-          </div>
-
 
         <Navbar />
     </>

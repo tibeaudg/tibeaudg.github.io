@@ -65,19 +65,19 @@ const Header: React.FC = () => {
 
     <div className="stats-inline">
       <div className="stats d-flex align-items-center">
-        <i className="bi bi-lightning-fill me-2"></i>
+        <i className="fa-solid fa-fire"></i>
         <p className="m-0">
           <span className="number">{user?.league ?? 0}</span>
         </p>
       </div>
       <div className="stats d-flex align-items-center">
-        <i className="bi bi-star-fill me-2"></i>
+        <i className="fa-solid fa-ticket"></i>
         <p className="m-0">
           <span className="number">{user?.points ?? 0}</span>
         </p>
       </div>
       <div className="stats d-flex align-items-center">
-        <i className="bi bi-trophy-fill me-2"></i>
+        <i className="fa-solid fa-flag-checkered"></i>
         <p className="m-0">
           <span className="number">{user?.league ?? "N/A"}</span>
         </p>

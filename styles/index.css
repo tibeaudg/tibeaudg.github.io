@@ -54,7 +54,7 @@ font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sa
 
 
 .hamburger-icon {
-background-color: #333;
+background-color: #073a8d ;
 height: 3px;
 width: 100%;
 border-radius: 5px;
@@ -1123,7 +1123,7 @@ color: #6b7280;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   margin: 15px;
-  color: #003366;
+  color: #073a8d;
   gap: 30px; /* Voeg ruimte toe tussen de statistieken */
 }
 
@@ -1136,6 +1136,7 @@ color: #6b7280;
   width: 140px; /* Vergroot de breedte van elk statistiek-item om de lijn centraal te houden */
   text-align: center;
   position: relative;
+  color: #073a8d ;
 }
 
 
@@ -1145,11 +1146,13 @@ color: #6b7280;
 .stats .number {
   font-size: 16px;
   font-weight: bold;
+  margin: 5px;
+  color: #073a8d;
 }
 
 .stats-inline div {
 text-align: center;
-color:003366;
+color: #073a8d ;
 
 }
 
@@ -1158,7 +1161,7 @@ color:003366;
 .stats-inline p {
 font-size: 1rem;
 margin-bottom: 0;
-color:003366;
+color: #073a8d ;
 
 }
 
