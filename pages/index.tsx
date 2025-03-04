@@ -7,6 +7,8 @@ import Head from "next/head";
 import Header from "../pages/components/header"; // Importeer je Header component
 import Navbar from "../pages/components/navbar"; // Importeer je Navbar component
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+
 
 
 
@@ -50,7 +52,7 @@ const HomePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const [usernameMenuOpen, setUsernameMenuOpen] = useState(false);
   const [descriptionMenuOpen, setDescriptionMenuOpen] = useState(false);
@@ -115,7 +117,14 @@ const handleDescriptionSelect = async () => {
 };
 
 
-    
+const toggleMenu = () => {
+  setMenuOpen(!menuOpen);
+};
+
+const handleLogout = async () => {
+  await signOut(auth);
+  router.push("/login");
+};
 
 
 
@@ -181,7 +190,21 @@ const handleDescriptionSelect = async () => {
       <div>
         <Header />
 
+
         <div className="profile-section text-center">
+          <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+          <div className="hamburger-icon"></div>
+        </div>
+
+        {menuOpen && (
+          <div className="menu">
+            <div className="menu-item" onClick={handleLogout}>Logout</div>
+            {/* Voeg hier meer menu-items toe */}
+          </div>
+        )}
+
           <div className="profile-image" onClick={() => setAvatarMenuOpen(true)}>
             <Image
               src={user?.avatar || "/assets/default-avatar.jpg"}
@@ -270,7 +293,6 @@ const handleDescriptionSelect = async () => {
             )}
           </div>
 
-          {/* Instagram-achtige layout voor games, points, league */}
           <div className="stats-inline">
             <div className="stats">
               <p><span className="number">{user?.gamesPlayed ?? 0}</span><br />Games</p>
@@ -279,7 +301,7 @@ const handleDescriptionSelect = async () => {
               <p><span className="number">{user?.points ?? 0}</span><br />Points</p>
             </div>
             <div className="stats">
-              <p><span className="number">{user?.league ?? "N/A"}</span><br />League</p>
+              <p><span className="number">{user?.league ?? "N/A"}</span><br />Level</p>
             </div>
           </div>
 

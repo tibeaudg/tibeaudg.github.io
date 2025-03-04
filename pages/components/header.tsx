@@ -1,42 +1,91 @@
-// components/Header.tsx
-import React, { useState } from "react";
-import Image from "next/image";
-import { signOut } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../../utils/firebase"; // Zorg dat je firebase hier importeert
+import { auth, db } from "../../utils/firebase"; // Zorg dat je firebase hier importeert
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+
+interface UserData {
+  username?: string;
+  points?: number;
+  gamesPlayed?: number;
+  league?: string;
+}
 
 const Header: React.FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<UserData | null>(null);
   const router = useRouter();
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        if (!firebaseUser.email) {
+          console.error("User has no email address!");
+          setLoading(false);
+          return;
+        }
+        
+        const userRef = doc(db, "users", firebaseUser.email);
+        const userDoc = await getDoc(userRef);
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.push("/login");
-  };
+        if (userDoc.exists()) {
+          const userData = userDoc.data() as UserData;
+          if (!userData.username || userData.username.trim() === "") {
+            const updatedUsername = firebaseUser.displayName || "User";
+            await updateDoc(userRef, { username: updatedUsername });
+            userData.username = updatedUsername;
+          }
+          setUser(userData);
+        } else {
+          const newUserData: UserData = {
+            username: firebaseUser.displayName || "User",
+            points: 0,
+            gamesPlayed: 0,
+            league: "Bronze",
+          };
+          await setDoc(userRef, newUserData);
+          setUser(newUserData);
+        }
+      } else {
+        router.push("/login");
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-
-    
     <header className="header">
-      <div className="logo">
-        <Image src="/assets/Magic Quest.png" alt="Logo" width={100} height={100} />
-      </div>
-      <div className="hamburger-menu" onClick={toggleMenu}>
-        <div className="hamburger-icon"></div>
-        <div className="hamburger-icon"></div>
-        <div className="hamburger-icon"></div>
-      </div>
 
-      {menuOpen && (
-        <div className="menu">
-          <div className="menu-item" onClick={handleLogout}>Logout</div>
-          {/* Voeg hier meer menu-items toe */}
-        </div>
-      )}
+
+    <div className="stats-inline">
+      <div className="stats d-flex align-items-center">
+        <i className="bi bi-lightning-fill me-2"></i>
+        <p className="m-0">
+          <span className="number">{user?.streak ?? 0}</span>
+        </p>
+      </div>
+      <div className="stats d-flex align-items-center">
+        <i className="bi bi-star-fill me-2"></i>
+        <p className="m-0">
+          <span className="number">{user?.points ?? 0}</span>
+        </p>
+      </div>
+      <div className="stats d-flex align-items-center">
+        <i className="bi bi-trophy-fill me-2"></i>
+        <p className="m-0">
+          <span className="number">{user?.league ?? "N/A"}</span>
+        </p>
+      </div>
+    </div>
+
+
+
     </header>
   );
 };

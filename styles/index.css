@@ -22,67 +22,38 @@ font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sa
 
 
 .navbar {
-background: white;
-position: fixed !important;
-bottom: 0 !important;
-width: 100% !important;
-padding: 0.75rem 0 !important;
-border-color: #073a8d6f;
-display: flex !important;
-justify-content: space-around !important;
-align-items: center !important;
-z-index: 1000 !important;
-left: 0 !important;
-box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+  background: white;
+  position: fixed !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 50px !important; /* Stel een positieve waarde in voor de hoogte */
+  border-color: #073a8d6f;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  z-index: 1000 !important;
+  left: 0 !important;
+  border-top: #073a8d34 2px solid;
+
 }
 
 
 .header {
-display: flex;
-align-items: center; /* Zorgt ervoor dat alles verticaal gecentreerd is */
-background: white;
-padding-right: 20px;
-border-color: #073a8d6f;
-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-
-
-}
-
-.header .logo {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-grow: 1; /* Zorgt ervoor dat het logo in het midden staat */
-padding-left: 50px;
-}
-
-
-.header .logo-login {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-grow: 1; /* Zorgt ervoor dat het logo in het midden staat */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Zorgt ervoor dat alles verticaal gecentreerd is */
+  background: white;
+  border-bottom: #073a8d34 2px solid;
+  border-bottom-right-radius: 15px; /* Maak de hoeken ronder */
+  border-bottom-left-radius: 15px; /* Maak de hoeken ronder */
 }
 
 
 
 
-.header .hamburger-menu {
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-width: 25px;
-height: 20px;
-cursor: pointer;
-z-index: 10; /* Zorg ervoor dat het hamburger-icoon voor andere elementen staat */
-}
 
-.header .hamburger-menu-white {
-display: none;
 
-}
-
-.header .hamburger-icon {
+.hamburger-icon {
 background-color: #333;
 height: 3px;
 width: 100%;
@@ -91,7 +62,7 @@ border-radius: 5px;
 
 .menu {
 position: absolute;
-top: 60px; /* Pas dit aan afhankelijk van de hoogte van de header */
+top: 60px; 
 right: 0;
 background-color: white;
 box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -112,32 +83,89 @@ background-color: #f0f0f0;
 }
 
 
-.header .logo image {
-width: 150px; /* Pas dit aan naar je gewenste grootte */
-height: auto;
-}
-
 .nav-link {
-color: #073a8d !important;
-transition: transform 0.3s ease;
-text-align: center; /* Tekst onder de iconen centreren */
-display: flex; /* Flexbox toegevoegd voor nav-link */
-flex-direction: column; /* Zet de icoon boven de tekst */
-align-items: center; /* Zorg dat de inhoud van de nav-link gecentreerd is */
-font-size: 1rem;
-font-weight: bold;
+  color: #073a8d !important;
+  transition: transform 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 20px; /* Ruimte tussen de navigatie-items */
+  position: relative; /* Voor de pseudo-elementen */
 }
 
 
 
 .nav-link i {
-font-size: 1.5rem;
+  font-size: 1.5rem;  /* Consistente grootte voor alle iconen */
+  margin-bottom: 10px; /* Ruimte tussen het icoon en de tekst */
+  position: relative; /* Positioneer het icoon in de nav-link */
+  z-index: 1; /* Zorg ervoor dat het icoon boven de cirkels staat */
 }
+
+
+.nav-link span {
+  margin-top: 5px;
+}
+
+
+
 
 .nav-link.active {
 color: #073a8d !important;
 position: relative; /* Ensure the pseudo-element is positioned relative to the nav-link */
+font-weight: bold;
+top: -80%;
 }
+
+
+.nav-link.active i {
+  color: white;
+  font-size: 1.5rem; /* Consistente grootte voor actieve iconen */
+  position: relative; /* Zorg ervoor dat het icoon als basis dient voor de positionering van de cirkels */
+  z-index: 1; /* Zorg ervoor dat het icoon boven de cirkels staat */
+}
+
+.nav-link.span {
+  margin-top: 20px;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  top: 30%; /* Plaats de cirkel precies in het midden van de nav-link */
+  left: 50%;
+  width: 55px;
+  height: 55px;
+  background-color: white;
+  border-radius: 50%; /* Maakt de buitenste cirkel een perfecte cirkel */
+  transform: translate(-50%, -50%); /* Zorgt ervoor dat de cirkel perfect gecentreerd is */
+  pointer-events: none;
+  z-index: -2;
+  border-top: #073a8d6b 2px solid;
+}
+
+
+
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  top: 30%; /* Plaats de binnenste cirkel precies in het midden van de nav-link */
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #073a8d;
+  border-radius: 50%; /* Zorg ervoor dat de binnenste cirkel ook rond is */
+  transform: translate(-50%, -50%); /* Zorgt ervoor dat de binnenste cirkel ook gecentreerd is */
+  pointer-events: none;
+  z-index: -1; /* Plaats deze achter de originele cirkel */
+}
+
+
+
 
 
 .game-mode-wrapper {
@@ -1079,25 +1107,46 @@ margin-bottom: 0.25rem;
 color: #6b7280;
 }
 
+
+
+
+
 .stats-inline {
   display: flex;
   justify-content: space-around;
-  margin: 16px 20px;
   background-color: white;
-
-
   position: relative;
-  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-  margin: 20px;
-
+  margin: 15px;
+  color: #003366;
+  gap: 30px; /* Voeg ruimte toe tussen de statistieken */
 }
 
 
+
+.stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px; /* Vergroot de breedte van elk statistiek-item om de lijn centraal te houden */
+  text-align: center;
+  position: relative;
+}
+
+
+
+
+
+.stats .number {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .stats-inline div {
 text-align: center;
+color:003366;
+
 }
 
 
@@ -1105,6 +1154,7 @@ text-align: center;
 .stats-inline p {
 font-size: 1rem;
 margin-bottom: 0;
+color:003366;
 
 }
 
@@ -1233,8 +1283,22 @@ color: #555;
 }
 
 .hamburger-menu {
-position: relative;
+  display: flex;
+  color: #1e3d58;
+  position: fixed;
+  top: 90px; /* Zorg dat het iets van de bovenkant van de pagina staat */
+  right: 20px; /* Zorg dat het iets van de rechterkant van de pagina staat */
+  z-index: 1000; /* Zorg ervoor dat het boven andere elementen wordt weergegeven */
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 10; /* Zorg ervoor dat het hamburger-icoon voor andere elementen staat */
 }
+
+
 
 .hamburger-button {
 background: none;
