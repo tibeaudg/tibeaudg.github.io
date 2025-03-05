@@ -16,7 +16,6 @@ interface GameState {
   isSessionEnded: boolean;
   players: string[];
   scores: Record<string, number>;
-  usedPasses: Record<string, boolean>;
   shuffledQuestions: Question[];
   usedQuestionIds: Set<number>;
   correctAnswerIndex: number | null;
@@ -51,7 +50,6 @@ const GameMenu: React.FC = () => {
     isSessionEnded: false,
     players: [],
     scores: {},
-    usedPasses: {},
     shuffledQuestions: [],
     usedQuestionIds: new Set<number>(),
     correctAnswerIndex: null,
@@ -88,7 +86,6 @@ const GameMenu: React.FC = () => {
       ...prevState,
       players: playerUsernames,
       scores: Object.fromEntries(playerUsernames.map((username) => [username, 0])),
-      usedPasses: Object.fromEntries(playerUsernames.map((username) => [username, false])),
       shuffledQuestions,
       usedQuestionIds: new Set<number>(),
       currentQuestionIndex: 0,
@@ -96,17 +93,7 @@ const GameMenu: React.FC = () => {
     }));
   };
 
-  const handlePass = () => {
-    setGameState((prev) => ({
-      ...prev,
-      isAnswerDisabled: true,
-      usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: true },
-    }));
-
-    setTimeout(() => moveToNextQuestion(), 1000);
-  };
-
-  const moveToNextQuestion = (isPass: boolean = false) => {
+  const moveToNextQuestion = () => {
     setGameState((prev) => {
       const nextQuestionIndex = prev.currentQuestionIndex + 1;
       const newUsedIds = new Set(prev.usedQuestionIds).add(prev.shuffledQuestions[prev.currentQuestionIndex].id);
@@ -122,8 +109,7 @@ const GameMenu: React.FC = () => {
       return {
         ...prev,
         currentQuestionIndex: nextQuestionIndex,
-        currentPlayerIndex: isPass ? prev.currentPlayerIndex : (prev.currentPlayerIndex + 1) % prev.players.length,
-        usedPasses: { ...prev.usedPasses, [prev.players[prev.currentPlayerIndex]]: false },
+        currentPlayerIndex: (prev.currentPlayerIndex + 1) % prev.players.length,
         answerStatus: "",
         isAnswerDisabled: false,
         usedQuestionIds: newUsedIds,

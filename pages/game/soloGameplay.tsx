@@ -355,7 +355,6 @@ const SoloGame: React.FC = () => {
         <GameOverScreen
           score={gameState.score}
           onReturnHome={handleGoHome}
-          username={""}
           onPlayAgain={() => {
             throw new Error("Function not implemented.");
           }}

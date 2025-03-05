@@ -4,14 +4,12 @@ import { useRouter } from 'next/router';
 
 interface GameOverProps {
   score: number;
-  username: string;
   onPlayAgain: () => void;
   onReturnHome: () => void;
 }
 
 const GameOverScreen: React.FC<GameOverProps> = ({ 
   score, 
-  username, 
   onPlayAgain, 
   onReturnHome 
 }) => {

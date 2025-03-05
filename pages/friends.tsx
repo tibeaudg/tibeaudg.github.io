@@ -6,7 +6,6 @@ import Header from "../pages/components/header";
 import Image from "next/image";
 import Navbar from "../pages/components/navbar";
 import Link from 'next/link'; // Voeg Link toe
-import styles from '../styles/friends.module.css';
 
 
 interface Player {
