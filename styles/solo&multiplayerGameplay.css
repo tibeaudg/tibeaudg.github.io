@@ -1,0 +1,108 @@
+.quiz-background{
+  margin: 10px;
+  margin-top: 80px;
+}
+
+/* Section containing the answers */
+.answer-section {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+    align-items: stretch;
+  }
+
+
+  .quiz-background div{
+    margin-top: 20px;
+  }
+  
+  /* Container for option buttons */
+  .options-container {
+    display: flex;
+    justify-content: center !important;
+  }
+  
+  /* Individual option buttons */
+  .option-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 1rem;
+    color: #003366;
+    background-color: #ffffff;
+    border: 2px solid #003366;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    outline: none;  /* Remove default outline */
+    margin: 10px;
+  }
+  
+  /* Focus effect to replace outline */
+  .option-button:focus {
+    border-color: #1e3d58;
+    box-shadow: 0 0 5px rgba(0, 61, 95, 0.6);
+  }
+  
+  
+  /* Correct answer style */
+  .option-button.correct {
+    background-color: #28a745;
+    color: #ffffff;
+    border-color: #28a745;
+  }
+  
+  /* Incorrect answer style */
+  .option-button.selected {
+    background-color: #f44336;
+    color: #ffffff;
+    border-color: #f44336;
+  }
+  
+  /* Disabled option button style */
+  .option-button:disabled {
+    background-color: #f0f0f0;
+    color: #ccc;
+    border-color: #ddd;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+
+  
+  
+  
+  /* Responsive adjustments for mobile devices */
+  @media (max-width: 767px) {
+    .options-container {
+      gap: 10px;  /* Reduce gap between buttons on mobile */
+    }
+  
+    .option-button {
+      padding: 12px 20px;  /* Adjust padding for smaller screens */
+      font-size: 0.9rem;    /* Reduce font size on mobile */
+      min-width: 100px;     /* Ensure buttons have a minimum width */
+    }
+
+  }
+  
+
+
+
+
+  .player-turn {
+    font-size: 2rem;
+    color: white;
+    border-radius: 25px;
+    background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+    text-align: center;
+    animation: magicAppear 0.5s ease-out;
+    font-weight: bolder;
+    }
+  

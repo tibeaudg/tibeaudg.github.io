@@ -6,6 +6,7 @@ import Header from "../pages/components/header";
 import Image from "next/image";
 import Navbar from "../pages/components/navbar";
 import Link from 'next/link'; // Voeg Link toe
+import styles from '../styles/friends.module.css';
 
 
 interface Player {
@@ -84,7 +85,6 @@ const AllPlayers: React.FC = () => {
       </Head>
 
       <Header />
-
       <div className="players-container">
         <ul className="player-list">
           {players.map(player => (
@@ -92,7 +92,6 @@ const AllPlayers: React.FC = () => {
           ))}
         </ul>
       </div>
-
       <Navbar />
     </>
   );

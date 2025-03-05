@@ -1,0 +1,316 @@
+@charset "UTF-8";
+
+:root {
+--disney-blue: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+
+--disney-gold: #ffd700;
+--disney-silver: #e6e6fa;
+--disney-dark: #1f2937;
+--disney-gradient: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+
+--magical-shadow: 0 2px 10px rgba(0, 102, 204, 0.3);
+}
+
+
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Correcte achtergrondkleur met lineaire gradient */
+.btn {
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+padding: 10px 20px;
+border-radius: 8px;
+color: white !important;
+font-weight: bold;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center; /* Horizontaal en verticaal centreren van de inhoud */
+border: none;
+width: 80%;
+text-align: center;
+text-decoration: none; /* Dit voorkomt de onderlijning */
+margin: 15px;
+}
+
+
+
+
+
+a {
+text-decoration: none; /* Zorg dat de <a> tag geen onderlijning heeft */
+}
+
+
+.mt-3 {
+margin-top: 1rem;
+text-decoration: none; /* Dit voorkomt de onderlijning */
+}
+
+.mt-3 a {
+text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
+}
+
+
+
+
+
+@media (max-width: 768px) {
+body {
+background-color: #e9edf9 !important;
+overflow: auto !important;
+  }
+}
+
+
+
+.home-container, .main-content {
+  min-height: 100%;
+  padding: 60px; /* Voeg padding toe voor ruimte tussen elementen */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.question {
+font-size: 1.5rem;
+color: #333;
+text-align: center;
+margin-bottom: 2rem;
+padding: 1rem;
+border: 2px solid #073a8d;
+border-radius: 15px;
+background: #ebf2fc;
+}
+
+.options-container {
+background-color: white;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 2rem 0;
+}
+
+
+
+
+
+
+.username {
+font-size: xx-large;
+font-weight: bolder;
+padding: 10px;
+}
+
+
+
+.button-section {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.number {
+font-size: 1rem;
+font-weight: bold;
+}
+
+
+
+
+
+
+
+.button-container {
+display: flex;
+flex-direction: column;
+align-items: center; /* Zorgt dat alle knoppen gecentreerd zijn */
+gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
+}
+
+.goback-button {
+  position: absolute; /* Absoluut ten opzichte van de parent container */
+  top: 70px; /* Afstand van de bovenkant (onder de header) */
+  left: 20px; /* Afstand van de linkerzijde */
+  padding: 5px 10px;
+  background-color: #0033cc; /* Je kunt deze kleur aanpassen */
+  color: white;
+  border: white 1px solid;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 10; /* Zorg ervoor dat de knop boven andere inhoud komt */
+}
+
+.goback-button i {
+  margin-right: 5px; /* Ruimte tussen het icoon en de tekst */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.question-info {
+display: flex;
+flex-direction: column;  /* Zet de categorieën onder elkaar */
+gap: 10px;  /* Zorg voor wat ruimte tussen de categorieën */
+margin-bottom: 20px;
+
+}
+
+.category {
+display: block;  /* Zet de categorie-items onder elkaar */
+margin-bottom: 10px;  /* Voegt ruimte toe tussen de categorieën */
+text-align: center;  /* Centraal uitlijnen van de tekst binnen de categorie */
+font-weight: bolder;
+font-size: 2rem;
+}
+
+.value {
+margin-left: 5px;  /* Voeg een beetje ruimte toe tussen de label en de waarde */
+color: rgb(0, 51, 204);
+
+}
+
+
+
+.points {
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+}
+
+.points .label {
+font-weight: 500;
+color: #ffffff;
+}
+
+.points .value {
+font-weight: 600;
+color: #ffffff;
+}
+
+
+/* Responsieve stijlen */
+@media (max-width: 600px) {
+.friends-list-container {
+padding: 10px;
+}
+
+.friend-item {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.friend-actions {
+margin-top: 10px;
+}
+
+.friend-actions button {
+width: 100%;
+}
+}
+
+
+
+
+
+
+.container {
+width: 100%;
+border-radius: 12px;
+padding: 2rem;
+text-align: center;
+align-items: center;
+color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+}
+
+.container h1 {
+color: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+font-size: 2rem;
+margin-bottom: 1.5rem;
+}
+
+
+
+
+
+.error {
+color: red;
+margin-bottom: 1rem;
+font-size: 0.9rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,109 @@
+
+.progress-page {
+    background-image: url('../public/assets/cloud.jpg');
+    background-size: cover;
+    background-position: center;
+    margin-top: -20px;
+    padding: 80px;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+
+
+  
+
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  
+  .levels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  
+  .level {
+    background-color: #d3d3d3; /* Greyed out for incomplete levels */
+    border-radius: 50%; /* Makes the element circular */
+    width: 100px; /* Set width to a fixed value */
+    height: 100px; /* Set height to the same value as width */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    color: #3333333d;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+    
+  
+  }
+  
+  
+  
+  /* Current level styling */
+  .level.current {
+    background: linear-gradient(135deg, #007bff 0%, #003366 100%); /* Disney-achtige goud/oranje kleur */
+    color: #fff;
+    box-shadow: 0 8px 15px rgba(0, 51, 204, 0.7), 0 0 15px rgba(255, 255, 255, 0.6); /* Magische gloed */
+    border: 2px solid #fff;
+    border-radius: 15px; /* Ronde hoeken voor een zachtere look */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animatie voor hover */
+    position: relative; /* Voor positionering van animaties */
+    overflow: hidden; /* Voor het afsnijden van de sparkles */
+    animation: starPulse 1.5s infinite ease-in-out; /* Laat de ster pulseren */
+  
+  }
+  
+  
+  
+  /* Animaties voor een magische feel */
+  @keyframes sparkle {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateX(5px) translateY(5px) rotate(15deg);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+  }
+  
+  @keyframes starPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+  }
+  
+  
+  
+  
+  
+  .level.completed {
+    background-color: #58cc02; /* Bright green for completed levels */
+    color: #fff;
+    border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+  
+  }
+  .check {
+    font-size: 1.2rem;
+    
+  }

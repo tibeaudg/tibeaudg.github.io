@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+
+.players-container {
+    padding: 20px;
+    }
+    
+    .player-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+    
+    .player-item {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    }
+    
+    .player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    }
+    
+    .player-info {
+    flex: 1;
+    }
+    
+    .player-name {
+    font-weight: bold;
+    display: block;
+    }
+    
+    .player-points {
+    font-size: 0.9rem;
+    color: #555;
+    }
+
+
+
+    
+
+.profile-button{
+    padding: 0.5rem;
+    background:linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+    color: white;
+    font-weight: bold;
+    border: white 1px solid;
+    border-radius: 10px;
+    font-size: small;
+  
+  }
+  
+  .player-item input {
+  margin-right: 10px;
+  }
+  
+  .player-item.selected {
+  background-color: #d4edda; /* Groene overlay */
+  border: 1px solid #28a745; /* Groene rand */
+  }
+  
+  

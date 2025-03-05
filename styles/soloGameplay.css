@@ -1,0 +1,22 @@
+
+.question-container {
+    text-align: center;
+    margin: 20px;
+    margin-top: 70px;
+    }
+    
+    .question-info {
+    margin-bottom: 10px;
+    }
+    
+    .category .value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(0, 51, 204);
+    }
+    
+    .question {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    }
+    

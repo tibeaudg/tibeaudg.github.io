@@ -1,0 +1,139 @@
+
+
+.game-mode-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 20px;
+    min-height: 100%;
+    padding-bottom: 150px;
+  }
+  
+  
+  /* Individual game mode container */
+  .game-mode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  height: auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  position: relative;
+  }
+  
+  /* Game mode image */
+  .game-mode-image {
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+  }
+  
+  .a {
+  margin: 0 20px 0;
+  }
+  
+  /* Game mode title */
+  .game-mode-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+  margin-top: -30px;
+  }
+  
+  
+  .disney-button {
+  background-color: #005bff; /* Disney-themed color */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  top: -40px; /* Overlaps with the image */
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Card styles for specific game modes */
+  .game-mode-card {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  margin: 20px;
+  }
+  
+  
+  /* Specific styles for Quiz Master Mode */
+  .game-mode-card-content.quiz-master {
+  background: linear-gradient(73deg, #0033cc, #005bff);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Specific styles for Live Mode */
+  .game-mode-card-content.live-mode {
+  background: linear-gradient(73deg, #0033cc, #005bff);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Title and text styles */
+  .game-mode-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  }
+  
+  .game-mode-card-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20px;
+  }
+  
+  /* Button styling */
+  .game-mode-card-button {
+  background-color: #ffffff;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  }
+
+
+.startGame-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 4rem;
+  transition: background 0.3s ease;
+}
+  
+
+
+.card {
+  width: 100%;
+  text-align: center;
+  justify-content: center;  
+  }

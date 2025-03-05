@@ -1,0 +1,77 @@
+
+
+
+.game-over-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  
+  .score-message {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  
+  .level-up {
+    color: #FFD700; /* Gold color */
+    animation: levelUpAnimation 1.5s infinite;
+  }
+  
+  
+  .try-again {
+    color: #f44336; /* Red color */
+    animation: tryAgainAnimation 1.5s infinite;
+  }
+  
+  
+  
+  @keyframes levelUpAnimation {
+    0% {
+      transform: scale(1);
+      text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+    }
+    50% {
+      transform: scale(1.1);
+      text-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 50px #FFD700;
+    }
+    100% {
+      transform: scale(1);
+      text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+    }
+  }
+  
+  
+  
+  @keyframes tryAgainAnimation {
+    0% {
+      transform: scale(1);
+      text-shadow: 0 0 5px #f443364a, 0 0 20px #f4433640, 0 0 30px #f4433644;
+    }
+    50% {
+      transform: scale(1.1);
+      text-shadow: 0 0 10px #f4433646, 0 0 30px #f4433636, 0 0 50px #f443363e;
+    }
+    100% {
+      transform: scale(1);
+      text-shadow: 0 0 5px #f4433633, 0 0 20prgba(244, 67, 54, 0.377)36, 0 0 30px #f4433651;
+    }
+  }
+  
+  .score-summary p {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  .game-over-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .game-over-actions button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+  }

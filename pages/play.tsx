@@ -189,7 +189,7 @@ const GameMenu: React.FC = () => {
           </div>
           {/* Start Game Button */}
           <div className="container">
-            <button className="submit-btn" onClick={handleStartGame}>
+            <button className="startGame-btn" onClick={handleStartGame}>
               Start Game
             </button>
           </div>

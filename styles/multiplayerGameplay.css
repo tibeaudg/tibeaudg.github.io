@@ -1,0 +1,67 @@
+
+
+
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Dit voegt ruimte tussen de knoppen toe */
+    margin: 30px;
+    margin-top: 60px;
+}
+
+
+
+.player-score {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #073a8d;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    color: black;
+    }
+    
+    
+    
+    
+
+
+/* Player name style */
+.player-name {
+font-size: 1.1rem;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+font-family: 'Waltograph', sans-serif; /* Disney-geïnspireerd lettertype */
+color: black;
+}
+
+
+
+/* Trophy icon style */
+.trophy {
+font-size: 2.2rem;
+margin-right: 1rem;
+color: #ffd700; /* Disney-goudkleur voor de trofee */
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* Animations for leaderboard ranks */
+@keyframes glowing {
+0% { text-shadow: 0 0 5px #ffdf00, 0 0 10px #ffdf00, 0 0 15px #ffdf00; }
+50% { text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff; }
+100% { text-shadow: 0 0 5px #ffdd0079, 0 0 10px #ffdd0081, 0 0 15px #ffdd0084; }
+}
+
+.first-place {
+animation: glowing 2.5s ease-in-out infinite; /* Glow effect for first place */
+background-color: var(--disney-gold);
+color: white;
+}

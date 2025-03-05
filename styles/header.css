@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+
+
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Zorgt ervoor dat alles verticaal gecentreerd is */
+    background: white;
+    border-bottom: #073a8d34 2px solid;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position: relative; /* Zorg ervoor dat de z-index werkt */
+    z-index: 10000; /* Zorg ervoor dat de header boven andere elementen staat */
+  }
+  
+
+
+
+.stats-inline {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    margin: 15px;
+    color: #073a8d;
+    gap: 30px; /* Voeg ruimte toe tussen de statistieken */
+  }
+  
+  
+  
+  .stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px; /* Vergroot de breedte van elk statistiek-item om de lijn centraal te houden */
+    text-align: center;
+    position: relative;
+    color: #073a8d ;
+  }
+  
+  
+  
+  
+  
+  .stats .number {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px;
+    color: #073a8d;
+  }
+  
+  .stats-inline div {
+  text-align: center;
+  color: #073a8d ;
+  
+  }
+  
+  
+  
+  .stats-inline p {
+  font-size: 1rem;
+  margin-bottom: 0;
+  color: #073a8d ;
+  
+  }

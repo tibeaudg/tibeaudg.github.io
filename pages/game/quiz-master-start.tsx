@@ -189,16 +189,6 @@ const GameMenu: React.FC = () => {
             })}
           </div>
         )}
-
-        <div className="pass-button-container">
-          <button
-            className={`pass-button ${gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]] ? 'disabled' : ''}`}
-            onClick={handlePass}
-            disabled={gameState.isAnswerDisabled || gameState.usedPasses[gameState.players[gameState.currentPlayerIndex]]}
-          >
-            Pass Question
-          </button>
-        </div>
       </div>
     );
   };
