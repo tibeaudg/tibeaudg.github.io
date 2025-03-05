@@ -15,8 +15,9 @@ interface User {
   username?: string;
   points?: number;
   gamesPlayed?: number;
-  league?: string;
+  level?: number;
   description?: string;
+  streak?: number;
 }
 
 const availableAvatars: string[] = [
@@ -44,6 +45,7 @@ const availableAvatars: string[] = [
 ];
 
 const HomePage: React.FC = () => {
+  
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -164,7 +166,7 @@ const HomePage: React.FC = () => {
             username: firebaseUser.displayName || "User",
             points: 0,
             gamesPlayed: 0,
-            league: "Bronze",
+            level: 0,
           };
           await setDoc(userRef, newUserData);
           setUser(newUserData);
@@ -277,6 +279,13 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           )}
+            <div className="player-stats">
+              <p>Streak: {user?.streak || 0}</p>
+              <p>Points: {user?.points || 0}</p>
+              <p>Games Played: {user?.gamesPlayed || 0}</p>
+              <p>Level: {user?.level || '0'}</p>
+          </div>
+
         </div>
         <Navbar />
       </div>

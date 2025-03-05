@@ -5,18 +5,17 @@ import Head from 'next/head';
 import Header from "../pages/components/header";
 import Image from "next/image";
 import Navbar from "../pages/components/navbar";
+import Link from 'next/link'; // Voeg Link toe
+
 
 interface Player {
   email: string;
   username: string;
-  points: number;
+  level: number;
   avatar?: string;
 }
 
 const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
-
-
-
   return (
     <li className="player-item">
       <Image
@@ -31,8 +30,16 @@ const PlayerItem: React.FC<{ player: Player }> = ({ player }) => {
 
       <div className="player-info">
         <span className="player-name">{player.username || player.email}</span>
-        <span className="player-points">{player.points} points</span>
+        <span className="player-points">Level {player.level}</span>
       </div>
+
+      {/* De knop voor de profielpagina */}
+      <Link href={`/profile/${player.email}`} passHref>
+        <button className="profile-button">View Profile</button>
+      </Link>
+
+
+
     </li>
   );
 };
