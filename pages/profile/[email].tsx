@@ -89,10 +89,10 @@ const ProfilePage: React.FC = () => {
 
         {/* Voeg hier andere gegevens toe die je wilt weergeven */}
         <div className="player-stats">
-          <p>Streak: {playerData.streak || 0}</p>
-          <p>Points: {playerData.points || 0}</p>
-          <p>Games Played: {playerData.gamesPlayed || 0}</p>
-          <p>Level: {playerData.level || '0'}</p>
+          <p className="stat">Streak: {playerData.streak || 0}</p>
+          <p className="stat">Points: {playerData.points || 0}</p>
+          <p className="stat">Games Played: {playerData.gamesPlayed || 0}</p>
+          <p className="stat">Level: {playerData.level || '0'}</p>
         </div>
       </div>
 

@@ -37,7 +37,15 @@ font-size: 3rem;
 box-shadow: 0 10px 50px rgba(0, 51, 204, 0.212);
 }
 
-
+.stat {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bolder;
+  width: 300px;
+  color:#073a8d;
+}
 
 
 
@@ -153,3 +161,5 @@ box-shadow: 0 10px 50px rgba(0, 51, 204, 0.212);
     margin-bottom: 10px;
   }
   
+
+

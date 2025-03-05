@@ -280,10 +280,10 @@ const HomePage: React.FC = () => {
             </div>
           )}
             <div className="player-stats">
-              <p>Streak: {user?.streak || 0}</p>
-              <p>Points: {user?.points || 0}</p>
-              <p>Games Played: {user?.gamesPlayed || 0}</p>
-              <p>Level: {user?.level || '0'}</p>
+              <p className="stat">Streak: {user?.streak || 0}</p>
+              <p className="stat">Points: {user?.points || 0}</p>
+              <p className="stat">Games Played: {user?.gamesPlayed || 0}</p>
+              <p className="stat">Level: {user?.level || '0'}</p>
           </div>
 
         </div>

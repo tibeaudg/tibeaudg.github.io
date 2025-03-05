@@ -65,22 +65,22 @@ const Header: React.FC = () => {
 
 
     <div className="stats-inline">
-      <div className="stats d-flex align-items-center">
+      <div className="streakH d-flex align-items-center">
         <i className="fa-solid fa-fire"></i>
         <p className="m-0">
-          <span className="number">{user?.streak ?? 0}</span>
+          <span className="streakH">{user?.streak ?? 0}</span>
         </p>
       </div>
-      <div className="stats d-flex align-items-center">
+      <div className="pointsH d-flex align-items-center">
         <i className="fa-solid fa-ticket"></i>
         <p className="m-0">
-          <span className="number">{user?.points ?? 0}</span>
+          <span className="pointsH">{user?.points ?? 0}</span>
         </p>
       </div>
-      <div className="stats d-flex align-items-center">
+      <div className="levelH d-flex align-items-center">
         <i className="fa-solid fa-flag-checkered"></i>
         <p className="m-0">
-          <span className="number">{user?.level ?? 0 }</span>
+          <span className="levelH">{user?.level ?? 0 }</span>
         </p>
       </div>
     </div>

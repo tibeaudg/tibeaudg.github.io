@@ -87,7 +87,7 @@ text-decoration: none; /* Zorg ervoor dat de <a> tag geen onderlijning heeft */
 
 @media (max-width: 768px) {
 body {
-background-color: #e9edf9 !important;
+background-color: #e9edf976 !important;
 overflow: auto !important;
   }
 }
@@ -168,7 +168,7 @@ gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
 
 .goback-button {
   position: absolute; /* Absoluut ten opzichte van de parent container */
-  top: 70px; /* Afstand van de bovenkant (onder de header) */
+  top: 90px; /* Afstand van de bovenkant (onder de header) */
   left: 20px; /* Afstand van de linkerzijde */
   padding: 5px 10px;
   background:linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
@@ -178,6 +178,8 @@ gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
   cursor: pointer;
   border-radius: 25px;
   z-index: 10; /* Zorg ervoor dat de knop boven andere inhoud komt */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 .goback-button i {
