@@ -4,54 +4,54 @@ import { useRouter } from "next/router";
 import { db } from "../../utils/firebase";
 import Header from "../components/header";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+// Maak een constante voor de standaard levels
+const defaultLevels = Array(20).fill(false);
 
 interface User {
   email: string;
 }
 
-// getServerSideProps is defined outside the component as required by Next.js
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getServerSideProps: GetServerSideProps = async (_context) => {
-  const auth = getAuth();
-  // Note: Using Firebase Auth on the server side may require additional handling.
-  let currentUser: User | null = null;
-
-  if (auth.currentUser) {
-    currentUser = { email: auth.currentUser.email || "" };
-  }
-
-  return {
-    props: {
-      currentUser,
-    },
-  };
-};
-
-const SoloProgressPage = ({ currentUser }: { currentUser: User | null }) => {
-  // Default to 5 levels; all initially incomplete
-  const [levels, setLevels] = useState<boolean[]>([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
+const SoloProgressPage = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [levels, setLevels] = useState<boolean[]>(defaultLevels);
   const [loading, setLoading] = useState(true);
+  const [activeLevel, setActiveLevel] = useState<number>(1);
   const router = useRouter();
 
-  // Fetch user progress from Firebase when the component mounts
+  // Luister naar veranderingen in de authenticatiestatus op de client
   useEffect(() => {
-    if (currentUser && currentUser.email) {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser && currentUser.email) {
+        setUser({ email: currentUser.email });
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Zodra we de gebruiker hebben, haal de progress uit Firebase op
+  useEffect(() => {
+    if (user && user.email) {
       const fetchUserProgress = async () => {
         try {
-          const userRef = doc(db, "users", currentUser.email);
+          const userRef = doc(db, "users", user.email);
           const userDoc = await getDoc(userRef);
 
           if (userDoc.exists()) {
             const data = userDoc.data();
-            const userProgress = data.levels ?? [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+            const userProgress = data.levels ?? defaultLevels;
+            const userLevel = data.level ?? 1;
             setLevels(userProgress);
+            setActiveLevel(userLevel);
           } else {
-            // If the user document doesn't exist, create it with default levels
-            const defaultLevels = [false, false, false, false, false ];
-            await setDoc(userRef, { levels: defaultLevels });
+            // Als er nog geen document bestaat, initialiseer het dan met de default waardes
+            await setDoc(userRef, { levels: defaultLevels, level: 1 });
             setLevels(defaultLevels);
+            setActiveLevel(1);
           }
         } catch (error) {
           console.error("Error fetching user progress:", error);
@@ -62,62 +62,64 @@ const SoloProgressPage = ({ currentUser }: { currentUser: User | null }) => {
 
       fetchUserProgress();
     } else {
-      // If no current user is found, stop loading
       setLoading(false);
     }
-  }, [currentUser]);
+  }, [user]);
 
-  // Update user progress for a specific level in Firebase
+  // Update de progress van de gebruiker in Firebase
   const updateUserProgress = async (levelIndex: number) => {
-    if (!currentUser || !currentUser.email) return;
+    if (!user || !user.email) return;
+
     const updatedLevels = [...levels];
-    updatedLevels[levelIndex] = true; // Mark this level as completed
+    updatedLevels[levelIndex] = true; // Markeer dit level als voltooid
 
     try {
-      const userRef = doc(db, "users", currentUser.email);
-      await updateDoc(userRef, { levels: updatedLevels });
+      const userRef = doc(db, "users", user.email);
+      await updateDoc(userRef, {
+        levels: updatedLevels,
+        level: levelIndex + 1, // Zet het actieve level op het volgende level
+      });
       setLevels(updatedLevels);
+      setActiveLevel(levelIndex + 1);
     } catch (error) {
       console.error("Error updating user progress:", error);
     }
   };
 
-  // Handle level click: check if previous level is completed, update progress if needed, then navigate
   const handleLevelClick = async (levelIndex: number) => {
-    // Allow level click if it's the first level or if the previous level is complete
-    if (levelIndex === 0 || levels[levelIndex - 1]) {
+    // Sta klikken toe voor alle levels die <= currentLevelIndex zijn
+    if (levelIndex <= currentLevelIndex) {
+      // Als het level nog niet als voltooid staat in de levels-array, update progress.
       if (!levels[levelIndex]) {
         await updateUserProgress(levelIndex);
       }
-      router.push({
-        pathname: "/game/soloGameplay",
-      });
+      router.push("/game/soloGameplay");
     }
   };
+  
 
-  // Navigate back to the play page
+  // Navigeren terug naar de play-pagina
   const handleEndSession = () => {
     router.push("/play");
   };
 
-  // Show a loading state until the progress data is fetched
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Determine the current level: the first level that has not been completed
-  const currentLevelIndex = levels.findIndex((level) => !level);
+  // Bepaal het huidige level: als activeLevel bestaat, gebruik dit (minus 1 voor zero-based index)
+  const currentLevelIndex = activeLevel - 1;
   const levelStatuses = levels.map((isCompleted, index) => {
-    let status: "completed" | "current" | "incomplete" = "incomplete";
-    if (isCompleted) {
-      status = "completed";
-    } else if (index === currentLevelIndex) {
-      status = "current";
+    // Als het level vóór het huidige level ligt, markeer het automatisch als "completed"
+    if (index < currentLevelIndex) {
+      return { id: index + 1, status: "completed" };
     }
-    return {
-      id: index + 1,
-      status,
-    };
+    // Het huidige level markeren als "current"
+    if (index === currentLevelIndex) {
+      return { id: index + 1, status: "current" };
+    }
+    // Voor de overige levels, gebruik de originele status
+    return { id: index + 1, status: isCompleted ? "completed" : "incomplete" };
   });
 
   return (
@@ -130,20 +132,17 @@ const SoloProgressPage = ({ currentUser }: { currentUser: User | null }) => {
 
       <Header />
 
-
+      <button className="goback-button" onClick={handleEndSession}>
+        <i className="bi bi-arrow-left"></i> Return
+      </button>
 
       <div className="progress-page">
-
-        <button className="goback-button" onClick={handleEndSession}>
-            <i className="bi bi-arrow-left"></i> Return
-        </button>
-
         <div className="levels">
           {levelStatuses.map((level) => (
             <div
               key={level.id}
               className={`level ${level.status}`}
-              onClick={() => handleLevelClick(level.id - 1)} // Adjust for zero-based index
+              onClick={() => handleLevelClick(level.id - 1)}
             >
               Level {level.id}
               {level.status === "completed" && <span className="check">✔</span>}

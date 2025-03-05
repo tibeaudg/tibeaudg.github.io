@@ -8,7 +8,8 @@ interface UserData {
   username?: string;
   points?: number;
   gamesPlayed?: number;
-  league?: string;
+  level?: number;
+  streak?: number;
 }
 
 const Header: React.FC = () => {
@@ -40,8 +41,8 @@ const Header: React.FC = () => {
           const newUserData: UserData = {
             username: firebaseUser.displayName || "User",
             points: 0,
-            gamesPlayed: 0,
-            league: "Bronze",
+            streak: 0,
+            level: 0,
           };
           await setDoc(userRef, newUserData);
           setUser(newUserData);
@@ -67,7 +68,7 @@ const Header: React.FC = () => {
       <div className="stats d-flex align-items-center">
         <i className="fa-solid fa-fire"></i>
         <p className="m-0">
-          <span className="number">{user?.league ?? 0}</span>
+          <span className="number">{user?.streak ?? 0}</span>
         </p>
       </div>
       <div className="stats d-flex align-items-center">
@@ -79,7 +80,7 @@ const Header: React.FC = () => {
       <div className="stats d-flex align-items-center">
         <i className="fa-solid fa-flag-checkered"></i>
         <p className="m-0">
-          <span className="number">{user?.league ?? "N/A"}</span>
+          <span className="number">{user?.level ?? 0 }</span>
         </p>
       </div>
     </div>

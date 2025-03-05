@@ -44,8 +44,10 @@ font-family: "Avenir Next", "InspireTWDC", -apple-system, BlinkMacSystemFont, sa
   align-items: center; /* Zorgt ervoor dat alles verticaal gecentreerd is */
   background: white;
   border-bottom: #073a8d34 2px solid;
-  border-bottom-right-radius: 15px; /* Maak de hoeken ronder */
-  border-bottom-left-radius: 15px; /* Maak de hoeken ronder */
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  position: relative; /* Zorg ervoor dat de z-index werkt */
+  z-index: 10000; /* Zorg ervoor dat de header boven andere elementen staat */
 }
 
 
@@ -107,6 +109,93 @@ background-color: #f0f0f0;
 
 .nav-link span {
   margin-top: 5px;
+}
+
+
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #31b8ad;
+  transition: width 0.3s ease-in-out;
+}
+
+
+
+.game-over-container {
+  text-align: center;
+  padding: 20px;
+}
+
+
+.score-message {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+.level-up {
+  color: #FFD700; /* Gold color */
+  animation: levelUpAnimation 1.5s infinite;
+}
+
+
+.try-again {
+  color: #f44336; /* Red color */
+  animation: tryAgainAnimation 1.5s infinite;
+}
+
+
+
+@keyframes levelUpAnimation {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 50px #FFD700;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+  }
+}
+
+
+
+@keyframes tryAgainAnimation {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #f443364a, 0 0 20px #f4433640, 0 0 30px #f4433644;
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px #f4433646, 0 0 30px #f4433636, 0 0 50px #f443363e;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #f4433633, 0 0 20prgba(244, 67, 54, 0.377)36, 0 0 30px #f4433651;
+  }
+}
+
+.score-summary p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.game-over-actions button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.1em;
 }
 
 
@@ -846,15 +935,24 @@ gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
 }
 
 .goback-button {
-position: absolute;
-top: 50px; /* Zet de knop 10px van de bovenkant */
-left: 10px; /* Zet de knop 10px van de linkerkant */
-padding: 0.5rem;
-margin-bottom: 10px;
-margin-top: 10px;
-border: none;
-background-color: transparent;
+  position: absolute; /* Absoluut ten opzichte van de parent container */
+  top: 70px; /* Afstand van de bovenkant (onder de header) */
+  left: 20px; /* Afstand van de linkerzijde */
+  padding: 10px 15px;
+  background-color: #0033cc; /* Je kunt deze kleur aanpassen */
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* Zorg ervoor dat de knop boven andere inhoud komt */
 }
+
+.goback-button i {
+  margin-right: 5px; /* Ruimte tussen het icoon en de tekst */
+}
+
 
 
 .popup {
@@ -1374,6 +1472,8 @@ font-weight: bold;
 
 .question-container {
 text-align: center;
+margin: 20px;
+margin-top: 70px;
 }
 
 .question-info {
@@ -1526,16 +1626,25 @@ margin-bottom: 20px;
 
 
 .progress-page {
-  margin-top: 40px;
+  background-image: url('../public/assets/cloud.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-top: -20px;
+  padding: 80px;
   min-height: 100vh;
   text-align: center;
-
 }
+
+
+
 h1 {
   color: #333;
   margin-bottom: 30px;
   font-family: Arial, sans-serif;
 }
+
+
+
 .levels {
   display: flex;
   flex-direction: column;
@@ -1544,6 +1653,7 @@ h1 {
   max-width: 600px;
   margin: 0 auto;
 }
+
 
 .level {
   background-color: #d3d3d3; /* Greyed out for incomplete levels */
@@ -1560,6 +1670,7 @@ h1 {
     background-color 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+  
 
 }
 
@@ -1567,11 +1678,50 @@ h1 {
 
 /* Current level styling */
 .level.current {
-  background-color: #0033cc; /* Oranje of een andere kleur om het huidige level te markeren */
+  background: linear-gradient(135deg, #007bff 0%, #003366 100%); /* Disney-achtige goud/oranje kleur */
   color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optionele extra schaduw */
-  border: 2px solid #ffffff; /* Optionele border voor extra zichtbaarheid */
+  box-shadow: 0 8px 15px rgba(0, 51, 204, 0.7), 0 0 15px rgba(255, 255, 255, 0.6); /* Magische gloed */
+  border: 2px solid #fff;
+  border-radius: 15px; /* Ronde hoeken voor een zachtere look */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animatie voor hover */
+  position: relative; /* Voor positionering van animaties */
+  overflow: hidden; /* Voor het afsnijden van de sparkles */
+  animation: starPulse 1.5s infinite ease-in-out; /* Laat de ster pulseren */
+
 }
+
+
+
+/* Animaties voor een magische feel */
+@keyframes sparkle {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(5px) translateY(5px) rotate(15deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes starPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Hover-effect voor meer interactiviteit */
+.level.current:hover {
+  transform: scale(1.05); /* Zoom een beetje in als je over het level zweeft */
+  box-shadow: 0 10px 20px rgba(0, 51, 204, 0.8), 0 0 20px rgba(255, 255, 255, 0.8); /* Versterkte gloed bij hover */
+}
+
 
 
 

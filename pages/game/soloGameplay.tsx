@@ -4,14 +4,11 @@ import questionsData from "./questions.json";
 import Head from "next/head";
 import Script from "next/script";
 import { db, auth } from "../../utils/firebase";
-import {
-  doc,
-  writeBatch,
-  increment,
-  getDoc,
-} from "firebase/firestore";
+import { doc, writeBatch, increment, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import Header from "../components/header";
+import GameOverScreen from "../components/gameOverScreen";
+import Swal, { SweetAlertOptions } from "sweetalert2"; // Correct import for SweetAlert2
 
 interface GameState {
   currentQuestionIndex: number;
@@ -23,6 +20,7 @@ interface GameState {
   shuffledQuestions: Question[];
   usedQuestionIds: Set<number>;
   correctAnswerIndex: number | null;
+  correctAnswersCount: number;
 }
 
 interface Question {
@@ -41,7 +39,23 @@ interface User {
   gamesPlayed?: number;
   league?: string;
   description?: string;
+  level?: number;
 }
+
+interface CounterProps {
+  currentQuestionIndex: number;
+  totalQuestions: number;
+}
+
+const Counter: React.FC<CounterProps> = ({ currentQuestionIndex, totalQuestions }) => {
+  return (
+    <div className="counter-container">
+      <p>
+        Question {currentQuestionIndex + 1} of {totalQuestions}
+      </p>
+    </div>
+  );
+};
 
 const shuffleArray = <T,>(array: T[]): T[] => {
   const newArray = [...array];
@@ -64,13 +78,14 @@ const SoloGame: React.FC = () => {
     shuffledQuestions: [],
     usedQuestionIds: new Set<number>(),
     correctAnswerIndex: null,
+    correctAnswersCount: 0,
   });
 
-  const [scoreSaved, setScoreSaved] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [userLoading, setUserLoading] = useState(true);
+  const [scoreSaved, setScoreSaved] = useState<boolean>(false);
+  const [, setUser] = useState<User | null>(null);
+  const [userLoading, setUserLoading] = useState<boolean>(true);
 
-  // Haal de huidige gebruiker op met firebase auth en firestore
+  // Firebase auth en firestore user ophalen
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser && firebaseUser.email) {
@@ -96,7 +111,7 @@ const SoloGame: React.FC = () => {
     return () => unsubscribe();
   }, [router]);
 
-  // Initialiseer de vragen
+  // Initialiseer het spel met vragen
   useEffect(() => {
     initializeGameState();
   }, []);
@@ -111,13 +126,15 @@ const SoloGame: React.FC = () => {
         options: q.options || [],
         type: "multiple-choice" as const,
       }))
-    );
+    ).slice(0, 10);
+
     setGameState((prevState) => ({
       ...prevState,
       shuffledQuestions,
       usedQuestionIds: new Set<number>(),
       currentQuestionIndex: 0,
       correctAnswerIndex: null,
+      correctAnswersCount: 0,
     }));
   };
 
@@ -129,6 +146,7 @@ const SoloGame: React.FC = () => {
       );
 
       if (nextQuestionIndex >= prev.shuffledQuestions.length) {
+        // Laat de spelautomatische eindigen
         return {
           ...prev,
           isRoundOver: true,
@@ -148,23 +166,56 @@ const SoloGame: React.FC = () => {
   };
 
   const handleAnswer = (isCorrect: boolean) => {
-    const status = isCorrect ? "Correct!" : "Wrong!";
     setGameState((prev) => {
-      const points = isCorrect ? 1 : 0;
+      const newScore = prev.score + (isCorrect ? 1 : 0);
+      const newCorrectAnswersCount = isCorrect
+        ? prev.correctAnswersCount + 1
+        : prev.correctAnswersCount;
+      const correctAnswerIndex =
+        prev.shuffledQuestions[prev.currentQuestionIndex].options?.findIndex(
+          (option) =>
+            option.toLowerCase() ===
+            prev.shuffledQuestions[prev.currentQuestionIndex].correctAnswer.toLowerCase()
+        ) || null;
+
       return {
         ...prev,
-        answerStatus: status,
-        score: prev.score + points,
+        score: newScore,
+        correctAnswerIndex: correctAnswerIndex,
         isAnswerDisabled: true,
-        correctAnswerIndex:
-          prev.shuffledQuestions[prev.currentQuestionIndex].options?.findIndex(
-            (option) =>
-              option === prev.shuffledQuestions[prev.currentQuestionIndex].correctAnswer
-          ) || null,
+        correctAnswersCount: newCorrectAnswersCount,
       };
     });
 
-    setTimeout(() => moveToNextQuestion(), 1000);
+    const isLastQuestion =
+      gameState.currentQuestionIndex === gameState.shuffledQuestions.length - 1;
+
+    const swalOptions:SweetAlertOptions = isCorrect
+      ? {
+          title: "Correct!",
+          text: "+1",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false,
+          scrollbarPadding: true,
+        }
+      : {
+          title: "Wrong!",
+          text: "Better luck next time!",
+          icon: "error",
+          timer: 1000,
+          showConfirmButton: false,
+          scrollbarPadding: true,
+        };
+
+        Swal.fire(swalOptions).then(() => {
+          if (isLastQuestion) {
+            handleEndSession();
+          } else {
+            moveToNextQuestion();
+          }
+        });
+        
   };
 
   const handleMultipleChoiceAnswer = (answer: string) => {
@@ -181,120 +232,136 @@ const SoloGame: React.FC = () => {
     if (!currentQuestion) return null;
 
     return (
-      <div className="question-container">
-        <h3 className="question">{currentQuestion.question}</h3>
-        {currentQuestion.type === "multiple-choice" && (
-          <div className="answer-section">
-            {currentQuestion.options?.map((option, index) => {
-              const isCorrectAnswer = gameState.correctAnswerIndex === index;
-              const isSelectedAnswer =
-                gameState.correctAnswerIndex !== null &&
-                gameState.correctAnswerIndex === index;
+      <>
+        <button className="goback-button" onClick={handleGoHome}>
+          <i className="bi bi-arrow-left"></i> Return
+        </button>
+        <div className="question-container">
+          <Counter
+            currentQuestionIndex={gameState.currentQuestionIndex}
+            totalQuestions={10}
+          />
+          <h3 className="question">{currentQuestion.question}</h3>
+          {currentQuestion.type === "multiple-choice" && (
+            <div className="answer-section">
+              {currentQuestion.options?.map((option, index) => {
+                const isCorrectAnswer =
+                  gameState.correctAnswerIndex === index;
+                const isSelectedAnswer =
+                  gameState.correctAnswerIndex !== null &&
+                  gameState.correctAnswerIndex === index;
 
-              return (
-                <button
-                  key={index}
-                  className={`option-button ${
-                    isCorrectAnswer ? "correct" : ""
-                  } ${isSelectedAnswer ? "selected" : ""}`}
-                  onClick={() => handleMultipleChoiceAnswer(option)}
-                  disabled={gameState.isAnswerDisabled}
-                  style={{
-                    backgroundColor: isCorrectAnswer
-                      ? "#28a745"
-                      : gameState.isAnswerDisabled && isSelectedAnswer
-                      ? "#f44336"
-                      : "",
-                    color: isCorrectAnswer
-                      ? "#fff"
-                      : gameState.isAnswerDisabled && isSelectedAnswer
-                      ? "#fff"
-                      : "",
-                  }}
-                >
-                  {option}
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
+                return (
+                  <button
+                    key={index}
+                    className={`option-button ${isCorrectAnswer ? "correct" : ""} ${isSelectedAnswer ? "selected" : ""}`}
+                    onClick={() => handleMultipleChoiceAnswer(option)}
+                    disabled={
+                      gameState.isAnswerDisabled ||
+                      gameState.correctAnswerIndex !== null
+                    }
+                    style={{
+                      backgroundColor: isCorrectAnswer
+                        ? "#28a745"
+                        : gameState.isAnswerDisabled && isSelectedAnswer
+                        ? "#f44336"
+                        : "",
+                      color: isCorrectAnswer
+                        ? "#fff"
+                        : gameState.isAnswerDisabled && isSelectedAnswer
+                        ? "#fff"
+                        : "",
+                    }}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </>
     );
   };
 
-  const handleEndSession = () => {
+  const handleGoHome = () => {
+    router.push("/game/progress");
+  };
+
+  const handleEndSession = async () => {
     setGameState((prev) => ({
       ...prev,
       isSessionEnded: true,
       isRoundOver: true,
     }));
     if (!scoreSaved) {
-      saveScoreToFirebase();
+      await saveScoreAndLevelToFirebase();
     }
-
-    router.push({
-      pathname: "/game/progress",
-      query: { score: gameState.score },
-    });
   };
 
-  const saveScoreToFirebase = async () => {
+  const saveScoreAndLevelToFirebase = async () => {
     if (scoreSaved) return;
     if (!auth.currentUser || !auth.currentUser.email) return;
 
     try {
       const userDocRef = doc(db, "users", auth.currentUser.email);
+      const userDoc = await getDoc(userDocRef);
       const batch = writeBatch(db);
+
+      // Update punten
       batch.update(userDocRef, {
         points: increment(gameState.score),
       });
+
+      if (gameState.score > 7) {
+        if (userDoc.exists()) {
+          const userData = userDoc.data() as User;
+          const currentLevel = userData.level || 1;
+          const newLevel = currentLevel + 1;
+
+          batch.update(userDocRef, {
+            level: newLevel,
+          });
+        } else {
+          batch.set(userDocRef, {
+            level: 1,
+          });
+        }
+      }
+
       await batch.commit();
       setScoreSaved(true);
     } catch (error) {
-      console.error("Error saving score to Firebase:", error);
+      console.error("Error updating score and level:", error);
     }
   };
 
-  if (userLoading) {
-    return <div>Loading user...</div>;
-  }
+  if (userLoading) return <div>Loading...</div>;
 
   return (
-    <>
+    <div>
       <Head>
         <meta charSet="UTF-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        />
-        <title>Disney Magic Quest - Solo Mode</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Disney Magic Quest</title>
       </Head>
 
       <Header />
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" />
 
-      <button className="goback-button" onClick={handleEndSession}>
-        <i className="bi bi-arrow-left"></i> Return
-      </button>
-
-      <div className="quiz-background">
-        <Script
-          src="https://cdn.jsdelivr.net/npm/sweetalert2@11"
-          strategy="lazyOnload"
+      {!gameState.isSessionEnded ? (
+        <div className="game-container">{renderQuestion()}</div>
+      ) : (
+        <GameOverScreen
+          score={gameState.score}
+          onReturnHome={handleGoHome}
+          username={""}
+          onPlayAgain={() => {
+            throw new Error("Function not implemented.");
+          }}
         />
-
-        {!gameState.isRoundOver ? (
-          <>
-            {/* Toon de username van de huidige gebruiker */}
-            <h2 className="player-turn">
-              {user?.username ? user.username : "Speler"}
-            </h2>
-            <div className="answer-grid">{renderQuestion()}</div>
-          </>
-        ) : (
-          <div className="game-over" />
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 
