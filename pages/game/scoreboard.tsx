@@ -49,7 +49,7 @@ const Scoreboard: React.FC = () => {
         <Header />
 
         <button className="goback-button" onClick={() => router.push("/play")}>
-          <i className="bi bi-arrow-left"></i> Return
+          <i className="bi bi-arrow-left-circle"></i> Back
         </button>
 
         <div className="scoreboard">

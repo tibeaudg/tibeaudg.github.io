@@ -234,7 +234,7 @@ const SoloGame: React.FC = () => {
     return (
       <>
         <button className="goback-button" onClick={handleGoHome}>
-          <i className="bi bi-arrow-left"></i> Return
+          <i className="bi bi-arrow-left-circle"></i> Back
         </button>
         <div className="question-container">
           <Counter

@@ -171,12 +171,12 @@ gap: 1rem; /* Voeg ruimte toe tussen de knoppen */
   top: 70px; /* Afstand van de bovenkant (onder de header) */
   left: 20px; /* Afstand van de linkerzijde */
   padding: 5px 10px;
-  background-color: #0033cc; /* Je kunt deze kleur aanpassen */
+  background:linear-gradient(73deg, rgb(0, 51, 204), rgb(0, 91, 255));
   color: white;
   border: white 1px solid;
   font-size: 18px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 25px;
   z-index: 10; /* Zorg ervoor dat de knop boven andere inhoud komt */
 }
 

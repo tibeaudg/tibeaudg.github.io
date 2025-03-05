@@ -24,6 +24,11 @@ const ProfilePage: React.FC = () => {
   const router = useRouter();
   const { email } = router.query; // Haal de email uit de URL query parameters
 
+  const handleGoHome = () => {
+    router.push("/friends");
+  };
+
+
   useEffect(() => {
     if (email) {
       const fetchPlayerData = async () => {
@@ -64,7 +69,9 @@ const ProfilePage: React.FC = () => {
         </Head>
 
       <Header />
-
+      <button className="goback-button" onClick={handleGoHome}>
+          <i className="bi bi-arrow-left-circle"></i> Back
+        </button>
       <div className="profile-section text-center">
         <div className="profile-image">
           <Image
